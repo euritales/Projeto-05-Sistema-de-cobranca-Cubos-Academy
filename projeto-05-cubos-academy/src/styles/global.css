@@ -1,13 +1,32 @@
+@import "alignments.css";
+@import "buttons.css";
+@import "form.css";
+@import "margins.css";
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+a {
+  text-decoration: none;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 256px;
+  border: none;
+  font-size: 12px;
+  padding: 12px 29px 13px;
+}
+/* 
+button {
+  height: 39px;
+} */
