@@ -1,0 +1,27 @@
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  text-align: center;
+  padding: 11px 60px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.btn-pink {
+  background-color: #da0175;
+  color: #f7f7f7;
+}
+
+.btn-opaque {
+  background: rgba(218, 1, 117, 0.35);
+  color: #f7f7f7;
+  border: none;
+}
+
+.btn-white {
+  background: #ffffff;
+  border-radius: 16px;
+  color: #da0175;
+}
