@@ -5,9 +5,9 @@ import Home from "../../assets/home-icon.svg";
 import LogoCubos from "../../assets/logoCubosWhite.svg";
 import { NavLink } from "react-router-dom";
 
-function HomeBar() {
+function SideBar() {
   return (
-    <div className="container-homeBar">
+    <div className="container-sideBar">
       <div className="container-button">
         <img src={LogoCubos} alt="CubosAcademy" />
         <NavLink
@@ -44,4 +44,4 @@ function HomeBar() {
   );
 }
 
-export default HomeBar;
+export default SideBar;

@@ -1,15 +1,15 @@
-import HomeBar from "../../components/HomeBar";
-import ProfilleBar from "../../components/ProfileBar";
+import ProfileBar from "../../components/ProfileBar";
 import "./styles.css";
+import SideBar from "../../components/SideBar";
 
 function Main() {
   return (
     <div className="container-main flex-row">
-      <HomeBar />
-
-      <div className="main-screen">
-        <h1>Outra parte do menu</h1>
-      </div>
+      <SideBar />
+      <>
+        <ProfileBar />
+        <h1>teste</h1>
+      </>
     </div>
   );
 }

@@ -1,9 +1,3 @@
 .container-main {
   text-align: center;
 }
-.main-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
