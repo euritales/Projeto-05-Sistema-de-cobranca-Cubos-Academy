@@ -1,0 +1,46 @@
+.container-homeBar {
+  justify-content: center;
+  width: 264px;
+  height: 100vh;
+  background-color: #263238;
+}
+.container-button > img {
+  margin: 32px 58px;
+}
+
+.menu-button {
+  height: auto;
+}
+.menu-button img {
+  margin: 0 25px 0 0;
+}
+.menu-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #263238;
+  color: #fff;
+  margin: 0;
+  padding: 16px 0 16px 50px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.menu-button:hover {
+  background: #374952;
+}
+.menu-button-hover {
+  background: #374952;
+}
+
+.charge-button {
+  display: flex;
+  height: 58vh;
+  flex-direction: column;
+  justify-content: center;
+}
+.charge-button button {
+  margin: 0;
+  align-self: center;
+}

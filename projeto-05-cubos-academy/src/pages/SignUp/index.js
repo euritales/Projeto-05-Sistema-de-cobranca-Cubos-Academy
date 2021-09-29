@@ -1,7 +1,7 @@
 import "./styles.css";
 import "../../styles/form.css";
 import { Link } from "react-router-dom";
-import logoCubos from "../../assets/logoCubos.svg";
+import logoCubos from "../../assets/logoCubosBlack.svg";
 import InputForm from "../../components/InputForm";
 
 function Signup() {
@@ -17,10 +17,6 @@ function Signup() {
 
         <button className="btn btn-opaque">Entrar</button>
       </form>
-      <div>
-        <span>Não tem uma conta? </span>
-        <Link to="/sign-up">Cadastre-se!</Link>
-      </div>
     </div>
   );
 }
