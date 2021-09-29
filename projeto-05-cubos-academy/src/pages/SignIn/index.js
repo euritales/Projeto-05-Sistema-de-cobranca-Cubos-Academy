@@ -1,7 +1,7 @@
 import "./styles.css";
 import "../../styles/form.css";
 import { Link } from "react-router-dom";
-import logoCubos from "../../assets/logoCubos.svg";
+import logoCubos from "../../assets/logoCubosBlack.svg";
 import InputForm from "../../components/InputForm";
 
 function SignIn() {
