@@ -1,11 +1,11 @@
 import "./styles.css";
 import Profile from "../../assets/profile-icon.svg";
-import Close from "../../assets/close-icon.svg";
-import { useState } from "react/cjs/react.development";
+// import Close from "../../assets/close-icon.svg";
+// import { useState } from "react/cjs/react.development";
 import { useHistory, useLocation } from "react-router-dom";
 
 function ProfileBar() {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const location = useLocation();
   const history = useHistory();
 
