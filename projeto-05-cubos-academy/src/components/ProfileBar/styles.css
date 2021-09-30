@@ -1,0 +1,17 @@
+.icon {
+  width: 40px;
+  height: auto;
+  /* margin: 32px 54px; */
+  /* position: absolute; */
+  cursor: pointer;
+}
+.container-profileBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  flex-direction: column;
+}
+
+.container-profileBar {
+}
