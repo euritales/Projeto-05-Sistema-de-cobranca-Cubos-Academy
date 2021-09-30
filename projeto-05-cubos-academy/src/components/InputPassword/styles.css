@@ -1,0 +1,19 @@
+.input input {
+  width: 261px;
+  padding-left: 15px;
+  font-size: 14px;
+  border-bottom: 1px solid #4c4c4c;
+  outline: none;
+  margin-bottom: 40px;
+}
+
+.input-password {
+  position: relative;
+}
+
+.eye-password {
+  position: absolute;
+  top: 45px;
+  right: 15px;
+  cursor: pointer;
+}
