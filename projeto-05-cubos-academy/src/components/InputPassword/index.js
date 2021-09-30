@@ -13,7 +13,10 @@ const InputPassword = React.forwardRef((props, ref) => {
       <input
         id="password"
         type={showPassword ? "text" : "password"}
-        name="password"
+        name={props.name}
+        ref={ref}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
         placeholder="minhasenha"
       />
       <FontAwesomeIcon

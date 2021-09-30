@@ -3,6 +3,7 @@ import "../../styles/form.css";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
+import { toast } from "react-toastify";
 
 function Signup() {
   const {
@@ -11,13 +12,13 @@ function Signup() {
     handleSubmit,
   } = useForm();
 
-  function onSubmit(data) {
+  const onSubmit = (data) => {
     console.log(data);
-  }
+  };
 
   return (
     <div className="container-form flex-column">
-      <form className="form form-sign-in" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="form form-sign-in">
         <img src={logoCubos} alt="CubosAcademy" />
 
         <div className="flex-column input">
@@ -28,23 +29,24 @@ function Signup() {
             placeholder="Novo Usuário"
             {...register("name", { required: true })}
           />
-          {errors.name?.type === "required" && (
-            <span style={{ color: "red" }}>Campo nome é obrigatório</span>
-          )}
+          {errors.name?.type === "required" &&
+            toast.error("Campo nome é obrigatório")}
         </div>
         <div className="flex-column input">
-          <label htmlFor="name">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
-          {errors.name?.type === "required" && (
-            <span style={{ color: "red" }}>Campo email é obrigatório</span>
-          )}
+          {errors.name?.type === "required" &&
+            toast.error("Campo email é obrigatório", {
+              position: "top-right",
+              autoClose: 3000,
+            })}
         </div>
-        <InputPassword />
+        <InputPassword {...register("senha", { required: true })} />
 
         <button type="submit" className="btn btn-opaque">
           Entrar
