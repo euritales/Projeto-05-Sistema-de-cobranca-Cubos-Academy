@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
+import { toast } from "react-toastify";
 
 function SignIn() {
   const {
@@ -12,13 +13,13 @@ function SignIn() {
     handleSubmit,
   } = useForm();
 
-  function onSubmit(data) {
+  const onSubmit = (data) => {
     console.log(data);
-  }
+  };
 
   return (
     <div className="container-form flex-column">
-      <form className="form form-sign-in" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="form form-sign-in">
         <img src={logoCubos} alt="CubosAcademy" />
 
         <div className="flex-column input">
@@ -29,11 +30,13 @@ function SignIn() {
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
-          {errors.name?.type === "required" && (
-            <span style={{ color: "red" }}>Campo email é obrigatório</span>
-          )}
+          {errors.email?.type === "required" &&
+            toast.error("Campo email é obrigatório", {
+              position: "top-right",
+              autoClose: 3000,
+            })}
         </div>
-        <InputPassword />
+        <InputPassword {...register("senha", { required: true })} />
         <button type="submit" className="btn btn-opaque">
           Entrar
         </button>
