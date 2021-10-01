@@ -16,4 +16,4 @@ async function getAddressByCep(cep) {
   }
 }
 
-module.exports = { getAddressByCep };
+module.exports = getAddressByCep;
