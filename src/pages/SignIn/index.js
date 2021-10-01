@@ -17,6 +17,11 @@ function SignIn() {
   //   console.log(data);
   // }
   async function onSubmit(data) {
+    // try {
+
+    // } catch (error) {
+    //   response.ok
+    // }
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/login",
       {
