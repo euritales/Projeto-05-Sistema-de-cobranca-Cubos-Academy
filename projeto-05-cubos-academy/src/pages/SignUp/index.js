@@ -12,9 +12,27 @@ function Signup() {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  // function onSubmit(data) {
+  //   console.log(data);
+  // }
+  async function onSubmit(data) {
+    const response = await fetch(
+      "https://cubosacademy-projeto-5.herokuapp.com/users",
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const dados = await response.json();
+
+    console.log(dados);
+  }
 
   return (
     <div className="container-form flex-column">
@@ -22,12 +40,12 @@ function Signup() {
         <img src={logoCubos} alt="CubosAcademy" />
 
         <div className="flex-column input">
-          <label htmlFor="name">Nome</label>
+          <label htmlFor="nome">Nome</label>
           <input
             type="text"
-            id="name"
+            id="nome"
             placeholder="Novo Usuário"
-            {...register("name", { required: true })}
+            {...register("nome", { required: true })}
           />
           {errors.name?.type === "required" &&
             toast.error("Campo nome é obrigatório")}
