@@ -13,9 +13,27 @@ function SignIn() {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  // function onSubmit(data) {
+  //   console.log(data);
+  // }
+  async function onSubmit(data) {
+    const response = await fetch(
+      "https://cubosacademy-projeto-5.herokuapp.com/login",
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const dados = await response.json();
+
+    console.log(dados);
+  }
 
   return (
     <div className="container-form flex-column">
