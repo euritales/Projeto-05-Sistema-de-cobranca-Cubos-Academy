@@ -4,17 +4,24 @@ import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { toast } from "react-toastify";
+import { Link, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react/cjs/react.development";
 
 function Signup() {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm();
+  const history = useHistory();
+  let emailWatch = watch("email");
+  let nameWhatch = watch("nome");
+  let passwordWatch = watch("senha");
+  const [statusButton, setStatusButton] = useState("btn btn-opaque");
+  const [statusSubmit, setStatusSubmit] = useState(" ");
 
-  // function onSubmit(data) {
-  //   console.log(data);
-  // }
   async function onSubmit(data) {
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/users",
@@ -31,8 +38,21 @@ function Signup() {
     );
     const dados = await response.json();
 
+    history.push("/");
     console.log(dados);
   }
+
+  useEffect(() => {
+    if (
+      passwordWatch?.length > 0 &&
+      emailWatch?.length > 0 &&
+      nameWhatch?.length
+    ) {
+      setStatusButton("btn btn-pink");
+      return;
+    }
+    setStatusButton("btn btn-opaque");
+  }, [emailWatch, passwordWatch, nameWhatch]);
 
   return (
     <div className="container-form flex-column">
@@ -66,7 +86,7 @@ function Signup() {
         </div>
         <InputPassword {...register("senha", { required: true })} />
 
-        <button type="submit" className="btn btn-opaque">
+        <button type="submit" className={statusButton}>
           Entrar
         </button>
       </form>
