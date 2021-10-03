@@ -4,13 +4,13 @@ async function getAddressByCep(cep) {
       method: "GET",
     });
 
-    const { logradouro, bairro, localidade, complemento, erro } =
+    const { logradouro, bairro, localidade, uf, complemento, erro } =
       await response.json();
 
     if (erro) {
       return false;
     }
-    return { logradouro, complemento, bairro, localidade };
+    return { logradouro, bairro, localidade, uf, complemento };
   } catch (error) {
     return false;
   }

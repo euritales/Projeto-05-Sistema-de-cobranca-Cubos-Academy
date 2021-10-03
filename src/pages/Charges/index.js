@@ -20,6 +20,7 @@ function Charges() {
     setValue("bairro", addressByCep.bairro);
     setValue("logradouro", addressByCep.logradouro);
     setValue("complemento", addressByCep.complemento);
+    setValue("uf", addressByCep.uf);
   }
 
   useEffect(() => {
@@ -35,6 +36,7 @@ function Charges() {
         setValue("bairro", "");
         setValue("logradouro", "");
         setValue("complemento", "");
+        setValue("uf", "");
       }
 
       if (cepWatch.length === 8) {
@@ -46,7 +48,7 @@ function Charges() {
   return (
     <div className="container-charges">
       <SideBar />
-      <div className="container-form">
+      <div className="container-form-clients">
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="nome">Nome</label>
           <input
@@ -60,13 +62,9 @@ function Charges() {
             id="email"
             {...register("email", { require: true })}
           />
+          <label htmlFor="cpf">CPF</label>
+          <input type="text" id="cpf" {...register("cpf", { require: true })} />
           <div>
-            <label htmlFor="cpf">CPF</label>
-            <input
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
-            />
             <label htmlFor="telefone">Telefone</label>
             <input
               type="text"
@@ -83,6 +81,8 @@ function Charges() {
             <input type="text" id="logradouro" {...register("logradouro")} />
             <label htmlFor="bairro">Bairro</label>
             <input type="text" id="bairro" {...register("bairro")} />
+            <label htmlFor="uf">Estado</label>
+            <input type="text" id="uf" {...register("uf")} />
             <label htmlFor="localidade">Cidade</label>
             <input type="text" id="localidade" {...register("localidade")} />
             <label htmlFor="complemento">Complemento</label>
