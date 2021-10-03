@@ -11,7 +11,7 @@ function SideBar() {
       <div className="container-button">
         <img src={LogoCubos} alt="CubosAcademy" />
         <NavLink
-          to="/"
+          to="/home"
           exact
           className="menu-button"
           activeClassName="menu-button-hover"

@@ -1,27 +1,31 @@
 import "./styles.css";
 import "../../styles/form.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { toast } from "react-toastify";
+import { useContext, useEffect, useState } from "react";
+import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
+import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
+import { AuthContext } from "../../routes";
 
-function SignIn() {
+function Login() {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm();
+  const { logar, token } = useContext(AuthContext);
+  const history = useHistory();
 
-  // function onSubmit(data) {
-  //   console.log(data);
-  // }
+  let emailWatch = watch("email");
+  let passwordWatch = watch("senha");
+  const [statusButton, setStatusButton] = useState("btn btn-opaque");
+  const [statusSubmit, setStatusSubmit] = useState(" ");
+
   async function onSubmit(data) {
-    // try {
-
-    // } catch (error) {
-    //   response.ok
-    // }
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/login",
       {
@@ -35,14 +39,32 @@ function SignIn() {
         body: JSON.stringify(data),
       }
     );
+
     const dados = await response.json();
+    setStatusSubmit(dados);
+    logar(dados.token);
+
+    history.push("/home");
 
     console.log(dados);
+    console.log(response.ok);
+    // console.log(response);
+    // console.log(emailWatch);
+    // console.log(passwordWatch);
   }
+
+  useEffect(() => {
+    if (passwordWatch?.length > 0 && emailWatch?.length > 0) {
+      setStatusButton("btn btn-pink");
+      return;
+    }
+    setStatusButton("btn btn-opaque");
+  }, [emailWatch, passwordWatch]);
 
   return (
     <div className="container-form flex-column">
       <form onSubmit={handleSubmit(onSubmit)} className="form form-sign-in">
+        <h1>{token}</h1>
         <img src={logoCubos} alt="CubosAcademy" />
 
         <div className="flex-column input">
@@ -53,14 +75,14 @@ function SignIn() {
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
-          {errors.email?.type === "required" &&
-            toast.error("Campo email é obrigatório", {
-              position: "top-right",
-              autoClose: 3000,
-            })}
         </div>
         <InputPassword {...register("senha", { required: true })} />
-        <button type="submit" className="btn btn-opaque">
+        <button
+          type="submit"
+          to="/home"
+          // className={errors.email ? "btn btn-pink" : "btn btn-opaque"}
+          className={statusButton}
+        >
           Entrar
         </button>
       </form>
@@ -68,8 +90,14 @@ function SignIn() {
         <span>Não tem uma conta? </span>
         <Link to="/sign-up">Cadastre-se!</Link>
       </div>
+
+      {errors?.email || errors?.senha ? (
+        <ErrorMessage message={"Campos email e senha são obrigatorios"} />
+      ) : (
+        <SucessMessage message={statusSubmit} />
+      )}
     </div>
   );
 }
 
-export default SignIn;
+export default Login;
