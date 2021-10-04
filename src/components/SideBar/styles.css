@@ -1,6 +1,5 @@
 .container-sideBar {
   justify-content: center;
-  width: 264px;
   height: 100vh;
   background-color: #263238;
 }
@@ -10,6 +9,7 @@
 
 .menu-button {
   height: auto;
+  width: 264px;
 }
 .menu-button img {
   margin: 0 25px 0 0;

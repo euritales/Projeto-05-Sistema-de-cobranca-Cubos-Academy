@@ -5,9 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 import Main from "./pages/Main";
-import SignUp from "./pages/SignUp";
-import Profile from "./pages/Profile";
 import Charges from "./pages/Charges";
+import Profile from "./pages/Profile";
+import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import { createContext, useContext, useState } from "react";
 
@@ -26,7 +26,6 @@ function Routes() {
 
   function logar(newToken) {
     setToken(newToken);
-    console.log("Loguei!");
   }
 
   function deslogar() {
@@ -40,9 +39,11 @@ function Routes() {
           <Route path="/" exact component={Login} />
           <Route path="/sign-up" exact component={SignUp} />
           <RotasProtegidas>
-            <Route path="/home" exact component={Main} />
-            <Route path="/charge" exact component={Charges} />
-            <Route path="/profile" exact component={Profile} />
+            <Main>
+              {/* <Route path="/home" exact component={Home} /> */}
+              <Route path="/charge" exact component={Charges} />
+              <Route path="/profile" exact component={Profile} />
+            </Main>
           </RotasProtegidas>
         </Switch>
       </Router>
