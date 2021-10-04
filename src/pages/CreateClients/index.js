@@ -28,7 +28,7 @@ function CreateClients() {
 
         headers: {
           "Content-type": "application/json",
-          " Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
