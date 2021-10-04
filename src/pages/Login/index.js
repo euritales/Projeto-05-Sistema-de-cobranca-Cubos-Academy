@@ -4,8 +4,8 @@ import { Link, useHistory } from "react-router-dom";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import { AuthContext } from "../../routes";
@@ -23,7 +23,6 @@ function Login() {
   let emailWatch = watch("email");
   let passwordWatch = watch("senha");
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  const [statusSubmit, setStatusSubmit] = useState(" ");
 
   async function onSubmit(data) {
     const response = await fetch(
@@ -41,16 +40,16 @@ function Login() {
     );
 
     const dados = await response.json();
-    setStatusSubmit(dados);
     logar(dados.token);
 
     history.push("/home");
 
+    if (response.ok) {
+      return SucessMessage(dados);
+    }
+    return ErrorMessage(dados);
     console.log(dados);
     console.log(response.ok);
-    // console.log(response);
-    // console.log(emailWatch);
-    // console.log(passwordWatch);
   }
 
   useEffect(() => {
@@ -60,6 +59,12 @@ function Login() {
     }
     setStatusButton("btn btn-opaque");
   }, [emailWatch, passwordWatch]);
+
+  function handleNotifications() {
+    if (emailWatch?.length === 0 || passwordWatch?.length === 0) {
+      return ErrorMessage("Campo email e senha são obrigatórios");
+    }
+  }
 
   return (
     <div className="container-form flex-column">
@@ -72,17 +77,13 @@ function Login() {
           <input
             type="text"
             id="email"
+            onFocus={() => handleNotifications()}
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
         </div>
         <InputPassword {...register("senha", { required: true })} />
-        <button
-          type="submit"
-          to="/home"
-          // className={errors.email ? "btn btn-pink" : "btn btn-opaque"}
-          className={statusButton}
-        >
+        <button type="submit" to="/home" className={statusButton}>
           Entrar
         </button>
       </form>
@@ -90,12 +91,6 @@ function Login() {
         <span>Não tem uma conta? </span>
         <Link to="/sign-up">Cadastre-se!</Link>
       </div>
-
-      {errors?.email || errors?.senha ? (
-        <ErrorMessage message={"Campos email e senha são obrigatorios"} />
-      ) : (
-        <SucessMessage message={statusSubmit} />
-      )}
     </div>
   );
 }

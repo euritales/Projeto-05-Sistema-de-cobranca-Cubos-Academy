@@ -17,7 +17,7 @@ function SideBar() {
           activeClassName="menu-button-hover"
         >
           <img src={Home} alt="" />
-          <span>Home</span>
+          <span>HOME</span>
         </NavLink>
         <NavLink
           to="/charge"
@@ -25,7 +25,7 @@ function SideBar() {
           activeClassName="menu-button-hover"
         >
           <img src={Charge} alt="" />
-          <span>Cobranças</span>
+          <span>COBRANÇAS</span>
         </NavLink>
 
         <NavLink
@@ -34,7 +34,7 @@ function SideBar() {
           activeClassName="menu-button-hover"
         >
           <img src={Customers} alt="" />
-          <span>Clientes</span>
+          <span>CLIENTES</span>
         </NavLink>
       </div>
       <div className="charge-button">

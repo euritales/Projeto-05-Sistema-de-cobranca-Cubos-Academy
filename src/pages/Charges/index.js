@@ -46,53 +46,42 @@ function Charges() {
   }, [cepWatch]);
 
   return (
-    <div className="container-charges">
-      <SideBar />
-      <div className="container-form-clients">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="nome">Nome</label>
+    <div className="container-form-clients">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="nome">Nome</label>
+        <input type="text" id="nome" {...register("nome", { require: true })} />
+        <label htmlFor="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          {...register("email", { require: true })}
+        />
+        <label htmlFor="cpf">CPF</label>
+        <input type="text" id="cpf" {...register("cpf", { require: true })} />
+        <div>
+          <label htmlFor="telefone">Telefone</label>
           <input
             type="text"
-            id="nome"
-            {...register("nome", { require: true })}
+            id="telefone"
+            {...register("telefone", { require: true })}
           />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            {...register("email", { require: true })}
-          />
-          <label htmlFor="cpf">CPF</label>
-          <input type="text" id="cpf" {...register("cpf", { require: true })} />
-          <div>
-            <label htmlFor="telefone">Telefone</label>
-            <input
-              type="text"
-              id="telefone"
-              {...register("telefone", { require: true })}
-            />
-            <label htmlFor="cep">CEP</label>
-            <input
-              type="text"
-              id="cep"
-              {...register("cep", { maxLength: 9 })}
-            />
-            <label htmlFor="logradouro">Logradouro</label>
-            <input type="text" id="logradouro" {...register("logradouro")} />
-            <label htmlFor="bairro">Bairro</label>
-            <input type="text" id="bairro" {...register("bairro")} />
-            <label htmlFor="uf">Estado</label>
-            <input type="text" id="uf" {...register("uf")} />
-            <label htmlFor="localidade">Cidade</label>
-            <input type="text" id="localidade" {...register("localidade")} />
-            <label htmlFor="complemento">Complemento</label>
-            <input type="text" id="complemento" {...register("complemento")} />
-            <label htmlFor="referencia">Ponto de Referencia</label>
-            <input type="text" id="referencia" {...register("referencia")} />
-          </div>
-          <button type="submit">Confirmar</button>
-        </form>
-      </div>
+          <label htmlFor="cep">CEP</label>
+          <input type="text" id="cep" {...register("cep", { maxLength: 9 })} />
+          <label htmlFor="logradouro">Logradouro</label>
+          <input type="text" id="logradouro" {...register("logradouro")} />
+          <label htmlFor="bairro">Bairro</label>
+          <input type="text" id="bairro" {...register("bairro")} />
+          <label htmlFor="uf">Estado</label>
+          <input type="text" id="uf" {...register("uf")} />
+          <label htmlFor="localidade">Cidade</label>
+          <input type="text" id="localidade" {...register("localidade")} />
+          <label htmlFor="complemento">Complemento</label>
+          <input type="text" id="complemento" {...register("complemento")} />
+          <label htmlFor="referencia">Ponto de Referencia</label>
+          <input type="text" id="referencia" {...register("referencia")} />
+        </div>
+        <button type="submit">Confirmar</button>
+      </form>
     </div>
   );
 }
