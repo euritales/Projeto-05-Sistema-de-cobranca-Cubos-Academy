@@ -5,7 +5,6 @@ import {
   Route,
 } from "react-router-dom";
 import Main from "./pages/Main";
-import Charges from "./pages/Collection";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";

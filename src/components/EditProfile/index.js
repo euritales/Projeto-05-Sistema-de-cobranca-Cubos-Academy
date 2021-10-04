@@ -1,30 +1,45 @@
 import "./style.css";
-import react from "react";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../routes";
+import { useState } from "react";
 
 function EditProfile() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    watch,
-  } = useForm();
-
-  const history = useHistory();
-  let emailWatch = watch("email");
-  let nameWhatch = watch("nome");
-  let passwordWatch = watch("senha");
+  const { register, handleSubmit, setValue } = useForm();
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
+
+  const { token } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function loadUser() {
+      const response = await fetch(
+        "https://cubosacademy-projeto-5.herokuapp.com/users",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      console.log(dados);
+      setValue("nome", dados.nome);
+      setValue("email", dados.email);
+      setValue("telefone", dados.telefone);
+      setValue("cpf", dados.cpf);
+    }
+
+    loadUser();
+  }, []);
 
   function onSubmit(data) {
     console.log(data);
   }
-
   return (
     <div className="container-edit">
       <form onSubmit={handleSubmit(onSubmit)} className="form edit">
@@ -36,10 +51,8 @@ function EditProfile() {
             type="text"
             id="nome"
             placeholder="Novo Usuário"
-            {...register("nome", { required: true })}
+            {...register("nome")}
           />
-          {errors.name?.type === "required" &&
-            toast.error("Campo nome é obrigatório")}
         </div>
         <div className="flex-column input">
           <label htmlFor="email">Email</label>
@@ -47,15 +60,31 @@ function EditProfile() {
             type="text"
             id="email"
             placeholder="exemplo@gmail.com"
-            {...register("email", { required: true })}
+            {...register("email")}
           />
-          {errors.name?.type === "required" &&
-            toast.error("Campo email é obrigatório", {
-              position: "top-right",
-              autoClose: 3000,
-            })}
         </div>
-        <InputPassword {...register("senha", { required: true })} />
+        <InputPassword
+          placeholder="Deixar Vazio para não aceitar"
+          {...register("senha")}
+        />
+        <div className="flex-column input">
+          <label htmlFor="telefone">Telefone</label>
+          <input
+            type="text"
+            id="telefone"
+            placeholder="(xx) x xxxx-xxxx"
+            {...register("telefone")}
+          />
+        </div>
+        <div className="flex-column input">
+          <label htmlFor="cpf">CPF</label>
+          <input
+            type="text"
+            id="cpf"
+            placeholder="(xx) x xxxx-xxxx"
+            {...register("cpf")}
+          />
+        </div>
       </form>
     </div>
   );

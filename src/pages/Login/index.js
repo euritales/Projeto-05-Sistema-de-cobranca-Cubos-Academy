@@ -37,6 +37,7 @@ function Login() {
     const dados = await response.json();
     logar(dados.token);
 
+    console.log(dados);
     history.push("/home");
 
     if (response.ok) {

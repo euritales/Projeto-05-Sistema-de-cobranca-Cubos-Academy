@@ -9,8 +9,7 @@ import { AuthContext } from "../../routes";
 
 function CreateClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
-  const { logar, token } = useContext(AuthContext);
-
+  const { setToken, token } = useContext(AuthContext);
   const history = useHistory();
 
   let nomeWatch = watch("nome");
@@ -26,10 +25,10 @@ function CreateClients() {
       {
         method: "POST",
         mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
+
         headers: {
           "Content-type": "application/json",
+          " Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -37,11 +36,10 @@ function CreateClients() {
 
     const dados = await response.json();
 
-    // token = dados.token;
     history.push("/customers");
 
-    console.log(dados.token);
-    console.log(response.ok);
+    // setToken(dados.token);
+
     if (response.ok) {
       return SucessMessage(dados);
     }
