@@ -11,13 +11,13 @@ const InputPassword = React.forwardRef((props, ref) => {
     <div className="flex-column input input-password">
       <label htmlFor="password">Senha</label>
       <input
-        id="password"
+        id={props.id}
         type={showPassword ? "text" : "password"}
         name={props.name}
         ref={ref}
         onChange={props.onChange}
         onBlur={props.onBlur}
-        placeholder="minhasenha"
+        placeholder={props.placeholder}
       />
       <FontAwesomeIcon
         icon={showPassword ? faEye : faEyeSlash}

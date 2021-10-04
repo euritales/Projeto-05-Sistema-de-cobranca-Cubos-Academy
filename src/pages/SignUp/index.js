@@ -21,7 +21,6 @@ function Signup() {
   let nameWhatch = watch("nome");
   let passwordWatch = watch("senha");
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  const [statusSubmit, setStatusSubmit] = useState(" ");
 
   async function onSubmit(data) {
     const response = await fetch(
@@ -75,7 +74,6 @@ function Signup() {
           <input
             type="text"
             id="nome"
-            onFocus={() => handleNotifications()}
             placeholder="Novo Usuário"
             {...register("nome", { required: true })}
           />
@@ -85,14 +83,21 @@ function Signup() {
           <input
             type="text"
             id="email"
-            onFocus={() => handleNotifications()}
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
         </div>
-        <InputPassword {...register("senha", { required: true })} />
+        <InputPassword
+          id="senha"
+          placeholder="minhasenha"
+          {...register("senha", { required: true })}
+        />
 
-        <button type="submit" className={statusButton}>
+        <button
+          type="submit"
+          onClick={() => handleNotifications()}
+          className={statusButton}
+        >
           Entrar
         </button>
       </form>
