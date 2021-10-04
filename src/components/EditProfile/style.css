@@ -1,3 +1,6 @@
 .container-edit {
+  display: flex;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.53);
+  width: 100vh;
 }

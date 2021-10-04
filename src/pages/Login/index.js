@@ -12,7 +12,9 @@ import { AuthContext } from "../../routes";
 function Login() {
   const { register, handleSubmit, watch } = useForm();
 
-  const { logar, token } = useContext(AuthContext);
+  const { logar } = useContext(AuthContext);
+  // const { handleDadosUsuario } = useContext(DadosUsuario);
+
   const history = useHistory();
 
   let emailWatch = watch("email");
@@ -35,9 +37,11 @@ function Login() {
     );
 
     const dados = await response.json();
+
+    // handleDadosUsuario(dados);
+
     logar(dados.token);
 
-    console.log(dados);
     history.push("/home");
 
     if (response.ok) {

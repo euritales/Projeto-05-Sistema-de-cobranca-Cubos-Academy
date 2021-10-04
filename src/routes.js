@@ -14,6 +14,7 @@ import CreateClients from "./pages/CreateClients";
 import Collection from "./pages/Collection";
 
 export const AuthContext = createContext();
+export const DadosUsuario = createContext();
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
@@ -25,6 +26,12 @@ function RotasProtegidas(props) {
 
 function Routes() {
   const [token, setToken] = useState("");
+  const [dadosUsuario, setDadoUsuario] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    cpf: "",
+  });
 
   function logar(newToken) {
     setToken(newToken);
@@ -34,6 +41,10 @@ function Routes() {
     setToken("");
   }
 
+  function handleDadosUsuario(dados) {
+    setDadoUsuario(dados);
+  }
+
   return (
     <AuthContext.Provider value={{ token, logar, deslogar }}>
       <Router>
@@ -41,12 +52,14 @@ function Routes() {
           <Route path="/" exact component={Login} />
           <Route path="/sign-up" exact component={SignUp} />
           <RotasProtegidas>
-            <Main>
-              <Route path="/home" exact component={Home} />
-              <Route path="/collections" exact component={Collection} />
-              <Route path="/customers" exact component={Profile} />
-              <Route path="/sign-up-client" exact component={CreateClients} />
-            </Main>
+            <DadosUsuario.Provider value={(handleDadosUsuario, dadosUsuario)}>
+              <Main>
+                <Route path="/home" exact component={Home} />
+                <Route path="/collections" exact component={Collection} />
+                <Route path="/customers" exact component={Profile} />
+                <Route path="/sign-up-client" exact component={CreateClients} />
+              </Main>
+            </DadosUsuario.Provider>
           </RotasProtegidas>
         </Switch>
       </Router>
