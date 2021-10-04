@@ -4,8 +4,12 @@ import Customers from "../../assets/customers-icon.svg";
 import Home from "../../assets/home-icon.svg";
 import LogoCubos from "../../assets/logoCubosWhite.svg";
 import { NavLink } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 function SideBar() {
+  const location = useLocation();
+  const history = useHistory();
+
   return (
     <div className="container-sideBar">
       <div className="container-button">
@@ -20,7 +24,7 @@ function SideBar() {
           <span>HOME</span>
         </NavLink>
         <NavLink
-          to="/charge"
+          to="/collections"
           className="menu-button"
           activeClassName="menu-button-hover"
         >
@@ -38,7 +42,12 @@ function SideBar() {
         </NavLink>
       </div>
       <div className="charge-button">
-        <button className="btn btn-pink">Criar cobrança</button>
+        <button
+          onClick={() => history.push("/sign-up-client")}
+          className="btn btn-pink"
+        >
+          Criar cliente
+        </button>
       </div>
     </div>
   );

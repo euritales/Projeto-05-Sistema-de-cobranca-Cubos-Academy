@@ -5,12 +5,14 @@ import {
   Route,
 } from "react-router-dom";
 import Main from "./pages/Main";
-import Charges from "./pages/Charges";
+import Charges from "./pages/Collection";
 import SignUp from "./pages/SignUp";
-import Clients from "./pages/Profile";
+import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import { createContext, useContext, useState } from "react";
 import Home from "./pages/Home";
+import CreateClients from "./pages/CreateClients";
+import Collection from "./pages/Collection";
 
 export const AuthContext = createContext();
 
@@ -42,8 +44,9 @@ function Routes() {
           <RotasProtegidas>
             <Main>
               <Route path="/home" exact component={Home} />
-              <Route path="/charge" exact component={Charges} />
-              <Route path="/customers" exact component={Clients} />
+              <Route path="/collections" exact component={Collection} />
+              <Route path="/customers" exact component={Profile} />
+              <Route path="/sign-up-client" exact component={CreateClients} />
             </Main>
           </RotasProtegidas>
         </Switch>
