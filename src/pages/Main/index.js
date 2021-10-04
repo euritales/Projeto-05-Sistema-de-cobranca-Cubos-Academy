@@ -2,14 +2,12 @@ import ProfileBar from "../../components/ProfileBar";
 import "./styles.css";
 import SideBar from "../../components/SideBar";
 
-function Main() {
+function Main({ children }) {
   return (
-    <div className="container-main flex-row">
+    <div className="container-main flex-row ">
       <SideBar />
-      <>
-        <ProfileBar />
-        <h1>teste</h1>
-      </>
+      <ProfileBar />
+      {children}
     </div>
   );
 }

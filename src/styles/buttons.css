@@ -13,6 +13,7 @@
   background-color: #da0175;
   color: #f7f7f7;
   border: none;
+  cursor: pointer;
 }
 
 .btn-opaque {
@@ -25,4 +26,6 @@
   background: #ffffff;
   border-radius: 16px;
   color: #da0175;
+  cursor: pointer;
+  border: 1.5px solid #da0175;
 }

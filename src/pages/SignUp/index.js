@@ -3,10 +3,11 @@ import "../../styles/form.css";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { toast } from "react-toastify";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
+import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
+import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 
 function Signup() {
   const {
@@ -20,7 +21,6 @@ function Signup() {
   let nameWhatch = watch("nome");
   let passwordWatch = watch("senha");
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  const [statusSubmit, setStatusSubmit] = useState(" ");
 
   async function onSubmit(data) {
     const response = await fetch(
@@ -39,7 +39,11 @@ function Signup() {
     const dados = await response.json();
 
     history.push("/");
-    console.log(dados);
+
+    if (response.ok) {
+      return SucessMessage(dados);
+    }
+    return ErrorMessage(dados);
   }
 
   useEffect(() => {
@@ -54,6 +58,12 @@ function Signup() {
     setStatusButton("btn btn-opaque");
   }, [emailWatch, passwordWatch, nameWhatch]);
 
+  function handleNotifications() {
+    if (emailWatch?.length === 0 || passwordWatch?.length === 0) {
+      return ErrorMessage("Todos os campos são obrigatórios");
+    }
+  }
+
   return (
     <div className="container-form flex-column">
       <form onSubmit={handleSubmit(onSubmit)} className="form form-sign-in">
@@ -67,8 +77,6 @@ function Signup() {
             placeholder="Novo Usuário"
             {...register("nome", { required: true })}
           />
-          {errors.name?.type === "required" &&
-            toast.error("Campo nome é obrigatório")}
         </div>
         <div className="flex-column input">
           <label htmlFor="email">Email</label>
@@ -78,15 +86,18 @@ function Signup() {
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
-          {errors.name?.type === "required" &&
-            toast.error("Campo email é obrigatório", {
-              position: "top-right",
-              autoClose: 3000,
-            })}
         </div>
-        <InputPassword {...register("senha", { required: true })} />
+        <InputPassword
+          id="senha"
+          placeholder="minhasenha"
+          {...register("senha", { required: true })}
+        />
 
-        <button type="submit" className={statusButton}>
+        <button
+          type="submit"
+          onClick={() => handleNotifications()}
+          className={statusButton}
+        >
           Entrar
         </button>
       </form>

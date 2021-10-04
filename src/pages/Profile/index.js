@@ -1,16 +1,16 @@
 import "./styles.css";
+import SadIcon from "../../assets/sad-icon.svg";
+import HappyIcon from "../../assets/happy-icon.svg";
+import EditProfile from "../../components/EditProfile";
 
 function Profile() {
   return (
-    <div className="container-profile">
-      <h1>Perfil</h1>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam,
-        sapiente. Sit praesentium, commodi, numquam quae assumenda, enim nostrum
-        in soluta repudiandae nam magnam aspernatur quo distinctio voluptate
-        dolorem mollitia delectus.
-      </p>
-    </div>
+    // <div className="container-profile">
+    //   <img src={SadIcon} alt="" />
+    //   <span>Site ainda em construção. Volte em breve!</span>
+    //   <img src={HappyIcon} alt="" />
+    // </div>
+    <EditProfile />
   );
 }
 
