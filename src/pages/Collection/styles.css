@@ -1,13 +1,13 @@
-.container-profile {
+.container-collection {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
 }
-.container-profile img {
+.container-collection img {
   width: 40px;
 }
-.container-profile span {
+.container-collection span {
   background-color: #fff;
   padding: 10px;
   border-radius: 2px;

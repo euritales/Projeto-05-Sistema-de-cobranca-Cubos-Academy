@@ -43,9 +43,6 @@ function Login() {
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
-
-    console.log(dados);
-    console.log(response.ok);
   }
 
   useEffect(() => {
@@ -57,18 +54,14 @@ function Login() {
   }, [emailWatch, passwordWatch]);
 
   function handleNotifications() {
-    if (emailWatch?.length === 0) {
-      return ErrorMessage("Campo email e senha são obrigatórios");
-    }
-    if (passwordWatch?.length === 0) {
-      return ErrorMessage("Campo email e senha são obrigatórios");
+    if (emailWatch?.length === 0 || passwordWatch?.length === 0) {
+      return ErrorMessage("Campos 'email' e 'senha' são obrigatórios");
     }
   }
 
   return (
     <div className="container-form flex-column">
       <form onSubmit={handleSubmit(onSubmit)} className="form form-sign-in">
-        <h1>{token}</h1>
         <img src={logoCubos} alt="CubosAcademy" />
 
         <div className="flex-column input">
