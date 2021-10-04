@@ -20,13 +20,14 @@ function EditProfile() {
           mode: "cors",
           headers: {
             "Content-type": "application/json",
-            " Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
       const dados = await response.json();
 
+      console.log(dados);
       setValue("nome", dados.nome);
       setValue("email", dados.email);
       setValue("telefone", dados.telefone);
