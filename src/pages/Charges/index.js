@@ -1,6 +1,5 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import SideBar from "../../components/SideBar";
 import { useEffect } from "react";
 import getAddressByCep from "../../services/viaCep";
 

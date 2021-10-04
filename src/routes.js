@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 import Main from "./pages/Main";
 import Charges from "./pages/Charges";
-import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
+import Clients from "./pages/Profile";
 import Login from "./pages/Login";
 import { createContext, useContext, useState } from "react";
+import Home from "./pages/Home";
 
 export const AuthContext = createContext();
 
@@ -40,9 +41,9 @@ function Routes() {
           <Route path="/sign-up" exact component={SignUp} />
           <RotasProtegidas>
             <Main>
-              {/* <Route path="/home" exact component={Home} /> */}
+              <Route path="/home" exact component={Home} />
               <Route path="/charge" exact component={Charges} />
-              <Route path="/profile" exact component={Profile} />
+              <Route path="/customers" exact component={Clients} />
             </Main>
           </RotasProtegidas>
         </Switch>

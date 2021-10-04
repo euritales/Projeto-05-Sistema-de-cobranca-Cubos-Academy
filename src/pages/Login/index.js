@@ -5,18 +5,13 @@ import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import { AuthContext } from "../../routes";
 
 function Login() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    watch,
-  } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+
   const { logar, token } = useContext(AuthContext);
   const history = useHistory();
 
@@ -48,6 +43,7 @@ function Login() {
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
+
     console.log(dados);
     console.log(response.ok);
   }
@@ -61,7 +57,10 @@ function Login() {
   }, [emailWatch, passwordWatch]);
 
   function handleNotifications() {
-    if (emailWatch?.length === 0 || passwordWatch?.length === 0) {
+    if (emailWatch?.length === 0) {
+      return ErrorMessage("Campo email e senha são obrigatórios");
+    }
+    if (passwordWatch?.length === 0) {
       return ErrorMessage("Campo email e senha são obrigatórios");
     }
   }
@@ -77,13 +76,21 @@ function Login() {
           <input
             type="text"
             id="email"
-            onFocus={() => handleNotifications()}
             placeholder="exemplo@gmail.com"
             {...register("email", { required: true })}
           />
         </div>
-        <InputPassword {...register("senha", { required: true })} />
-        <button type="submit" to="/home" className={statusButton}>
+        <InputPassword
+          id="senha"
+          placeholder="minhasenha"
+          {...register("senha", { required: true })}
+        />
+        <button
+          type="submit"
+          onClick={() => handleNotifications()}
+          to="/home"
+          className={statusButton}
+        >
           Entrar
         </button>
       </form>
