@@ -6,8 +6,8 @@ import ChargeIcon from "../../assets/charge-icon.svg";
 function Home() {
   return (
     <div className="container-home">
-      <StatusRent nome="Clientes" quantidade="0" img={CustomersIcon} />
-      <StatusClient nome="Cobranças" quantidade="0" img={ChargeIcon} />
+      <StatusClient nome="Clientes" quantidade="0" img={CustomersIcon} />
+      <StatusRent nome="Cobranças" quantidade="0" img={ChargeIcon} />
     </div>
   );
 }

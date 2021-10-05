@@ -6,15 +6,15 @@ import {
 } from "react-router-dom";
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import { createContext, useContext, useState } from "react";
 import Home from "./pages/Home";
-import CreateClients from "./pages/CreateClients";
-import Collection from "./pages/Collection";
+import RegisterClients from "./pages/RegisterClients";
+import Charges from "./pages/Charges";
+import Customers from "./pages/Customers";
+import CreateCharges from "./pages/CreateCharges";
 
 export const AuthContext = createContext();
-export const DadosUsuario = createContext();
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
@@ -46,20 +46,26 @@ function Routes() {
   }
 
   return (
-    <AuthContext.Provider value={{ token, logar, deslogar }}>
+    <AuthContext.Provider
+      value={{ token, logar, deslogar, handleDadosUsuario, dadosUsuario }}
+    >
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/sign-up" exact component={SignUp} />
           <RotasProtegidas>
-            <DadosUsuario.Provider value={(handleDadosUsuario, dadosUsuario)}>
-              <Main>
-                <Route path="/home" exact component={Home} />
-                <Route path="/collections" exact component={Collection} />
-                <Route path="/customers" exact component={Profile} />
-                <Route path="/sign-up-client" exact component={CreateClients} />
-              </Main>
-            </DadosUsuario.Provider>
+            <Main>
+              <Route path="/home" exact component={Home} />
+              <Route path="/charges" exact component={Charges} />
+              <Route path="/charges/register" exact component={CreateCharges} />
+
+              <Route path="/clients" exact component={Customers} />
+              <Route
+                path="/clients/register"
+                exact
+                component={RegisterClients}
+              />
+            </Main>
           </RotasProtegidas>
         </Switch>
       </Router>

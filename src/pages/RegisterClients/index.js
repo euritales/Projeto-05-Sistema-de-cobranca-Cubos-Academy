@@ -7,7 +7,7 @@ import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../routes";
 
-function CreateClients() {
+function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { setToken, token } = useContext(AuthContext);
   const history = useHistory();
@@ -217,4 +217,4 @@ function CreateClients() {
   );
 }
 
-export default CreateClients;
+export default RegisterClients;

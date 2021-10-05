@@ -32,7 +32,6 @@
 .container-double-form {
   display: flex;
   flex-wrap: wrap;
-  width: 100vh;
   justify-content: space-between;
   align-items: center;
   width: 512px;

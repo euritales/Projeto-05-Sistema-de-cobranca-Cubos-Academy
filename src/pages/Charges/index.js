@@ -2,7 +2,7 @@ import "./styles.css";
 import SadIcon from "../../assets/sad-icon.svg";
 import HappyIcon from "../../assets/happy-icon.svg";
 
-function Collection() {
+function Charges() {
   return (
     <div className="container-collection">
       <img src={SadIcon} alt="" />
@@ -12,4 +12,4 @@ function Collection() {
   );
 }
 
-export default Collection;
+export default Charges;

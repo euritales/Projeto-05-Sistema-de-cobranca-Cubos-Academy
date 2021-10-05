@@ -1,5 +1,5 @@
 import "./styles.css";
-import Charge from "../../assets/charge-icon.svg";
+import Charges from "../../assets/charge-icon.svg";
 import Customers from "../../assets/customers-icon.svg";
 import Home from "../../assets/home-icon.svg";
 import LogoCubos from "../../assets/logoCubosWhite.svg";
@@ -24,16 +24,16 @@ function SideBar() {
           <span>HOME</span>
         </NavLink>
         <NavLink
-          to="/collections"
+          to="/charges"
           className="menu-button"
           activeClassName="menu-button-hover"
         >
-          <img src={Charge} alt="" />
+          <img src={Charges} alt="" />
           <span>COBRANÇAS</span>
         </NavLink>
 
         <NavLink
-          to="/customers"
+          to="/clients"
           className="menu-button"
           activeClassName="menu-button-hover"
         >
@@ -43,10 +43,10 @@ function SideBar() {
       </div>
       <div className="charge-button">
         <button
-          onClick={() => history.push("/sign-up-client")}
+          onClick={() => history.push("/charges/register")}
           className="btn btn-pink"
         >
-          Criar cliente
+          Criar cobrança
         </button>
       </div>
     </div>
