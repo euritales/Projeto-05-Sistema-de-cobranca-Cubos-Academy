@@ -6,12 +6,13 @@ import { useContext } from "react";
 import EditProfile from "../../components/EditProfile";
 
 function Main({ children }) {
-  const { editProfileStatus, handleEditProfile } = useContext(AuthContext);
+  const { editProfileStatus } = useContext(AuthContext);
   return (
     <div className="container-main flex-row ">
       <SideBar />
       <ProfileBar />
-      {editProfileStatus === true && <EditProfile />}
+      {editProfileStatus && <EditProfile />}
+
       {children}
     </div>
   );

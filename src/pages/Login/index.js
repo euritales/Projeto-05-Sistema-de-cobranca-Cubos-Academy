@@ -12,13 +12,22 @@ import { AuthContext } from "../../routes";
 function Login() {
   const { register, handleSubmit, watch } = useForm();
 
-  const { logar, handleDadosUsuario, dadosUsuario } = useContext(AuthContext);
+  const { logar, handleDadosUsuario, dadosUsuario, setToken } =
+    useContext(AuthContext);
 
   const history = useHistory();
 
   let emailWatch = watch("email");
   let passwordWatch = watch("senha");
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("user");
+    if (userToken) {
+      setToken(userToken);
+      history.push("/home");
+    }
+  }, []);
 
   async function onSubmit(data) {
     try {
@@ -46,6 +55,7 @@ function Login() {
 
       if (response.ok) {
         logar(dados.token);
+        localStorage.setItem("user", dados.token);
         history.push("/home");
         return SucessMessage(dados);
       }

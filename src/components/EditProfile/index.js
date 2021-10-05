@@ -23,18 +23,19 @@ function EditProfile() {
       setValue("telefone", dadosUsuario.telefone);
       setValue("cpf", dadosUsuario.cpf);
     }
-
     loadUser();
-  }, [dadosUsuario, setValue]);
+  }, []);
 
   async function onSubmit(data) {
+    console.log({ data });
     const body = {
-      nome: data.name,
+      nome: data.nome,
       email: data.email,
+      cpf: data.cpf,
       senha: data.senha,
       telefone: data.telefone,
     };
-
+    console.log(body);
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/users",
       {
@@ -49,10 +50,7 @@ function EditProfile() {
     );
 
     const dados = await response.json();
-
     history.push("/customers");
-
-    // setToken(dados.token);
 
     if (response.ok) {
       return SucessMessage(dados);
@@ -60,11 +58,6 @@ function EditProfile() {
     return ErrorMessage(dados);
   }
 
-  // function handleNotifications() {
-  //   console.log(dados);
-
-  //   return;
-  // }
   return (
     <div className="container-edit">
       <form onSubmit={handleSubmit(onSubmit)} className="form edit-profile">
@@ -108,18 +101,11 @@ function EditProfile() {
           <label htmlFor="cpf">CPF</label>
           <input
             type="text"
-            placeholder="(xx) x xxxx-xxxx"
+            placeholder="xxx.xxx.xxx-xx"
             {...register("cpf")}
           />
         </div>
-        <button
-          type="submit"
-          // onClick={() => handleNotifications()}
-          to="/home"
-          className={statusButton}
-        >
-          Entrar
-        </button>
+        <button className={statusButton}>Editar conta</button>
       </form>
     </div>
   );

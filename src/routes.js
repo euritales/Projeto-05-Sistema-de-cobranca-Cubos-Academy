@@ -13,6 +13,7 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
+import userEvent from "@testing-library/user-event";
 
 export const AuthContext = createContext();
 
@@ -31,6 +32,7 @@ function Routes() {
     id: "",
     nome: "",
     email: "",
+    senha: "",
     telefone: "",
     cpf: "",
   });
@@ -41,6 +43,7 @@ function Routes() {
 
   function deslogar() {
     setToken("");
+    localStorage.removeItem("user");
   }
 
   function handleDadosUsuario(dados) {
@@ -56,6 +59,7 @@ function Routes() {
     <AuthContext.Provider
       value={{
         token,
+        setToken,
         logar,
         deslogar,
         handleDadosUsuario,
@@ -74,7 +78,6 @@ function Routes() {
               <Route path="/home" exact component={Home} />
               <Route path="/charges" exact component={Charges} />
               <Route path="/charges/register" exact component={CreateCharges} />
-
               <Route path="/clients" exact component={Customers} />
               <Route
                 path="/clients/register"
