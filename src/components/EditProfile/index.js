@@ -2,8 +2,8 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { useHistory } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { AuthContext, DadosUsuario } from "../../routes";
+import { useContext } from "react";
+import { AuthContext } from "../../routes";
 import { useState } from "react";
 import SucessMessage from "../ToastifyPopups/sucessMessage";
 import ErrorMessage from "../ToastifyPopups/errorMessage";
@@ -17,7 +17,7 @@ function EditProfile() {
 
   // useEffect(() => {
   //   async function loadUser() {
-  //     console.log(dadosUsuario);
+  //     console.log();
 
   //     setValue("nome", dadosUsuario.nome);
   //     setValue("email", dadosUsuario.email);
@@ -34,7 +34,6 @@ function EditProfile() {
       {
         method: "PUT",
         mode: "cors",
-
         headers: {
           "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
