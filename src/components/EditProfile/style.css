@@ -1,6 +1,37 @@
 .container-edit {
   display: flex;
-  width: 100vh;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
   justify-content: center;
   background: rgba(0, 0, 0, 0.53);
+}
+.close-button-edit {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 0;
+}
+.close-button-edit img {
+  margin: 35px;
+}
+.edit-profile {
+  width: 405px;
+  background: #ffffff;
+  box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+.edit-profile h3 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.edit-profile button {
+  margin: 12px 0 32px;
 }

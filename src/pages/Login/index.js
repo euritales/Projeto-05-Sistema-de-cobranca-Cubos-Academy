@@ -12,8 +12,7 @@ import { AuthContext } from "../../routes";
 function Login() {
   const { register, handleSubmit, watch } = useForm();
 
-  const { logar } = useContext(AuthContext);
-  // const { handleDadosUsuario } = useContext(DadosUsuario);
+  const { logar, handleDadosUsuario, dadosUsuario } = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -22,32 +21,38 @@ function Login() {
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/login",
-      {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(data),
+    try {
+      const response = await fetch(
+        "https://cubosacademy-projeto-5.herokuapp.com/login",
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const dados = await response.json();
+
+      handleDadosUsuario(dados.usuario);
+
+      console.log(dados.usuario);
+      console.log(data);
+      console.log(dadosUsuario);
+
+      if (response.ok) {
+        logar(dados.token);
+        history.push("/home");
+        return SucessMessage(dados);
       }
-    );
-
-    const dados = await response.json();
-
-    // handleDadosUsuario(dados);
-
-    logar(dados.token);
-
-    history.push("/home");
-
-    if (response.ok) {
-      return SucessMessage(dados);
+      return ErrorMessage(dados);
+    } catch (error) {
+      return ErrorMessage(error.message);
     }
-    return ErrorMessage(dados);
   }
 
   useEffect(() => {

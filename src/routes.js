@@ -26,7 +26,9 @@ function RotasProtegidas(props) {
 
 function Routes() {
   const [token, setToken] = useState("");
+  const [editProfileStatus, setEditProfileStatus] = useState(false);
   const [dadosUsuario, setDadoUsuario] = useState({
+    id: "",
     nome: "",
     email: "",
     telefone: "",
@@ -42,12 +44,26 @@ function Routes() {
   }
 
   function handleDadosUsuario(dados) {
-    setDadoUsuario(dados);
+    return setDadoUsuario(dados);
+  }
+
+  function handleEditProfile(dados) {
+    setEditProfileStatus(dados);
+    console.log(dados);
   }
 
   return (
     <AuthContext.Provider
-      value={{ token, logar, deslogar, handleDadosUsuario, dadosUsuario }}
+      value={{
+        token,
+        logar,
+        deslogar,
+        handleDadosUsuario,
+        setDadoUsuario,
+        dadosUsuario,
+        handleEditProfile,
+        editProfileStatus,
+      }}
     >
       <Router>
         <Switch>
