@@ -1,34 +1,40 @@
 import "./style.css";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { useHistory } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { AuthContext } from "../../routes";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import SucessMessage from "../ToastifyPopups/sucessMessage";
 import ErrorMessage from "../ToastifyPopups/errorMessage";
+import CloseIcon from "../../assets/close-icon.svg";
 
 function EditProfile() {
   const { register, handleSubmit, setValue } = useForm();
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
   const history = useHistory();
-  const { token } = useContext(AuthContext);
-  // const { dadosUsuario } = useContext(DadosUsuario);
+  const { token, dadosUsuario, handleEditProfile, editProfileStatus } =
+    useContext(AuthContext);
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   async function loadUser() {
-  //     console.log();
+  useEffect(() => {
+    async function loadUser() {
+      setValue("nome", dadosUsuario.nome);
+      setValue("email", dadosUsuario.email);
+      setValue("telefone", dadosUsuario.telefone);
+      setValue("cpf", dadosUsuario.cpf);
+    }
 
-  //     setValue("nome", dadosUsuario.nome);
-  //     setValue("email", dadosUsuario.email);
-  //     setValue("telefone", dadosUsuario.telefone);
-  //     setValue("cpf", dadosUsuario.cpf);
-  //   }
-
-  //   loadUser();
-  // }, [dadosUsuario, setValue]);
+    loadUser();
+  }, [dadosUsuario, setValue]);
 
   async function onSubmit(data) {
+    const body = {
+      nome: data.name,
+      email: data.email,
+      senha: data.senha,
+      telefone: data.telefone,
+    };
+
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/users",
       {
@@ -38,7 +44,7 @@ function EditProfile() {
           "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
       }
     );
 
@@ -54,16 +60,25 @@ function EditProfile() {
     return ErrorMessage(dados);
   }
 
-  function handleNotifications() {
-    SucessMessage("Usuario atualizado com sucesso!");
-    history.push("/home");
+  // function handleNotifications() {
+  //   console.log(dados);
 
-    return;
-  }
+  //   return;
+  // }
   return (
     <div className="container-edit">
-      <form onSubmit={handleSubmit(onSubmit)} className="form edit">
-        <h3>// EDITAR usuário</h3>
+      <form onSubmit={handleSubmit(onSubmit)} className="form edit-profile">
+        <div className="head-edit">
+          <NavLink
+            to={location.pathname}
+            exact
+            className="close-button-edit"
+            onClick={() => handleEditProfile(!editProfileStatus)}
+          >
+            <img src={CloseIcon} alt="" />
+          </NavLink>
+          <h3>{"//"} EDITAR USUÁRIO</h3>
+        </div>
 
         <div className="flex-column input">
           <label htmlFor="nome">Nome</label>
@@ -99,7 +114,7 @@ function EditProfile() {
         </div>
         <button
           type="submit"
-          onClick={() => handleNotifications()}
+          // onClick={() => handleNotifications()}
           to="/home"
           className={statusButton}
         >
