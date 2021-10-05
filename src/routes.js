@@ -6,12 +6,13 @@ import {
 } from "react-router-dom";
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import { createContext, useContext, useState } from "react";
 import Home from "./pages/Home";
-import CreateClients from "./pages/CreateClients";
-import Collection from "./pages/Collection";
+import RegisterClients from "./pages/RegisterClients";
+import Charges from "./pages/Charges";
+import Customers from "./pages/Customers";
+import CreateCharges from "./pages/CreateCharges";
 
 export const AuthContext = createContext();
 
@@ -25,6 +26,12 @@ function RotasProtegidas(props) {
 
 function Routes() {
   const [token, setToken] = useState("");
+  const [dadosUsuario, setDadoUsuario] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    cpf: "",
+  });
 
   function logar(newToken) {
     setToken(newToken);
@@ -34,8 +41,14 @@ function Routes() {
     setToken("");
   }
 
+  function handleDadosUsuario(dados) {
+    setDadoUsuario(dados);
+  }
+
   return (
-    <AuthContext.Provider value={{ token, logar, deslogar }}>
+    <AuthContext.Provider
+      value={{ token, logar, deslogar, handleDadosUsuario, dadosUsuario }}
+    >
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
@@ -43,9 +56,15 @@ function Routes() {
           <RotasProtegidas>
             <Main>
               <Route path="/home" exact component={Home} />
-              <Route path="/collections" exact component={Collection} />
-              <Route path="/customers" exact component={Profile} />
-              <Route path="/sign-up-client" exact component={CreateClients} />
+              <Route path="/charges" exact component={Charges} />
+              <Route path="/charges/register" exact component={CreateCharges} />
+
+              <Route path="/clients" exact component={Customers} />
+              <Route
+                path="/clients/register"
+                exact
+                component={RegisterClients}
+              />
             </Main>
           </RotasProtegidas>
         </Switch>

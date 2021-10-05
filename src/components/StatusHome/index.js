@@ -2,12 +2,12 @@ import { PayStatus, ForeseenStatus, DefaultStatus } from "./detailsStatus.js";
 import "./styles.css";
 export function StatusClient({ nome, img, quantidade }) {
   return (
-    <div>
-      <div className="tittle-status">
+    <div className="container-status">
+      <div className="head-status">
         <img src={img} alt="" />
         <span>{nome}</span>
       </div>
-      <div className="container-status">
+      <div className="details-status">
         <PayStatus situacao="Em dia" quantidade={quantidade} />
         <ForeseenStatus situacao="Inadiplentes" quantidade={quantidade} />
       </div>
@@ -16,12 +16,12 @@ export function StatusClient({ nome, img, quantidade }) {
 }
 export function StatusRent({ nome, img, quantidade }) {
   return (
-    <div>
-      <div className="tittle-status">
+    <div className="container-status">
+      <div className="head-status">
         <img src={img} alt="" />
         <span>{nome}</span>
       </div>
-      <div className="container-status">
+      <div className="details-status">
         <DefaultStatus situacao="Previstas" quantidade={quantidade} />
         <ForeseenStatus situacao="Vencidas" quantidade={quantidade} />
         <PayStatus situacao="Pagas" quantidade={quantidade} />

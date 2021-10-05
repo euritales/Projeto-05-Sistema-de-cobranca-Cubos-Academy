@@ -2,7 +2,7 @@ import "./styles.css";
 
 export function DefaultStatus({ situacao, quantidade }) {
   return (
-    <div className="container-details default">
+    <div className="status default">
       <span>{situacao}</span>
       <h3>{quantidade}</h3>
     </div>
@@ -10,7 +10,7 @@ export function DefaultStatus({ situacao, quantidade }) {
 }
 export function PayStatus({ situacao, quantidade }) {
   return (
-    <div className="container-details pay">
+    <div className="status pay">
       <span>{situacao}</span>
       <h3>{quantidade}</h3>
     </div>
@@ -18,7 +18,7 @@ export function PayStatus({ situacao, quantidade }) {
 }
 export function ForeseenStatus({ situacao, quantidade }) {
   return (
-    <div className="container-details foreseen">
+    <div className="status foreseen">
       <span>{situacao}</span>
       <h3>{quantidade}</h3>
     </div>
