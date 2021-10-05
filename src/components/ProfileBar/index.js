@@ -11,26 +11,13 @@ import { AuthContext } from "../../routes";
 function ProfileBar() {
   const location = useLocation();
   const history = useHistory();
-  const { deslogar } = useContext(AuthContext);
+  const { deslogar, editProfileStatus, handleEditProfile } =
+    useContext(AuthContext);
   const [openPopup, setOpenPopup] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
-
-  function handleOpenEdit() {
-    setOpenEdit(true);
-    setOpenPopup(false);
-  }
 
   function handleOpenLogoutPage() {
     return setOpenPopup(!openPopup);
   }
-
-  // function handleOpenProfileBar() {
-  //   if (location.pathname === "/profile") {
-  //     history.replace("/");
-  //     return;
-  //   }
-  //   history.push("/profile");
-  // }
 
   function logOff() {
     return deslogar();
@@ -50,9 +37,7 @@ function ProfileBar() {
             to={location.pathname}
             exact
             className="edit-button"
-            onClick={() => handleOpenEdit()}
-
-            // activeClassName="edit-button-hover"
+            onClick={() => handleEditProfile(!editProfileStatus)}
           >
             <img src={EditIcon} alt="" />
             <span>Editar</span>
