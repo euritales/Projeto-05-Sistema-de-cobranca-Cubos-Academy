@@ -3,7 +3,7 @@ import "../../styles/form.css";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
@@ -101,6 +101,10 @@ function Signup() {
           Entrar
         </button>
       </form>
+      <div>
+        <span>Já possui uma conta? </span>
+        <Link to="/">Acesse agora!</Link>
+      </div>
     </div>
   );
 }
