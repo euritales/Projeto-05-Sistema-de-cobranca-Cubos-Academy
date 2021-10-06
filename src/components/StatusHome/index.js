@@ -9,7 +9,7 @@ export function StatusClient({ nome, img, quantidade }) {
       </div>
       <div className="details-status">
         <PayStatus situacao="Em dia" quantidade={quantidade} />
-        <ForeseenStatus situacao="Inadiplentes" quantidade={quantidade} />
+        <ForeseenStatus situacao="Inadimplentes" quantidade={quantidade} />
       </div>
     </div>
   );
