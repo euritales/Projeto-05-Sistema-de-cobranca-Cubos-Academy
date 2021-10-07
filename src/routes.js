@@ -13,6 +13,7 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
+import EditCostumers from "./pages/EditCostumers";
 
 export const AuthContext = createContext();
 
@@ -31,6 +32,7 @@ function Routes() {
     id: "",
     nome: "",
     email: "",
+    senha: "",
     telefone: "",
     cpf: "",
   });
@@ -41,6 +43,7 @@ function Routes() {
 
   function deslogar() {
     setToken("");
+    localStorage.removeItem("user");
   }
 
   function handleDadosUsuario(dados) {
@@ -56,6 +59,7 @@ function Routes() {
     <AuthContext.Provider
       value={{
         token,
+        setToken,
         logar,
         deslogar,
         handleDadosUsuario,
@@ -68,18 +72,22 @@ function Routes() {
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
-          <Route path="/sign-up" exact component={SignUp} />
+          <Route path="/signup" exact component={SignUp} />
           <RotasProtegidas>
             <Main>
               <Route path="/home" exact component={Home} />
               <Route path="/charges" exact component={Charges} />
               <Route path="/charges/register" exact component={CreateCharges} />
-
               <Route path="/clients" exact component={Customers} />
               <Route
                 path="/clients/register"
                 exact
                 component={RegisterClients}
+              />
+              <Route
+                path="/clients/:id/register"
+                exact
+                component={EditCostumers}
               />
             </Main>
           </RotasProtegidas>

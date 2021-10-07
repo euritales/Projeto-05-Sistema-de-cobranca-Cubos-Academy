@@ -37,7 +37,7 @@ function ProfileBar() {
             to={location.pathname}
             exact
             className="edit-button"
-            onClick={() => handleEditProfile(!editProfileStatus)}
+            onClick={() => handleEditProfile(true)}
           >
             <img src={EditIcon} alt="" />
             <span>Editar</span>
