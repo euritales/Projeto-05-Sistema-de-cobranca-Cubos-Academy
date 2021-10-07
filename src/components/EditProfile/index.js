@@ -25,7 +25,6 @@ function EditProfile() {
   }, []);
 
   async function onSubmit(data) {
-    console.log({ data });
     const body = {
       nome: data.nome,
       email: data.email,
@@ -33,7 +32,6 @@ function EditProfile() {
       senha: data.senha,
       telefone: data.telefone,
     };
-    console.log(body);
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/users",
       {

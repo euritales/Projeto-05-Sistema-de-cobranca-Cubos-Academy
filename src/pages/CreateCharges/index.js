@@ -1,18 +1,16 @@
 import "./styles.css";
-
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useEffect, useContext, useState } from "react";
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import getAddressByCep from "../../services/viaCep";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../routes";
 
 function CreateCharges() {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const { logar, handleDadosUsuario, dadosUsuario } = useContext(AuthContext);
+  const { logar, handleDadosUsuario } = useContext(AuthContext);
   const history = useHistory();
 
   async function onSubmit(data) {
@@ -34,10 +32,6 @@ function CreateCharges() {
       const dados = await response.json();
 
       handleDadosUsuario(dados.usuario);
-
-      console.log(dados.usuario);
-      console.log(data);
-      console.log(dadosUsuario);
 
       if (response.ok) {
         logar(dados.token);

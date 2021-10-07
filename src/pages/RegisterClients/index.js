@@ -79,7 +79,6 @@ function RegisterClients() {
   useEffect(() => {
     if (cepWatch) {
       const positionifen = cepWatch.indexOf("-");
-      console.log(positionifen);
       if (positionifen === 5 && cepWatch.length === 9) {
         loadAddressByCep();
         return;

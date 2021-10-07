@@ -49,10 +49,6 @@ function Login() {
 
       handleDadosUsuario(dados.usuario);
 
-      console.log(dados.usuario);
-      console.log(data);
-      console.log(dadosUsuario);
-
       if (response.ok) {
         logar(dados.token);
         localStorage.setItem("user", dados.token);

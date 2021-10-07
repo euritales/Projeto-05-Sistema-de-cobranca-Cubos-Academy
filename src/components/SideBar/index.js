@@ -4,10 +4,9 @@ import Customers from "../../assets/customers-icon.svg";
 import Home from "../../assets/home-icon.svg";
 import LogoCubos from "../../assets/logoCubosWhite.svg";
 import { NavLink } from "react-router-dom";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function SideBar() {
-  const location = useLocation();
   const history = useHistory();
 
   return (

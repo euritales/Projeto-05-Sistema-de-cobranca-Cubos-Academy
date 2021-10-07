@@ -52,7 +52,6 @@ function Routes() {
 
   function handleEditProfile(dados) {
     setEditProfileStatus(dados);
-    console.log(dados);
   }
 
   return (
