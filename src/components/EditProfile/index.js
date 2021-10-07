@@ -112,7 +112,13 @@ function EditProfile() {
             {...register("cpf")}
           />
         </div>
-        <button className={statusButton}>Editar conta</button>
+        {statusButton === "btn btn-pink" ? (
+          <button className={statusButton}>Editar conta</button>
+        ) : (
+          <button disabled className={statusButton}>
+            Editar conta
+          </button>
+        )}
       </form>
     </div>
   );

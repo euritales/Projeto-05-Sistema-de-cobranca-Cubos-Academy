@@ -109,7 +109,7 @@ function Login() {
       </form>
       <div>
         <span>Não tem uma conta? </span>
-        <Link to="/sign-up">Cadastre-se!</Link>
+        <Link to="/signup">Cadastre-se!</Link>
       </div>
     </div>
   );
