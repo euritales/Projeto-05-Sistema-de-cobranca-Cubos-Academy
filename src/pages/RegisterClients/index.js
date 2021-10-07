@@ -9,54 +9,62 @@ import { AuthContext } from "../../routes";
 
 function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
-  const { setToken, token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const history = useHistory();
 
   let nomeWatch = watch("nome");
   let emailWatch = watch("email");
   let cpfWatch = watch("cpf");
+  let telefoneWatch = watch("telefone");
   let cepWatch = watch("cep");
-
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/clients",
-      {
-        method: "POST",
-        mode: "cors",
-
-        headers: {
-          "Content-type": "application/json",
+    try {
+      const response = await fetch(
+        "https://cubosacademy-projeto-5.herokuapp.com/clients",
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(data),
           Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
+        }
+      );
+
+      const dados = await response.json();
+
+      console.log(dados);
+      console.log(data);
+      console.log(token);
+
+      if (response.ok) {
+        localStorage.setItem("user", dados.token);
+        history.push("/clients");
+        return SucessMessage(dados);
       }
-    );
-
-    const dados = await response.json();
-
-    history.push("/customers");
-
-    // setToken(dados.token);
-
-    if (response.ok) {
-      return SucessMessage(dados);
+      return ErrorMessage(dados);
+    } catch (error) {
+      return ErrorMessage(error.message);
     }
-    return ErrorMessage(dados);
   }
 
   useEffect(() => {
     if (
       nomeWatch?.length > 0 &&
       cpfWatch?.length > 0 &&
-      emailWatch?.length > 0
+      emailWatch?.length > 0 &&
+      telefoneWatch?.length > 0
     ) {
       setStatusButton("btn btn-pink");
       return;
     }
     return setStatusButton("btn btn-opaque");
-  }, [emailWatch, nomeWatch, cpfWatch]);
+  }, [emailWatch, nomeWatch, cpfWatch, telefoneWatch]);
 
   async function loadAddressByCep() {
     const addressByCep = await getAddressByCep(cepWatch);
@@ -94,9 +102,12 @@ function RegisterClients() {
     if (
       emailWatch?.length === 0 ||
       nomeWatch?.length === 0 ||
-      cpfWatch?.length === 0
+      cpfWatch?.length === 0 ||
+      telefoneWatch?.length === 0
     ) {
-      return ErrorMessage("Campos 'Nome', 'email' e 'cpf' são obrigatórios");
+      return ErrorMessage(
+        "Campos 'Nome', 'Email', 'CPF' e 'Telefone' são obrigatórios"
+      );
     }
   }
 
@@ -197,19 +208,30 @@ function RegisterClients() {
           </div>
           <div className="container-buttonsClient">
             <button
-              onClick={() => history.push("/home")}
+              onClick={() => history.push("/clients")}
               className="btn btn-white"
               type="submit"
             >
               Cancelar
             </button>
-            <button
-              onClick={() => handleNotifications()}
-              className={statusButton}
-              type="submit"
-            >
-              Adicionar cliente
-            </button>
+            {statusButton === "btn btn-pink" ? (
+              <button
+                onClick={() => handleNotifications()}
+                className={statusButton}
+                type="submit"
+              >
+                Adicionar cliente
+              </button>
+            ) : (
+              <button
+                onClick={() => handleNotifications()}
+                disabled
+                className={statusButton}
+                type="submit"
+              >
+                Adicionar cliente
+              </button>
+            )}
           </div>
         </form>
       </div>

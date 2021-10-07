@@ -18,7 +18,7 @@ function CreateCharges() {
   async function onSubmit(data) {
     try {
       const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/",
+        "https://cubosacademy-projeto-5.herokuapp.com/...",
         {
           method: "POST",
           mode: "cors",

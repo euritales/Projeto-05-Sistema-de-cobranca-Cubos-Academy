@@ -13,7 +13,7 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
-import userEvent from "@testing-library/user-event";
+import EditCostumers from "./pages/EditCostumers";
 
 export const AuthContext = createContext();
 
@@ -83,6 +83,11 @@ function Routes() {
                 path="/clients/register"
                 exact
                 component={RegisterClients}
+              />
+              <Route
+                path="/clients/:id/register"
+                exact
+                component={EditCostumers}
               />
             </Main>
           </RotasProtegidas>
