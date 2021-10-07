@@ -9,7 +9,7 @@ import { AuthContext } from "../../routes";
 
 function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
-  const { setToken, token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const history = useHistory();
 
   let nomeWatch = watch("nome");
@@ -71,7 +71,6 @@ function RegisterClients() {
   useEffect(() => {
     if (cepWatch) {
       const positionifen = cepWatch.indexOf("-");
-      console.log(positionifen);
       if (positionifen === 5 && cepWatch.length === 9) {
         loadAddressByCep();
         return;

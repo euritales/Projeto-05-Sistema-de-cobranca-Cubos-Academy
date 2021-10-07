@@ -13,7 +13,6 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
-import userEvent from "@testing-library/user-event";
 
 export const AuthContext = createContext();
 
@@ -52,7 +51,6 @@ function Routes() {
 
   function handleEditProfile(dados) {
     setEditProfileStatus(dados);
-    console.log(dados);
   }
 
   return (

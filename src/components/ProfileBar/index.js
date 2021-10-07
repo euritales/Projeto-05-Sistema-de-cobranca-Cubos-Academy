@@ -2,17 +2,14 @@ import "./styles.css";
 import Profile from "../../assets/profile-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import LogoffIcon from "../../assets/logoff-icon.svg";
-// import Close from "../../assets/close-icon.svg";
 import { useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../routes";
 
 function ProfileBar() {
   const location = useLocation();
-  const history = useHistory();
-  const { deslogar, editProfileStatus, handleEditProfile } =
-    useContext(AuthContext);
+  const { deslogar, handleEditProfile } = useContext(AuthContext);
   const [openPopup, setOpenPopup] = useState(false);
 
   function handleOpenLogoutPage() {

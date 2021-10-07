@@ -1,3 +1,5 @@
+import "./styles.css";
+
 function DetailsCharge(id, cliente, descricao, valor, status, vencimento) {
   return (
     <>
