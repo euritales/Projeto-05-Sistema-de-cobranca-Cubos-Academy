@@ -15,6 +15,7 @@ const InputPassword = React.forwardRef((props, ref) => {
         type={showPassword ? "text" : "password"}
         name={props.name}
         ref={ref}
+        onFocus={props.onFocus}
         onChange={props.onChange}
         onBlur={props.onBlur}
         placeholder={props.placeholder}
