@@ -5,12 +5,12 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../services/auth";
 
 function CreateCharges() {
   const { register, handleSubmit } = useForm();
 
-  const { logar, handleDadosUsuario } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const history = useHistory();
 
   async function onSubmit(data) {
@@ -31,12 +31,10 @@ function CreateCharges() {
 
       const dados = await response.json();
 
-      handleDadosUsuario(dados.usuario);
-
       if (response.ok) {
-        logar(dados.token);
+        login(dados.token);
         localStorage.setItem("user", dados.token);
-        history.push("/home");
+        // history.push("/home");
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);

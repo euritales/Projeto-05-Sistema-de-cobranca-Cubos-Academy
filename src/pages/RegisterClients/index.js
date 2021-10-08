@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../services/auth";
 
 function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
@@ -26,13 +26,11 @@ function RegisterClients() {
         {
           method: "POST",
           mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
           headers: {
             "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-          Authorization: `Bearer ${token}`,
         }
       );
 
@@ -43,7 +41,6 @@ function RegisterClients() {
       console.log(token);
 
       if (response.ok) {
-        localStorage.setItem("user", dados.token);
         history.push("/clients");
         return SucessMessage(dados);
       }
@@ -112,7 +109,7 @@ function RegisterClients() {
 
   return (
     <div className="container-form-clients">
-      <p>// ADCIONAR CLIENTE</p>
+      <p>{"//"} ADCIONAR CLIENTE</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
