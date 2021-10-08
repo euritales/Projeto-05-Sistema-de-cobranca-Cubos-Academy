@@ -14,11 +14,11 @@ import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
 import EditCostumers from "./pages/EditCostumers";
-import { AuthContext, AuthContextProvider } from "./services/auth";
+import { AuthContext, AuthContextProvider } from "./context/auth";
+import { UserContextProvider } from "./context/user";
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
-  console.log(token);
 
   return (
     <Route render={() => (token ? props.children : <Redirect to="/" />)} />
@@ -27,32 +27,39 @@ function RotasProtegidas(props) {
 
 function Routes() {
   return (
-    <AuthContextProvider>
-      <Router>
+    <Router>
+      <AuthContextProvider>
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/signup" exact component={SignUp} />
-          <RotasProtegidas>
-            <Main>
-              <Route path="/home" exact component={Home} />
-              <Route path="/charges" exact component={Charges} />
-              <Route path="/charges/register" exact component={CreateCharges} />
-              <Route path="/clients" exact component={Customers} />
-              <Route
-                path="/clients/register"
-                exact
-                component={RegisterClients}
-              />
-              <Route
-                path="/clients/:id/register"
-                exact
-                component={EditCostumers}
-              />
-            </Main>
-          </RotasProtegidas>
+          <UserContextProvider>
+            <RotasProtegidas>
+              <Main>
+                <Route path="/home" exact component={Home} />
+                <Route path="/charges" exact component={Charges} />
+                <Route
+                  path="/charges/register"
+                  exact
+                  component={CreateCharges}
+                />
+                <Route path="/clients" exact component={Customers} />
+                <Route
+                  path="/clients/register"
+                  exact
+                  component={RegisterClients}
+                />
+                <Route
+                  path="/clients/:id/register"
+                  exact
+                  component={EditCostumers}
+                />
+                <Route path="/" render={() => <Redirect to="/home" />} />
+              </Main>
+            </RotasProtegidas>
+          </UserContextProvider>
         </Switch>
-      </Router>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </Router>
   );
 }
 

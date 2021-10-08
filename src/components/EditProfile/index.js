@@ -2,17 +2,25 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { NavLink, useLocation } from "react-router-dom";
-import { AuthContext } from "../../services/auth";
 import { useState, useEffect, useContext } from "react";
-import SucessMessage from "../ToastifyPopups/sucessMessage";
 import ErrorMessage from "../ToastifyPopups/errorMessage";
 import CloseIcon from "../../assets/close-icon.svg";
+import { UserContext } from "../../context/user";
+import { AuthContext } from "../../context/auth";
 
-function EditProfile() {
+function EditProfile({ setEditProfileStatus }) {
   const { register, handleSubmit, setValue } = useForm();
-  const { token, user } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const { getUser, user, editUser } = useContext(UserContext);
   const location = useLocation();
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
+
+  useEffect(() => {
+    async function callGetUser() {
+      return getUser(token);
+    }
+    callGetUser();
+  }, []);
 
   useEffect(() => {
     async function loadUser() {
@@ -22,9 +30,11 @@ function EditProfile() {
       setValue("cpf", user.cpf);
     }
     loadUser();
-  }, []);
+  }, [user]);
 
-  async function onSubmit(data) {}
+  async function onSubmit(data) {
+    return editUser({ data, token });
+  }
 
   return (
     <div className="container-edit">
@@ -34,7 +44,7 @@ function EditProfile() {
             to={location.pathname}
             exact
             className="close-button-edit"
-            // onClick={() => handleEditProfile(false)}
+            onClick={() => setEditProfileStatus(false)}
           >
             <img src={CloseIcon} alt="" />
           </NavLink>

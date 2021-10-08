@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { useContext, useEffect, useState } from "react";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import { AuthContext } from "../../services/auth";
+import { AuthContext } from "../../context/auth";
 
 function Login() {
   const { register, handleSubmit, watch } = useForm();
@@ -40,11 +40,7 @@ function Login() {
   }
 
   async function onSubmit(data) {
-    const isLoged = await login(data);
-    if (isLoged) {
-      history.push("/home");
-    }
-    return;
+    return login(data);
   }
 
   return (

@@ -5,7 +5,7 @@ import LogoffIcon from "../../assets/logoff-icon.svg";
 import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../services/auth";
+import { AuthContext } from "../../context/auth";
 
 function ProfileBar({ setEditProfileStatus }) {
   const location = useLocation();

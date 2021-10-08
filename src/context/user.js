@@ -1,11 +1,43 @@
+import { useState } from "react";
 import { createContext } from "react";
 import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 
 export const UserContext = createContext();
 
-export const UserContextProvider = () => {
-  async function editUser({ data, token }) {
+export const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState({
+    id: "",
+    nome: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    cpf: "",
+  });
+  async function getUser(token) {
+    try {
+      const response = await fetch(
+        "https://cubosacademy-projeto-5.herokuapp.com/users",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+      console.log({ dados });
+      if (response.ok) {
+        return setUser(dados[0]);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
+  async function editUser({ token, data }) {
     const body = {
       nome: data.nome,
       email: data.email,
@@ -29,7 +61,6 @@ export const UserContextProvider = () => {
     const dados = await response.json();
 
     if (response.ok) {
-      // handleEditProfile(false);
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
@@ -38,8 +69,12 @@ export const UserContextProvider = () => {
   return (
     <UserContext.Provider
       value={{
+        user,
         editUser,
+        getUser,
       }}
-    ></UserContext.Provider>
+    >
+      {children}
+    </UserContext.Provider>
   );
 };

@@ -1,5 +1,24 @@
 import "./styles.css";
 
+const arrayCliets = [
+  {
+    id: "1",
+    cliente: "ramon",
+    descricao: "agiotagem",
+    valor: "74000",
+    statusCobranca: "pendente",
+    vencimento: "12/10/2021",
+  },
+  {
+    id: "121",
+    cliente: "ramon",
+    descricao: "agiotagem",
+    valor: "74000",
+    statusCobranca: "pendente",
+    vencimento: "12/10/2021",
+  },
+];
+
 function Charges() {
   return (
     <div className="container-charge">
@@ -18,22 +37,26 @@ function Charges() {
             </tr>
           </thead>
           <tbody>
-            {/* <DetailsCharges
-          id="1"
-          cliente="Jose"
-          descricao="agiota"
-          valor="74k"
-          status="pago"
-          vencimento="01/12/1948"
-        /> */}
-            <tr className="container-details-charge">
-              <td>1</td>
-              <td>Jose</td>
-              <td>agiota</td>
-              <td>74k</td>
-              <td>pago</td>
-              <td>01/12/1948</td>
-            </tr>
+            {arrayCliets.map(
+              ({
+                id,
+                cliente,
+                descricao,
+                valor,
+                statusCobranca,
+                vencimento,
+              }) => (
+                <tr className="container-details-charge">
+                  {/* //text align left */}
+                  <td>{id}</td>
+                  <td>{cliente}</td>
+                  <td>{descricao}</td>
+                  <td>{valor}</td>
+                  <td>{statusCobranca}</td>
+                  <td>{vencimento}</td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
