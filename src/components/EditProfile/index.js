@@ -2,7 +2,7 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { NavLink, useLocation } from "react-router-dom";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../services/auth";
 import { useState, useEffect, useContext } from "react";
 import SucessMessage from "../ToastifyPopups/sucessMessage";
 import ErrorMessage from "../ToastifyPopups/errorMessage";
@@ -10,51 +10,21 @@ import CloseIcon from "../../assets/close-icon.svg";
 
 function EditProfile() {
   const { register, handleSubmit, setValue } = useForm();
-  const { token, dadosUsuario, handleEditProfile } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   const location = useLocation();
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   useEffect(() => {
     async function loadUser() {
-      setValue("nome", dadosUsuario.nome);
-      setValue("email", dadosUsuario.email);
-      setValue("telefone", dadosUsuario.telefone);
-      setValue("cpf", dadosUsuario.cpf);
+      setValue("nome", user.nome);
+      setValue("email", user.email);
+      setValue("telefone", user.telefone);
+      setValue("cpf", user.cpf);
     }
     loadUser();
   }, []);
 
-  async function onSubmit(data) {
-    console.log({ data });
-    const body = {
-      nome: data.nome,
-      email: data.email,
-      cpf: data.cpf,
-      senha: data.senha,
-      telefone: data.telefone,
-    };
-    console.log(body);
-    const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/users",
-      {
-        method: "PUT",
-        mode: "cors",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      }
-    );
-
-    const dados = await response.json();
-
-    if (response.ok) {
-      handleEditProfile(false);
-      return SucessMessage(dados);
-    }
-    return ErrorMessage(dados);
-  }
+  async function onSubmit(data) {}
 
   return (
     <div className="container-edit">
@@ -64,7 +34,7 @@ function EditProfile() {
             to={location.pathname}
             exact
             className="close-button-edit"
-            onClick={() => handleEditProfile(false)}
+            // onClick={() => handleEditProfile(false)}
           >
             <img src={CloseIcon} alt="" />
           </NavLink>

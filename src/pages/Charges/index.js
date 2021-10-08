@@ -1,4 +1,3 @@
-import DetailsCharge from "../../components/DetailsCharges";
 import "./styles.css";
 
 function Charges() {

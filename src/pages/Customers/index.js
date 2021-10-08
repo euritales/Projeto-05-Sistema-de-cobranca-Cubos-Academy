@@ -6,7 +6,9 @@ function Customers() {
 
   return (
     <div className="container-costumers">
-      <button onClick={() => history.push("/clients/register")}></button>
+      <button onClick={() => history.push("/clients/register")}>
+        Adicionar cliente
+      </button>
       <h1>Clientes</h1>
     </div>
   );

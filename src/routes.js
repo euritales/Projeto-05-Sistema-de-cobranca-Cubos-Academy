@@ -7,18 +7,18 @@ import {
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import { createContext, useContext, useState } from "react";
+import { useContext } from "react";
 import Home from "./pages/Home";
 import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
 import EditCostumers from "./pages/EditCostumers";
-
-export const AuthContext = createContext();
+import { AuthContext, AuthContextProvider } from "./services/auth";
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
+  console.log(token);
 
   return (
     <Route render={() => (token ? props.children : <Redirect to="/" />)} />
@@ -26,49 +26,8 @@ function RotasProtegidas(props) {
 }
 
 function Routes() {
-  const [token, setToken] = useState("");
-  const [editProfileStatus, setEditProfileStatus] = useState(false);
-  const [dadosUsuario, setDadoUsuario] = useState({
-    id: "",
-    nome: "",
-    email: "",
-    senha: "",
-    telefone: "",
-    cpf: "",
-  });
-
-  function logar(newToken) {
-    setToken(newToken);
-  }
-
-  function deslogar() {
-    setToken("");
-    localStorage.removeItem("user");
-  }
-
-  function handleDadosUsuario(dados) {
-    return setDadoUsuario(dados);
-  }
-
-  function handleEditProfile(dados) {
-    setEditProfileStatus(dados);
-    console.log(dados);
-  }
-
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        setToken,
-        logar,
-        deslogar,
-        handleDadosUsuario,
-        setDadoUsuario,
-        dadosUsuario,
-        handleEditProfile,
-        editProfileStatus,
-      }}
-    >
+    <AuthContextProvider>
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
@@ -93,7 +52,7 @@ function Routes() {
           </RotasProtegidas>
         </Switch>
       </Router>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   );
 }
 
