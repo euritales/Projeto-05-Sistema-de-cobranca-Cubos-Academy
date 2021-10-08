@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import { AuthContext } from "../../services/auth";
+import { AuthContext } from "../../context/auth";
 
 function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();

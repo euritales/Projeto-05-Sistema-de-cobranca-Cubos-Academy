@@ -1,8 +1,7 @@
 import ProfileBar from "../../components/ProfileBar";
 import "./styles.css";
 import SideBar from "../../components/SideBar";
-import { AuthContext } from "../../services/auth";
-import { useContext } from "react";
+
 import EditProfile from "../../components/EditProfile";
 import { useState } from "react";
 
@@ -12,7 +11,9 @@ function Main({ children }) {
     <div className="container-main flex-row ">
       <SideBar />
       <ProfileBar setEditProfileStatus={setEditProfileStatus} />
-      {editProfileStatus && <EditProfile />}
+      {editProfileStatus && (
+        <EditProfile setEditProfileStatus={setEditProfileStatus} />
+      )}
 
       {children}
     </div>
