@@ -17,44 +17,47 @@ import EditCostumers from "./pages/EditCostumers";
 import { AuthContext } from "./context/auth";
 import { UserContextProvider } from "./context/user";
 import { ClientContextProvider } from "./context/client";
+import { ChargeContextProvider } from "./context/charge";
 
 function Routes() {
   const { token } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
-        <UserContextProvider>
-          {!token ? (
-            <>
-              <Route path="/" exact component={Login} />
-              <Route path="/signup" exact component={SignUp} />
-            </>
-          ) : (
-            <ClientContextProvider>
-              <Main>
-                <Route path="/home" exact component={Home} />
-                <Route path="/charges" exact component={Charges} />
-                <Route
-                  path="/charges/register"
-                  exact
-                  component={CreateCharges}
-                />
-                <Route path="/clients" exact component={Customers} />
-                <Route
-                  path="/clients/register"
-                  exact
-                  component={RegisterClients}
-                />
-                <Route
-                  path="/clients/:id/register"
-                  exact
-                  component={EditCostumers}
-                />
-                <Route path="/" render={() => <Redirect to="/home" />} />
-              </Main>
-            </ClientContextProvider>
-          )}
-        </UserContextProvider>
+        <ChargeContextProvider>
+          <UserContextProvider>
+            {!token ? (
+              <>
+                <Route path="/" exact component={Login} />
+                <Route path="/signup" exact component={SignUp} />
+              </>
+            ) : (
+              <ClientContextProvider>
+                <Main>
+                  <Route path="/home" exact component={Home} />
+                  <Route path="/charges" exact component={Charges} />
+                  <Route
+                    path="/charges/register"
+                    exact
+                    component={CreateCharges}
+                  />
+                  <Route path="/clients" exact component={Customers} />
+                  <Route
+                    path="/clients/register"
+                    exact
+                    component={RegisterClients}
+                  />
+                  <Route
+                    path="/clients/:id/register"
+                    exact
+                    component={EditCostumers}
+                  />
+                  <Route path="/" render={() => <Redirect to="/home" />} />
+                </Main>
+              </ClientContextProvider>
+            )}
+          </UserContextProvider>
+        </ChargeContextProvider>
       </Switch>
     </Router>
   );

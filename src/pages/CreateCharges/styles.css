@@ -29,6 +29,16 @@
 .container-unic-input input {
   width: 512px;
 }
+.container-unic-input span {
+  font-size: 12px;
+  padding-left: 10px;
+  color: #868686;
+}
+/* .container-unic-input select > option:first-child {
+  font-size: 12px;
+  padding-left: 10px;
+  color: #868686;
+} */
 
 .container-double-form {
   display: flex;

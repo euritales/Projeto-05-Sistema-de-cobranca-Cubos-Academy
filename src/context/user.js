@@ -5,7 +5,7 @@ import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 import { useHistory } from "react-router-dom";
 
 export const UserContext = createContext();
-
+// TUDO INTEGRADO
 export const UserContextProvider = ({ children }) => {
   const history = useHistory();
   const [user, setUser] = useState({
@@ -96,7 +96,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider
+    <UserContext.Provider //checkList integração: user, getUser, createUser, editUser
       value={{
         user,
         editUser,

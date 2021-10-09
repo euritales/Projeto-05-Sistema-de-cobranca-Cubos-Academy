@@ -4,16 +4,16 @@ import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 import { useHistory } from "react-router-dom";
 
-export const ClientContext = createContext();
+export const ChargeContext = createContext();
 
-export const ClientContextProvider = ({ children }) => {
+export const ChargeContextProvider = ({ children }) => {
   const history = useHistory();
-  const [clients, setClients] = useState([]);
+  const [charges, setCharges] = useState([]);
 
-  async function getClient(token) {
+  async function getCharges(token) {
     try {
       const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/clients",
+        "https://cubosacademy-projeto-5.herokuapp.com/charges",
         {
           method: "GET",
           mode: "cors",
@@ -26,14 +26,14 @@ export const ClientContextProvider = ({ children }) => {
       const dados = await response.json();
 
       if (response.ok) {
-        return setClients(dados);
+        return setCharges(dados);
       }
     } catch (error) {
       return ErrorMessage(error.message);
     }
   }
 
-  async function editClient({ token, data }) {
+  async function editCharges({ token, data }) {
     const body = {
       nome: data.nome,
       email: data.email,
@@ -48,7 +48,7 @@ export const ClientContextProvider = ({ children }) => {
       referencia: data.referencia,
     };
     const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/clients",
+      "https://cubosacademy-projeto-5.herokuapp.com/charges",
       {
         method: "PUT",
         mode: "cors",
@@ -68,10 +68,10 @@ export const ClientContextProvider = ({ children }) => {
     return ErrorMessage(dados);
   }
 
-  async function createClient({ data, token }) {
+  async function createCharges({ data, token }) {
     try {
       const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/clients",
+        "https://cubosacademy-projeto-5.herokuapp.com/charges",
         {
           method: "POST",
           mode: "cors",
@@ -96,15 +96,43 @@ export const ClientContextProvider = ({ children }) => {
   }
 
   return (
-    <ClientContext.Provider //checkList integração: clientes, createCLiente,
+    <ChargeContext.Provider //checkList integração:
       value={{
-        clients,
-        createClient,
-        editClient,
-        getClient,
+        charges,
+        createCharges,
+        editCharges,
+        getCharges,
       }}
     >
       {children}
-    </ClientContext.Provider>
+    </ChargeContext.Provider>
   );
 };
+
+// try {
+//   const response = await fetch(
+//     "https://cubosacademy-projeto-5.herokuapp.com/users",
+//     {
+//       method: "POST",
+//       mode: "cors",
+//       cache: "no-cache",
+//       credentials: "same-origin",
+//       headers: {
+//         "Content-type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     }
+//   );
+
+//   const dados = await response.json();
+
+//   if (response.ok) {
+//     login(dados.token);
+//     localStorage.setItem("user", dados.token);
+//     history.push("/home");
+//     return SucessMessage(dados);
+//   }
+//   return ErrorMessage(dados);
+// } catch (error) {
+//   return ErrorMessage(error.message);
+// }
