@@ -1,7 +1,7 @@
 import "./styles.css";
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
@@ -14,9 +14,10 @@ function CreateCharges() {
   const history = useHistory();
 
   async function onSubmit(data) {
+    console.log(data);
     try {
       const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/...",
+        "https://cubosacademy-projeto-5.herokuapp.com/users",
         {
           method: "POST",
           mode: "cors",
@@ -34,7 +35,7 @@ function CreateCharges() {
       if (response.ok) {
         login(dados.token);
         localStorage.setItem("user", dados.token);
-        // history.push("/home");
+        history.push("/home");
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);
@@ -49,13 +50,13 @@ function CreateCharges() {
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
-            <label htmlFor="">Cliente</label>
-            <input
-              type="text"
-              id="cliente"
-              placeholder="Selecione a cliente"
-              {...register("cliente", { require: true })}
-            />
+            <select {...register("cliente", { require: true })} id="">
+              <option value="1">Carlin</option>
+              <option value="2">Carlin</option>
+              <option value="3">Carlin</option>
+              <option value="4">Carlin</option>
+              <option value="5">Carlin</option>
+            </select>
           </div>
           <div className="container-unic-input">
             <label htmlFor="descricao">Descriçao</label>
@@ -86,21 +87,22 @@ function CreateCharges() {
                   {...register("valor", { require: true })}
                 />
               </div>
+
               <div>
                 <label htmlFor="vencimento">Vencimento</label>
                 <input
-                  type="text"
+                  type="date"
                   id="vencimento"
-                  {...register("vencimento")}
+                  {...register("vencimento", { require: true })}
                 />
               </div>
             </div>
           </div>
           <div className="container-buttonsClient">
-            <button className="btn btn-white" type="submit">
-              Cancelar
+            <button className="btn btn-white">Cancelar</button>
+            <button type="submit" className="btn btn-pink">
+              Criar cobranças
             </button>
-            <button type="submit">Criar cobranças</button>
           </div>
         </form>
       </div>

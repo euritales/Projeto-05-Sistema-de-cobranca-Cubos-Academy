@@ -14,26 +14,23 @@ import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
 import EditCostumers from "./pages/EditCostumers";
-import { AuthContext, AuthContextProvider } from "./context/auth";
+import { AuthContext } from "./context/auth";
 import { UserContextProvider } from "./context/user";
-
-function RotasProtegidas(props) {
-  const { token } = useContext(AuthContext);
-
-  return (
-    <Route render={() => (token ? props.children : <Redirect to="/" />)} />
-  );
-}
+import { ClientContextProvider } from "./context/client";
 
 function Routes() {
+  const { token } = useContext(AuthContext);
   return (
     <Router>
-      <AuthContextProvider>
-        <Switch>
-          <Route path="/" exact component={Login} />
-          <Route path="/signup" exact component={SignUp} />
-          <UserContextProvider>
-            <RotasProtegidas>
+      <Switch>
+        <UserContextProvider>
+          {!token ? (
+            <>
+              <Route path="/" exact component={Login} />
+              <Route path="/signup" exact component={SignUp} />
+            </>
+          ) : (
+            <ClientContextProvider>
               <Main>
                 <Route path="/home" exact component={Home} />
                 <Route path="/charges" exact component={Charges} />
@@ -55,10 +52,10 @@ function Routes() {
                 />
                 <Route path="/" render={() => <Redirect to="/home" />} />
               </Main>
-            </RotasProtegidas>
-          </UserContextProvider>
-        </Switch>
-      </AuthContextProvider>
+            </ClientContextProvider>
+          )}
+        </UserContextProvider>
+      </Switch>
     </Router>
   );
 }

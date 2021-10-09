@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
-import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
+import { ClientContext } from "../../context/client";
 
 function RegisterClients() {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
+  const { createClient } = useContext(ClientContext);
   const history = useHistory();
 
   let nomeWatch = watch("nome");
@@ -20,34 +21,7 @@ function RegisterClients() {
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    try {
-      const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/clients",
-        {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const dados = await response.json();
-
-      console.log(dados);
-      console.log(data);
-      console.log(token);
-
-      if (response.ok) {
-        history.push("/clients");
-        return SucessMessage(dados);
-      }
-      return ErrorMessage(dados);
-    } catch (error) {
-      return ErrorMessage(error.message);
-    }
+    return createClient({ data, token });
   }
 
   useEffect(() => {
