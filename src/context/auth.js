@@ -1,13 +1,11 @@
 import { useState, createContext } from "react";
 import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
-import { useHistory } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const hasToken = localStorage.getItem("user");
-  const history = useHistory();
   const [token, setToken] = useState(hasToken ? hasToken : "");
 
   async function login(data) {
@@ -31,7 +29,6 @@ export const AuthContextProvider = ({ children }) => {
       if (response.ok) {
         setToken(dados.token);
         localStorage.setItem("user", dados.token);
-        history.push("/home");
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);

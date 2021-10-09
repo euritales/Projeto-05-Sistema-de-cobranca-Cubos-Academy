@@ -3,47 +3,22 @@ import "../../styles/form.css";
 import logoCubos from "../../assets/logoCubosBlack.svg";
 import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
-import { Link, useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import { useState } from "react/cjs/react.development";
-import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
+import { UserContext } from "../../context/user";
 
 function Signup() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    watch,
-  } = useForm();
-  const history = useHistory();
+  const { register, handleSubmit, watch } = useForm();
+  const { createUser } = useContext(UserContext);
   let emailWatch = watch("email");
   let nameWhatch = watch("nome");
   let passwordWatch = watch("senha");
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/users",
-      {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    const dados = await response.json();
-
-    history.push("/");
-
-    if (response.ok) {
-      return SucessMessage(dados);
-    }
-    return ErrorMessage(dados);
+    return createUser(data);
   }
 
   useEffect(() => {
