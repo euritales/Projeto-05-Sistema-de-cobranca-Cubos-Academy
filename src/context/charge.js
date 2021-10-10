@@ -24,6 +24,7 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
+      console.log(dados);
 
       if (response.ok) {
         return setCharges(dados);
@@ -35,17 +36,11 @@ export const ChargeContextProvider = ({ children }) => {
 
   async function editCharges({ token, data }) {
     const body = {
-      nome: data.nome,
-      email: data.email,
-      cpf: data.cpf,
-      telefone: data.telefone,
-      cep: data.cep,
-      logradouro: data.logradouro,
-      bairro: data.bairro,
-      estado: data.estado,
-      cidade: data.cidade,
-      complemento: data.complemento,
-      referencia: data.referencia,
+      cliente: data.cliente,
+      data_vencimento: data.data_vencimento,
+      descricao: data.descricao,
+      status: data.status,
+      valor: data.valor,
     };
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/charges",
@@ -86,7 +81,7 @@ export const ChargeContextProvider = ({ children }) => {
       const dados = await response.json();
 
       if (response.ok) {
-        history.push("/clients");
+        history.push("/charges");
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);

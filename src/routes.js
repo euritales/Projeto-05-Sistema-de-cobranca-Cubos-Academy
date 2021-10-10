@@ -24,8 +24,8 @@ function Routes() {
   return (
     <Router>
       <Switch>
-        <ChargeContextProvider>
-          <UserContextProvider>
+        <UserContextProvider>
+          <ChargeContextProvider>
             {!token ? (
               <>
                 <Route path="/" exact component={Login} />
@@ -56,8 +56,8 @@ function Routes() {
                 </Main>
               </ClientContextProvider>
             )}
-          </UserContextProvider>
-        </ChargeContextProvider>
+          </ChargeContextProvider>
+        </UserContextProvider>
       </Switch>
     </Router>
   );

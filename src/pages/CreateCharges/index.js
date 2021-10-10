@@ -1,37 +1,52 @@
 import "./styles.css";
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
-import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
+import { ChargeContext } from "../../context/charge";
+import { ClientContext } from "../../context/client";
 
 function CreateCharges() {
   const { register, handleSubmit } = useForm();
+  const { token } = useContext(AuthContext);
+  const { createCharges } = useContext(ChargeContext);
+  const { getClient, clients } = useContext(ClientContext);
+
   const history = useHistory();
+
+  useEffect(() => {
+    async function callGetClient() {
+      return getClient(token);
+    }
+    callGetClient();
+  }, []);
 
   async function onSubmit(data) {
     console.log(data);
+    return createCharges({ data, token });
   }
 
   return (
     <div className="container-form-create-charges ">
-      <p>// CRIAR COBRANÇA</p>
+      <p>{"//"} CRIAR COBRANÇA</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
-            <label htmlFor="cliente">Cliente</label>
+            <label htmlFor="cliente_id">Cliente</label>
 
-            <select {...register("cliente", { require: true })} id="cliente">
+            <select
+              {...register("cliente_id", { require: true })}
+              id="cliente_id"
+            >
               <option value="" disabled selected hidden>
                 Selecione um cliente
               </option>
-              <option value="1">Carlin</option>
-              <option value="2">Carlin</option>
-              <option value="3">Carlin</option>
-              <option value="4">Carlin</option>
-              <option value="5">Carlin</option>
+              {clients.map(({ id, nome }) => (
+                <>
+                  <option value={id}>{nome}</option>
+                </>
+              ))}
             </select>
           </div>
           <div className="container-unic-input">
@@ -47,13 +62,7 @@ function CreateCharges() {
           <div className="container-unic-input">
             <label htmlFor="status">Status</label>
             <select {...register("status", { require: true })} id="status">
-              <option
-                value=""
-                disabled
-                selected
-                hidden
-                style={{ color: "#868686" }}
-              >
+              <option value="" disabled selected hidden>
                 Selecione um estado
               </option>
               <option value="pago">PAGO</option>
@@ -68,7 +77,6 @@ function CreateCharges() {
                 <input
                   type="text"
                   id="valor"
-                  defaultValue="R$"
                   placeholder="0,00"
                   {...register("valor", { require: true })}
                 />
