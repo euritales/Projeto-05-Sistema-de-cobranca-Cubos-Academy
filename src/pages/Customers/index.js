@@ -1,7 +1,6 @@
 import "./styles.css";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useContext } from "react/cjs/react.development";
+import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
