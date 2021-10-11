@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import { useContext } from "react/cjs/react.development";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
+import EmailIcon from "../../assets/email-icon.svg";
+import PhoneIcon from "../../assets/phone-icon.svg";
+import EditIcon from "../../assets/edit-icon.svg";
+import { NavLink } from "react-router-dom";
 
 function Customers() {
   const history = useHistory();
@@ -18,52 +22,62 @@ function Customers() {
   }, []);
   return (
     <div className="container-costumers">
-      <button onClick={() => history.push("/clients/register")}>
+      <button
+        className="btn btn-white"
+        onClick={() => history.push("/clients/register")}
+      >
         Adicionar cliente
       </button>
-      <div>
-        <div className="container-charge">
-          <div className="container-description-charge">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Cliente</th>
-                </tr>
-                <tr>
-                  <th>Descrição</th>
-                  <th>Valor</th>
-                  <th>Status</th>
-                  <th>Vencimento</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clients.map(
-                  ({
-                    id,
-                    nome,
-                    email,
-                    telefonne,
-                    so_pago,
-                    valor_cobrado,
-                    statusCliente,
-                  }) => (
-                    <tr className="container-details-charge">
-                      {/* //text align left */}
-                      <td>{id}</td>
-                      <td>{nome}</td>
-                      <td>{email}</td>
-                      <td>{telefonne}</td>
-                      <td>{so_pago}</td>
-                      <td>{valor_cobrado}</td>
-                      <td>{statusCliente}</td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
+      <div className="container-description-costumers">
+        <span className="span-lg">Cliente</span>
+        <span className="span-lg">Cobranças Feitas</span>
+        <span className="span-lg">Cobranças Recebidas</span>
+        <span>Status</span>
+      </div>
+      <div className="box-container-details">
+        {!clients ? (
+          <div className="no-register">
+            <h3>Sem registros no momento!</h3>
           </div>
-        </div>
+        ) : (
+          clients.map(
+            ({
+              id,
+              nome,
+              email,
+              telefone,
+              so_pago,
+              valor_cobrado,
+              statusCliente,
+            }) => (
+              <div className="container-details-costumers">
+                <div className="client-details">
+                  <span className="name-costumers">{nome}</span>
+                  <div>
+                    <img src={EmailIcon} alt="email" />
+                    <span className="">{email}</span>
+                  </div>
+                  <div>
+                    <img src={PhoneIcon} alt="telefone" />
+                    <span className="">{telefone}</span>
+                  </div>
+                </div>
+                <span className="">{nome}</span>
+                <span className="span-lg">R$ {so_pago}</span>
+                <span className="span-lg">R$ {valor_cobrado}</span>
+                <span className={`status-costumers ${statusCliente.trim()}`}>
+                  {statusCliente.toUpperCase()}
+                </span>
+                <NavLink
+                  to="/clients/${id}/edit"
+                  className="Edit-clients-button"
+                >
+                  <img src={EditIcon} alt="Editar Cliente" />
+                </NavLink>
+              </div>
+            )
+          )
+        )}
       </div>
     </div>
   );
