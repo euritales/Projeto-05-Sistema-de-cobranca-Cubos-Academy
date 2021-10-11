@@ -1,90 +1,66 @@
 import "./styles.css";
-
-const arrayCliets = [
-  {
-    id: "1",
-    cliente: "ramon",
-    descricao: "agiotagem",
-    valor: "74000",
-    statusCobranca: "pendente",
-    vencimento: "12/10/2021",
-  },
-  {
-    id: "121",
-    cliente: "ramon",
-    descricao: "agiotagem",
-    valor: "74000",
-    statusCobranca: "pendente",
-    vencimento: "12/10/2021",
-  },
-];
+import "./styles.css";
+import { useEffect } from "react";
+import { useContext } from "react/cjs/react.development";
+import { AuthContext } from "../../context/auth";
+import { ChargeContext } from "../../context/charge";
+import { format } from "date-fns";
 
 function Charges() {
+  const { token } = useContext(AuthContext);
+  const { getCharges, charges } = useContext(ChargeContext);
+  let formatDate = "";
+  let formatValue = "";
+
+  useEffect(() => {
+    async function callGetClient() {
+      return getCharges(token);
+    }
+    callGetClient();
+  }, []);
   return (
     <div className="container-charge">
       <div className="container-description-charge">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-            </tr>
-            <tr>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Status</th>
-              <th>Vencimento</th>
-            </tr>
-          </thead>
-          <tbody>
-            {arrayCliets.map(
-              ({
-                id,
-                cliente,
-                descricao,
-                valor,
-                statusCobranca,
-                vencimento,
-              }) => (
-                <tr className="container-details-charge">
-                  {/* //text align left */}
-                  <td>{id}</td>
-                  <td>{cliente}</td>
-                  <td>{descricao}</td>
-                  <td>{valor}</td>
-                  <td>{statusCobranca}</td>
-                  <td>{vencimento}</td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
+        <span className="span-sm">ID</span>
+        <span className="span-lg">Cliente</span>
+        <span className="span-lg">Descrição</span>
+        <span className="span-md">Valor</span>
+        <span>Status</span>
+        <span className="span-md">Vencimento</span>
+      </div>
+      <div className="box-container-details">
+        {!charges ? (
+          <div className="no-register">
+            <h3>Sem registros no momento!</h3>
+          </div>
+        ) : (
+          charges.map(
+            ({ id, nome, descricao, valor, status, data_vencimento }) => (
+              <div className="container-details-charge">
+                <span className="span-sm">#{id}</span>
+                <span className="span-lg">{nome}</span>
+                <span className="span-lg">{descricao}</span>
+                <span className="asd">
+                  R$ {valor.toString().split("").splice(-2, 0, ",").join("")}
+                </span>
+                <span className={`status-charge ${status}`}>
+                  {status.toUpperCase()}
+                </span>
+                <span className="span-md">
+                  {" "}
+                  {
+                    (formatDate = format(
+                      new Date(data_vencimento),
+                      "dd/MM/yyyy"
+                    ))
+                  }
+                </span>
+              </div>
+            )
+          )
+        )}
       </div>
     </div>
-  );
-}
-
-export function DetailsCharges(
-  id,
-  cliente,
-  descricao,
-  valor,
-  status,
-  vencimento
-) {
-  return (
-    <>
-      <tbody>
-        <tr>
-          <td>{id}</td>
-          <td>{cliente}</td>
-          <td>{descricao}</td>
-          <td>{valor}</td>
-          <td>{status}</td>
-          <td>{vencimento}</td>
-        </tr>
-      </tbody>
-    </>
   );
 }
 
