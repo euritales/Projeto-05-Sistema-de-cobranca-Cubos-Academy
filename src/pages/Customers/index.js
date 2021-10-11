@@ -50,7 +50,7 @@ function Customers() {
               valor_cobrado,
               statusCliente,
             }) => (
-              <div className="container-details-costumers">
+              <div className="container-details-costumers" key={id}>
                 <div className="client-details">
                   <div className="name-costumers">
                     <span>{nome}</span>
@@ -66,7 +66,11 @@ function Customers() {
                 </div>
                 <span className="span-lg">R$ {so_pago}</span>
                 <span className="span-lg">R$ {valor_cobrado}</span>
-                <span className={`status-costumers ${statusCliente.trim()}`}>
+                <span
+                  className={`status-costumers ${statusCliente
+                    .toLowerCase()
+                    .trim()}`}
+                >
                   {statusCliente.toUpperCase()}
                 </span>
                 <div cla>

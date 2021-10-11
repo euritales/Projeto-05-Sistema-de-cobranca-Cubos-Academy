@@ -1,5 +1,5 @@
 .container-costumers {
-  padding: 62px 70px;
+  padding: 63px 70px;
   width: 100vw;
   height: auto;
 }
@@ -34,7 +34,7 @@
   line-height: 20px;
 }
 .client-details img {
-  margin: 0;
+  margin: 5px;
 }
 .client-details div {
   display: flex;
@@ -103,7 +103,7 @@
   font-weight: 600;
   font-size: 16px;
 }
-.emdia {
+.dia {
   color: #4ec06e;
 }
 .inadimplente {
