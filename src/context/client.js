@@ -48,7 +48,7 @@ export const ClientContextProvider = ({ children }) => {
       referencia: data.referencia,
     };
     const response = await fetch(
-      "https://cubosacademy-projeto-5.herokuapp.com/clients",
+      `https://cubosacademy-projeto-5.herokuapp.com/clients/${data.id}`,
       {
         method: "PUT",
         mode: "cors",
