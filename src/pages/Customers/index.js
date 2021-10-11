@@ -52,28 +52,31 @@ function Customers() {
             }) => (
               <div className="container-details-costumers">
                 <div className="client-details">
-                  <span className="name-costumers">{nome}</span>
-                  <div>
+                  <div className="name-costumers">
+                    <span>{nome}</span>
+                  </div>
+                  <div className="span-client-email">
                     <img src={EmailIcon} alt="email" />
-                    <span className="">{email}</span>
+                    <span>{email}</span>
                   </div>
                   <div>
                     <img src={PhoneIcon} alt="telefone" />
                     <span className="">{telefone}</span>
                   </div>
                 </div>
-                <span className="">{nome}</span>
                 <span className="span-lg">R$ {so_pago}</span>
                 <span className="span-lg">R$ {valor_cobrado}</span>
                 <span className={`status-costumers ${statusCliente.trim()}`}>
                   {statusCliente.toUpperCase()}
                 </span>
-                <NavLink
-                  to="/clients/${id}/edit"
-                  className="Edit-clients-button"
-                >
-                  <img src={EditIcon} alt="Editar Cliente" />
-                </NavLink>
+                <div cla>
+                  <NavLink
+                    to={`/clients/${id}/edit`}
+                    className="Edit-clients-button"
+                  >
+                    <img src={EditIcon} alt="Editar Cliente" />
+                  </NavLink>
+                </div>
               </div>
             )
           )
