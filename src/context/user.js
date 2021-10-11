@@ -91,6 +91,7 @@ export const UserContextProvider = ({ children }) => {
         return SucessMessage(dados);
       }
     } catch (error) {
+      console.log(error);
       return ErrorMessage(error);
     }
   }

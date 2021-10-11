@@ -1,12 +1,11 @@
 import "./styles.css";
 import "../../styles/form.css";
 import logoCubos from "../../assets/logoCubosBlack.svg";
-import { useForm } from "react-hook-form";
+import { useEffect, useContext, useState } from "react";
 import InputPassword from "../../components/InputPassword";
-import { Link } from "react-router-dom";
-import { useEffect, useContext } from "react";
-import { useState } from "react/cjs/react.development";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { UserContext } from "../../context/user";
 
 function Signup() {
@@ -18,7 +17,7 @@ function Signup() {
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    return createUser(data);
+    return createUser({ data });
   }
 
   useEffect(() => {
@@ -68,11 +67,7 @@ function Signup() {
           {...register("senha", { required: true })}
         />
 
-        <button
-          type="submit"
-          onClick={() => handleNotifications()}
-          className={statusButton}
-        >
+        <button onClick={() => handleNotifications()} className={statusButton}>
           Entrar
         </button>
       </form>

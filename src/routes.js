@@ -25,14 +25,14 @@ function Routes() {
     <Router>
       <Switch>
         <UserContextProvider>
-          <ChargeContextProvider>
-            {!token ? (
-              <>
-                <Route path="/" exact component={Login} />
-                <Route path="/signup" exact component={SignUp} />
-              </>
-            ) : (
-              <ClientContextProvider>
+          <ClientContextProvider>
+            <ChargeContextProvider>
+              {!token ? (
+                <>
+                  <Route path="/" exact component={Login} />
+                  <Route path="/signup" exact component={SignUp} />
+                </>
+              ) : (
                 <Main>
                   <Route path="/home" exact component={Home} />
                   <Route path="/charges" exact component={Charges} />
@@ -54,9 +54,9 @@ function Routes() {
                   />
                   <Route path="/" render={() => <Redirect to="/home" />} />
                 </Main>
-              </ClientContextProvider>
-            )}
-          </ChargeContextProvider>
+              )}
+            </ChargeContextProvider>
+          </ClientContextProvider>
         </UserContextProvider>
       </Switch>
     </Router>

@@ -36,7 +36,7 @@ function Charges() {
         ) : (
           charges.map(
             ({ id, nome, descricao, valor, status, data_vencimento }) => (
-              <div className="container-details-charge">
+              <div className="container-details-charge" key={id}>
                 <span className="span-sm">#{id}</span>
                 <span className="span-lg">{nome}</span>
                 <span className="span-lg">{descricao}</span>
