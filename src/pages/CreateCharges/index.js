@@ -1,7 +1,7 @@
 import "./styles.css";
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";

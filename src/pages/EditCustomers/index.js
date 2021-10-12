@@ -11,7 +11,7 @@ function EditCustomers() {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
   const history = useHistory();
-  const { getClient, editClient, client } = useContext(ClientContext);
+  const { editClient } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
   const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
 

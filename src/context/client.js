@@ -120,7 +120,7 @@ export const ClientContextProvider = ({ children }) => {
   }
 
   return (
-    <ClientContext.Provider //checkList integração: clientes, createCLiente,
+    <ClientContext.Provider
       value={{
         getClients,
         clients,
