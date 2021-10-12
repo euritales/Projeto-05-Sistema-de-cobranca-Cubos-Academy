@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 958px;
-  height: 100vh;
+  height: auto;
 }
 .container-form-create-charges > p {
   font-size: 24px;

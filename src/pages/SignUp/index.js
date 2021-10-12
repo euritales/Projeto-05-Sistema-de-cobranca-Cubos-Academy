@@ -68,7 +68,7 @@ function Signup() {
         />
 
         <button onClick={() => handleNotifications()} className={statusButton}>
-          Entrar
+          Criar conta
         </button>
       </form>
       <div>
