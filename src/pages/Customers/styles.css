@@ -1,7 +1,7 @@
 .container-costumers {
-  padding: 63px 70px;
-  width: 100vw;
-  height: 100vh;
+  padding-bottom: 63px;
+  /* width: 100vw;
+  height: 100vh; */
 }
 .container-costumers button {
   margin: 52px 0;
@@ -12,7 +12,7 @@
   justify-content: space-around;
   background-color: #9dbbc3;
   padding: 6px 150px 6px 0;
-  min-width: 960px;
+  width: 960px;
   margin: 5px;
   height: 32px;
   color: #ffffff;
@@ -44,7 +44,7 @@
   line-height: 20px;
 }
 .client-details img {
-  margin: 5px;
+  margin: 0 5px 0 0;
 }
 .client-details div {
   display: flex;
@@ -58,6 +58,7 @@
   text-overflow: ellipsis;
 }
 .box-container-details {
+  width: 970px;
   height: 400px;
   overflow: auto;
 }
@@ -133,7 +134,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  /* margin-left: 80px; */
+  margin-left: 80px;
 }
 .edit-clients-button img {
   margin: 0;

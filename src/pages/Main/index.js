@@ -8,14 +8,13 @@ import { useState } from "react";
 function Main({ children }) {
   const [editProfileStatus, setEditProfileStatus] = useState(false);
   return (
-    <div className="container-main flex-row ">
+    <div className="container-main flex-row  ">
       <SideBar />
       <ProfileBar setEditProfileStatus={setEditProfileStatus} />
       {editProfileStatus && (
         <EditProfile setEditProfileStatus={setEditProfileStatus} />
       )}
-
-      {children}
+      <div className=" container-children-main ">{children}</div>
     </div>
   );
 }
