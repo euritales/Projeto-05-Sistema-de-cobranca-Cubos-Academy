@@ -34,7 +34,7 @@ function EditCustomers() {
 
   async function onSubmit(data) {
     console.log(data);
-    return editClient(data, token);
+    return editClient({ data, token, id });
   }
 
   useEffect(() => {

@@ -57,23 +57,23 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function editClient(token, data) {
+  async function editClient({ data, token, id }) {
     const body = {
       nome: data.nome,
-      email: data.email,
       cpf: data.cpf,
+      email: data.email,
       telefone: data.telefone,
       cep: data.cep,
-      logradouro: data.logradouro,
       bairro: data.bairro,
-      estado: data.estado,
       cidade: data.cidade,
+      logradouro: data.logradouro,
       complemento: data.complemento,
-      referencia: data.referencia,
+      // estado: data.estado,
+      referencia: data.ponto_referencia,
     };
     console.log(body);
     const response = await fetch(
-      `https://cubosacademy-projeto-5.herokuapp.com/clients/${data.id}`,
+      `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
       {
         method: "PUT",
         mode: "cors",
@@ -88,6 +88,7 @@ export const ClientContextProvider = ({ children }) => {
     const dados = await response.json();
 
     if (response.ok) {
+      history.push("/clients");
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
