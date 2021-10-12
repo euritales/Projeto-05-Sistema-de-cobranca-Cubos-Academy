@@ -69,6 +69,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   async function createUser({ data }) {
+    console.log(data);
     try {
       const response = await fetch(
         "https://cubosacademy-projeto-5.herokuapp.com/users",
@@ -84,14 +85,13 @@ export const UserContextProvider = ({ children }) => {
         }
       );
       const dados = await response.json();
-
       if (response.ok) {
         history.push("/");
         return SucessMessage(dados);
       }
+      return ErrorMessage(dados);
     } catch (error) {
-      console.log(error);
-      return ErrorMessage(error);
+      return ErrorMessage(error.message);
     }
   }
 

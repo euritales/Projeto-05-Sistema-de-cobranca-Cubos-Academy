@@ -57,7 +57,7 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function editClient({ token, data, id }) {
+  async function editClient(token, data) {
     const body = {
       nome: data.nome,
       email: data.email,
@@ -71,8 +71,9 @@ export const ClientContextProvider = ({ children }) => {
       complemento: data.complemento,
       referencia: data.referencia,
     };
+    console.log(body);
     const response = await fetch(
-      `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
+      `https://cubosacademy-projeto-5.herokuapp.com/clients/${data.id}`,
       {
         method: "PUT",
         mode: "cors",
