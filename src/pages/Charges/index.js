@@ -9,7 +9,6 @@ function Charges() {
   const { token } = useContext(AuthContext);
   const { getCharges, charges } = useContext(ChargeContext);
   let formatDate = "";
-  let formatValue = "";
 
   useEffect(() => {
     async function callGetClient() {

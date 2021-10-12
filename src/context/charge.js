@@ -103,31 +103,3 @@ export const ChargeContextProvider = ({ children }) => {
     </ChargeContext.Provider>
   );
 };
-
-// try {
-//   const response = await fetch(
-//     "https://cubosacademy-projeto-5.herokuapp.com/users",
-//     {
-//       method: "POST",
-//       mode: "cors",
-//       cache: "no-cache",
-//       credentials: "same-origin",
-//       headers: {
-//         "Content-type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     }
-//   );
-
-//   const dados = await response.json();
-
-//   if (response.ok) {
-//     login(dados.token);
-//     localStorage.setItem("user", dados.token);
-//     history.push("/home");
-//     return SucessMessage(dados);
-//   }
-//   return ErrorMessage(dados);
-// } catch (error) {
-//   return ErrorMessage(error.message);
-// }

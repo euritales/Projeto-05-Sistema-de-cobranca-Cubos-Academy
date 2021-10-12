@@ -1,7 +1,7 @@
 import "./styles.css";
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
@@ -11,13 +11,13 @@ function CreateCharges() {
   const { register, handleSubmit } = useForm();
   const { token } = useContext(AuthContext);
   const { createCharges } = useContext(ChargeContext);
-  const { getClient, clients } = useContext(ClientContext);
+  const { getClients, clients } = useContext(ClientContext);
 
   const history = useHistory();
 
   useEffect(() => {
     async function callGetClient() {
-      return getClient(token);
+      return getClients(token);
     }
     callGetClient();
   }, []);

@@ -34,8 +34,14 @@ function DetailsCustomers() {
         <h1>{client.nome}</h1>
         <span>{client.cpf}</span>
         <div>
-          <span>{client.email}</span>
-          <span>{client.telefone}</span>
+          <div>
+            <img src={EmailIcon} alt="" />
+            <span>{client.email}</span>
+          </div>
+          <div>
+            <img src={PhoneIcon} alt="" />
+            <span>{client.telefone}</span>
+          </div>
         </div>
         <div>
           <div>
