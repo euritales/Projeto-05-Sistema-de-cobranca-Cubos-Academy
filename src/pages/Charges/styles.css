@@ -1,7 +1,9 @@
 .container-charge {
-  padding: 204px 70px;
-  width: 100vw;
+  /* width: 100vw;
   height: 100vh;
+  width: 958px; */
+  /* height: 700px; */
+  margin-top: 75px;
 }
 
 .container-description-charge {
@@ -9,7 +11,7 @@
   justify-content: space-around;
   background-color: #9dbbc3;
   padding: 6px 0;
-  min-width: 960px;
+  width: 960px;
   margin: 5px;
 
   height: 32px;
@@ -19,8 +21,7 @@
   font-size: 14px;
 }
 .box-container-detail {
-  /* height: 10px;
-  overflow: auto; */
+  width: 960px;
 }
 
 .container-details-charge {

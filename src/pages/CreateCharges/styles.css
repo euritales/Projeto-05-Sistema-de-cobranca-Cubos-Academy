@@ -1,14 +1,26 @@
 .container-form-create-charges {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100vw;
+  width: 958px;
   height: 100vh;
-  padding: 0 72px;
 }
 .container-form-create-charges > p {
   font-size: 24px;
   margin-bottom: 25px;
+}
+.container-form-create-charges select {
+  padding: 12px 29px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  padding-left: 10px;
+  color: #868686;
+}
+.container-form-create-charges option {
+  padding: 12px 29px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  padding-left: 10px;
+  color: #868686;
 }
 .container-form-create-charges div {
   margin-bottom: 6px;
@@ -34,11 +46,6 @@
   padding-left: 10px;
   color: #868686;
 }
-/* .container-unic-input select > option:first-child {
-  font-size: 12px;
-  padding-left: 10px;
-  color: #868686;
-} */
 
 .container-double-form {
   display: flex;
