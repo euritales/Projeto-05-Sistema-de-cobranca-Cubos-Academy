@@ -11,13 +11,13 @@ function CreateCharges() {
   const { register, handleSubmit } = useForm();
   const { token } = useContext(AuthContext);
   const { createCharges } = useContext(ChargeContext);
-  const { getClient, clients } = useContext(ClientContext);
+  const { getClients, clients } = useContext(ClientContext);
 
   const history = useHistory();
 
   useEffect(() => {
     async function callGetClient() {
-      return getClient(token);
+      return getClients(token);
     }
     callGetClient();
   }, []);

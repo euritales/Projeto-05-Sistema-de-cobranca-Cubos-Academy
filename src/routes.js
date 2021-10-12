@@ -44,14 +44,14 @@ function Routes() {
                   />
                   <Route path="/clients" exact component={Customers} />
                   <Route
+                    path="/clients/details/:id"
+                    exact
+                    component={DetailsCustomers}
+                  />
+                  <Route
                     path="/clients/register"
                     exact
                     component={RegisterClients}
-                  />
-                  <Route
-                    path="/clients/:id"
-                    exact
-                    component={DetailsCustomers}
                   />
                   <Route
                     path="/clients/:id/edit"

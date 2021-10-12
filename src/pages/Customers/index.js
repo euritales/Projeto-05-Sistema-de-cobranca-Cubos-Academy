@@ -55,7 +55,7 @@ function Customers() {
                 <div className="client-details">
                   <div
                     onClick={() =>
-                      history.push(`/clients/${id}`, {
+                      history.push(`/clients/details/${id}`, {
                         id,
                       })
                     }
