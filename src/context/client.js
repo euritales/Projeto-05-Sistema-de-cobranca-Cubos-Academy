@@ -9,11 +9,12 @@ export const ClientContext = createContext();
 export const ClientContextProvider = ({ children }) => {
   const history = useHistory();
   const [clients, setClients] = useState([]);
+  const [client, setClient] = useState([]);
 
-  async function getClient(token) {
+  async function getClients(token) {
     try {
       const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/clients",
+        `https://cubosacademy-projeto-5.herokuapp.com/clients`,
         {
           method: "GET",
           mode: "cors",
@@ -33,7 +34,30 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function editClient({ token, data }) {
+  async function getClient(token, id) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      if (response.ok) {
+        return setClient(dados);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
+  async function editClient({ token, data, id }) {
     const body = {
       nome: data.nome,
       email: data.email,
@@ -48,7 +72,7 @@ export const ClientContextProvider = ({ children }) => {
       referencia: data.referencia,
     };
     const response = await fetch(
-      `https://cubosacademy-projeto-5.herokuapp.com/clients/${data.id}`,
+      `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
       {
         method: "PUT",
         mode: "cors",
@@ -98,10 +122,12 @@ export const ClientContextProvider = ({ children }) => {
   return (
     <ClientContext.Provider //checkList integração: clientes, createCLiente,
       value={{
+        getClients,
         clients,
+        getClient,
+        client,
         createClient,
         editClient,
-        getClient,
       }}
     >
       {children}

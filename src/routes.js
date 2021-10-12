@@ -13,11 +13,12 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
-import EditCostumers from "./pages/EditCostumers";
+import EditCustomers from "./pages/EditCustomers";
 import { AuthContext } from "./context/auth";
 import { UserContextProvider } from "./context/user";
 import { ClientContextProvider } from "./context/client";
 import { ChargeContextProvider } from "./context/charge";
+import DetailsCustomers from "./pages/DetailsCustomers";
 
 function Routes() {
   const { token } = useContext(AuthContext);
@@ -48,9 +49,14 @@ function Routes() {
                     component={RegisterClients}
                   />
                   <Route
-                    path="/clients/:id/register"
+                    path="/clients/:id"
                     exact
-                    component={EditCostumers}
+                    component={DetailsCustomers}
+                  />
+                  <Route
+                    path="/clients/:id/edit"
+                    exact
+                    component={EditCustomers}
                   />
                   <Route path="/" render={() => <Redirect to="/home" />} />
                 </Main>

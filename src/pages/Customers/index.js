@@ -6,19 +6,19 @@ import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
-import { NavLink } from "react-router-dom";
 
 function Customers() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
-  const { getClient, clients } = useContext(ClientContext);
+  const { getClients, clients } = useContext(ClientContext);
 
   useEffect(() => {
     async function callGetClient() {
-      return getClient(token);
+      return getClients(token);
     }
     callGetClient();
   }, []);
+
   return (
     <div className="container-costumers">
       <button
@@ -43,7 +43,9 @@ function Customers() {
             ({
               id,
               nome,
+              cpf,
               email,
+              cep,
               telefone,
               so_pago,
               valor_cobrado,
@@ -51,8 +53,17 @@ function Customers() {
             }) => (
               <div className="container-details-costumers" key={id}>
                 <div className="client-details">
-                  <div className="name-costumers">
-                    <span>{nome}</span>
+                  <div
+                    onClick={() =>
+                      history.push(`/clients/${id}`, {
+                        id,
+                      })
+                    }
+                    className="name-costumers"
+                  >
+                    <button>
+                      <span>{nome}</span>
+                    </button>
                   </div>
                   <div className="span-client-email">
                     <img src={EmailIcon} alt="email" />
@@ -66,19 +77,25 @@ function Customers() {
                 <span className="span-lg">R$ {so_pago}</span>
                 <span className="span-lg">R$ {valor_cobrado}</span>
                 <span
-                  className={`status-costumers ${statusCliente
-                    .toLowerCase()
-                    .trim()}`}
+                  className={`status-costumers ${statusCliente.toLowerCase()}`}
                 >
                   {statusCliente.toUpperCase()}
                 </span>
-                <div cla>
-                  <NavLink
-                    to={`/clients/${id}/edit`}
-                    className="Edit-clients-button"
+                <div className="edit-clients-button">
+                  <button
+                    onClick={() =>
+                      history.push(`/clients/${id}/edit`, {
+                        id,
+                        nome,
+                        cpf,
+                        cep,
+                        email,
+                        telefone,
+                      })
+                    }
                   >
                     <img src={EditIcon} alt="Editar Cliente" />
-                  </NavLink>
+                  </button>
                 </div>
               </div>
             )
