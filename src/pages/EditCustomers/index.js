@@ -6,6 +6,7 @@ import getAddressByCep from "../../services/viaCep";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
+import { MaskedInput } from "../../hooks/MaskedInput";
 
 function EditCustomers() {
   const { register, handleSubmit, watch, setValue } = useForm();
@@ -125,7 +126,13 @@ function EditCustomers() {
           </div>
           <div className="container-unic-input">
             <label htmlFor="cpf">CPF</label>
-            <input
+            {/* <input
+              type="text"
+              id="cpf"
+              {...register("cpf", { require: true })}
+            /> */}
+            <MaskedInput
+              mask="999.999.999-99"
               type="text"
               id="cpf"
               {...register("cpf", { require: true })}
@@ -135,7 +142,14 @@ function EditCustomers() {
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                <input
+                {/* <input
+                  type="text"
+                  id="telefone"
+                  {...register("telefone", { require: true })}
+                /> */}
+
+                <MaskedInput
+                  mask="(99)9 9999-9999"
                   type="text"
                   id="telefone"
                   {...register("telefone", { require: true })}
