@@ -2,25 +2,18 @@ import "./styles.css";
 import Profile from "../../assets/profile-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import LogoffIcon from "../../assets/logoff-icon.svg";
-// import Close from "../../assets/close-icon.svg";
 import { useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../context/auth";
 
-function ProfileBar() {
+function ProfileBar({ setEditProfileStatus }) {
   const location = useLocation();
-  const history = useHistory();
-  const { deslogar, editProfileStatus, handleEditProfile } =
-    useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const [openPopup, setOpenPopup] = useState(false);
 
   function handleOpenLogoutPage() {
     return setOpenPopup(!openPopup);
-  }
-
-  function logOff() {
-    return deslogar();
   }
 
   return (
@@ -37,18 +30,13 @@ function ProfileBar() {
             to={location.pathname}
             exact
             className="edit-button"
-            onClick={() => handleEditProfile(true)}
+            onClick={() => setEditProfileStatus(true)}
           >
             <img src={EditIcon} alt="" />
             <span>Editar</span>
           </NavLink>
 
-          <NavLink
-            to="/"
-            exact
-            className="logoff-button"
-            onClick={() => logOff()}
-          >
+          <NavLink to="/" exact className="logoff-button" onClick={logout}>
             <img src={LogoffIcon} alt="" />
             <span>Deslogar</span>
           </NavLink>

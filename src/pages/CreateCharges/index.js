@@ -1,69 +1,54 @@
 import "./styles.css";
-
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useEffect, useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import getAddressByCep from "../../services/viaCep";
-import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
-import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../context/auth";
+import { ChargeContext } from "../../context/charge";
+import { ClientContext } from "../../context/client";
 
 function CreateCharges() {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
+  const { token } = useContext(AuthContext);
+  const { createCharges } = useContext(ChargeContext);
+  const { getClients, clients } = useContext(ClientContext);
 
-  const { logar, handleDadosUsuario, dadosUsuario } = useContext(AuthContext);
   const history = useHistory();
 
-  async function onSubmit(data) {
-    try {
-      const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/...",
-        {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const dados = await response.json();
-
-      handleDadosUsuario(dados.usuario);
-
-      console.log(dados.usuario);
-      console.log(data);
-      console.log(dadosUsuario);
-
-      if (response.ok) {
-        logar(dados.token);
-        localStorage.setItem("user", dados.token);
-        history.push("/home");
-        return SucessMessage(dados);
-      }
-      return ErrorMessage(dados);
-    } catch (error) {
-      return ErrorMessage(error.message);
+  useEffect(() => {
+    async function callGetClient() {
+      return getClients(token);
     }
+    callGetClient();
+  }, []);
+
+  async function onSubmit(data) {
+    console.log(data);
+    return createCharges({ data, token });
   }
 
   return (
     <div className="container-form-create-charges ">
-      <p>// CRIAR COBRANÇA</p>
+      <p>{"//"} CRIAR COBRANÇA</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="container-unic-input">
-            <label htmlFor="">Cliente</label>
-            <input
-              type="text"
-              id="cliente"
-              placeholder="Selecione a cliente"
-              {...register("cliente", { require: true })}
-            />
+          <div className="container-unic-input ">
+            <label htmlFor="cliente_id">Cliente</label>
+
+            <select
+              {...register("cliente_id", { require: true })}
+              id="cliente_id"
+              className="select-client"
+            >
+              <option value="" disabled selected hidden>
+                Selecione um cliente
+              </option>
+              {clients.map(({ id, nome }) => (
+                <option key={id} value={id}>
+                  {nome}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="container-unic-input">
             <label htmlFor="descricao">Descriçao</label>
@@ -73,15 +58,18 @@ function CreateCharges() {
               placeholder="A descrição informada será impressa no boleto."
               {...register("descricao", { require: true })}
             />
+            <span>A descrição informada será impressa no boleto.</span>
           </div>
           <div className="container-unic-input">
             <label htmlFor="status">Status</label>
-            <input
-              type="text"
-              id="status"
-              placeholder="Selecione um status"
-              {...register("status", { require: true })}
-            />
+            <select {...register("status", { require: true })} id="status">
+              <option value="" disabled selected hidden>
+                Selecione um estado
+              </option>
+              <option value="pago">PAGO</option>
+              <option value="pendente">PENDENTE</option>
+              <option value="vencido">VENCIDO</option>
+            </select>
           </div>
           <div>
             <div className="container-double-form">
@@ -94,21 +82,28 @@ function CreateCharges() {
                   {...register("valor", { require: true })}
                 />
               </div>
+
               <div>
-                <label htmlFor="vencimento">Vencimento</label>
+                <label htmlFor="data_vencimento">Vencimento</label>
                 <input
-                  type="text"
-                  id="vencimento"
-                  {...register("vencimento")}
+                  className="data-vencimento"
+                  type="date"
+                  id="data_vencimento"
+                  {...register("data_vencimento", { require: true })}
                 />
               </div>
             </div>
           </div>
           <div className="container-buttonsClient">
-            <button className="btn btn-white" type="submit">
+            <button
+              onClick={() => history.push("/charges")}
+              className="btn btn-white"
+            >
               Cancelar
             </button>
-            <button type="submit">Criar cobranças</button>
+            <button type="submit" className="btn btn-pink">
+              Criar cobranças
+            </button>
           </div>
         </form>
       </div>

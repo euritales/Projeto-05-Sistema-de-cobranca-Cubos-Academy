@@ -7,22 +7,34 @@ import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 
-function RegisterClients() {
+function EditCustomers() {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
-  const { createClient } = useContext(ClientContext);
   const history = useHistory();
+  const { editClient } = useContext(ClientContext);
+  const [statusButton, setStatusButton] = useState("btn btn-opaque");
+  const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
+
+  useEffect(() => {
+    async function loadUser() {
+      setValue("nome", nome);
+      setValue("email", email);
+      setValue("telefone", telefone);
+      setValue("cpf", cpf);
+      setValue("cep", cep);
+    }
+    loadUser();
+  }, []);
 
   let nomeWatch = watch("nome");
   let emailWatch = watch("email");
   let cpfWatch = watch("cpf");
   let telefoneWatch = watch("telefone");
   let cepWatch = watch("cep");
-  const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
     console.log(data);
-    return createClient({ data, token });
+    return editClient({ data, token, id });
   }
 
   useEffect(() => {
@@ -92,7 +104,7 @@ function RegisterClients() {
 
   return (
     <div className="container-form-clients">
-      <p>{"//"} ADCIONAR CLIENTE</p>
+      <p>{"//"} EDITAR CLIENTE</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
@@ -194,24 +206,13 @@ function RegisterClients() {
             >
               Cancelar
             </button>
-            {statusButton === "btn btn-pink" ? (
-              <button
-                onClick={() => handleNotifications()}
-                className={statusButton}
-                type="submit"
-              >
-                Adicionar cliente
-              </button>
-            ) : (
-              <button
-                onClick={() => handleNotifications()}
-                disabled
-                className={statusButton}
-                type="submit"
-              >
-                Adicionar cliente
-              </button>
-            )}
+            <button
+              onClick={() => handleNotifications()}
+              className={statusButton}
+              type="submit"
+            >
+              Editar Cliente
+            </button>
           </div>
         </form>
       </div>
@@ -219,4 +220,4 @@ function RegisterClients() {
   );
 }
 
-export default RegisterClients;
+export default EditCustomers;

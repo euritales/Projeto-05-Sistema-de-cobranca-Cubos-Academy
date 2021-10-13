@@ -1,45 +1,90 @@
 .container-charge {
-  padding: 204px 70px;
-  width: 100vw;
-  height: auto;
-}
-.container-description-charge {
-  justify-content: center;
-  align-items: center;
-}
-.container-description-charge table {
-  display: flex;
-  flex-direction: column;
+  /* width: 100vw;
+  height: 100vh;
+  width: 958px; */
+  /* height: 700px; */
+  margin-top: 75px;
 }
 
-.container-description-charge thead {
+.container-description-charge {
   display: flex;
-  align-items: center;
-  min-width: 960px;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #9dbbc3;
-  padding: 0 35px;
+  padding: 6px 0;
+  width: 960px;
+  margin: 5px;
+
+  height: 32px;
   color: #ffffff;
   border-radius: 8px;
   font-weight: 600;
   font-size: 14px;
 }
+.box-container-detail {
+  width: 960px;
+}
 
-.container-description-charge thead tr {
-  display: flex;
-  align-items: center;
-  padding: 6px 0px;
-}
-.container-description-charge thead tr:first-child {
-  width: 140px;
-  justify-content: space-between;
-}
-.container-description-charge thead tr:last-child {
-  min-width: 620px;
-  justify-content: space-between;
-}
 .container-details-charge {
   display: flex;
-  justify-content: space-between;
-  padding: 25px;
+  justify-content: space-around;
+  padding: 17px 0 11px 0;
+  min-width: 960px;
+  margin-top: 16px;
+  height: 48px;
+  background: #ffffff;
+  border-radius: 8px;
+  color: #4c4c4c;
+}
+
+.container-details-charge span {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.span-lg {
+  justify-content: start;
+  width: 180px;
+}
+.span-md {
+  width: 94px;
+}
+.span-sm {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+}
+.margin-lg {
+  margin-left: 25px;
+}
+.margin-md {
+  margin-left: 15px;
+}
+
+.status-charge {
+  display: flex;
+  width: 90px;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+.pago {
+  color: #4ec06e;
+}
+.pendente {
+  color: #5197b5;
+}
+.vencido {
+  color: #ff4d4d;
+}
+
+.no-register {
+  font-style: bold;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 15px;
+  color: #323232;
 }

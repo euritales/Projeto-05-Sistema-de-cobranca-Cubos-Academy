@@ -6,15 +6,12 @@ import { useForm } from "react-hook-form";
 import InputPassword from "../../components/InputPassword";
 import { useContext, useEffect, useState } from "react";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
-import SucessMessage from "../../components/ToastifyPopups/sucessMessage";
-import { AuthContext } from "../../routes";
+import { AuthContext } from "../../context/auth";
 
 function Login() {
   const { register, handleSubmit, watch } = useForm();
 
-  const { logar, handleDadosUsuario, dadosUsuario, setToken } =
-    useContext(AuthContext);
-
+  const { login, token } = useContext(AuthContext);
   const history = useHistory();
 
   let emailWatch = watch("email");
@@ -22,48 +19,11 @@ function Login() {
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   useEffect(() => {
-    const userToken = localStorage.getItem("user");
-    if (userToken) {
-      setToken(userToken);
+    if (token) {
       history.push("/home");
     }
+    return;
   }, []);
-
-  async function onSubmit(data) {
-    try {
-      const response = await fetch(
-        "https://cubosacademy-projeto-5.herokuapp.com/login",
-        {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const dados = await response.json();
-
-      handleDadosUsuario(dados.usuario);
-
-      console.log(dados.usuario);
-      console.log(data);
-      console.log(dadosUsuario);
-
-      if (response.ok) {
-        logar(dados.token);
-        localStorage.setItem("user", dados.token);
-        history.push("/home");
-        return SucessMessage(dados);
-      }
-      return ErrorMessage(dados);
-    } catch (error) {
-      return ErrorMessage(error.message);
-    }
-  }
 
   useEffect(() => {
     if (passwordWatch?.length > 0 && emailWatch?.length > 0) {
@@ -77,6 +37,10 @@ function Login() {
     if (emailWatch?.length === 0 || passwordWatch?.length === 0) {
       return ErrorMessage("Campos 'email' e 'senha' são obrigatórios");
     }
+  }
+
+  async function onSubmit(data) {
+    return login(data);
   }
 
   return (
@@ -101,7 +65,6 @@ function Login() {
         <button
           type="submit"
           onClick={() => handleNotifications()}
-          to="/home"
           className={statusButton}
         >
           Entrar

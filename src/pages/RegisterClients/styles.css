@@ -2,9 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  padding: 72px;
+  width: 960px;
 }
 .container-form-clients > p {
   font-size: 24px;
@@ -18,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px 0;
   background-color: #ffffff;
   border-radius: 16px;
 }
