@@ -8,15 +8,15 @@ import PhoneIcon from "../../assets/phone-icon.svg";
 import Line from "../../assets/line.svg";
 import { useState } from "react/cjs/react.development";
 import NumberFormat from "react-number-format";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
 function DetailsCustomers() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
-  const [chargeClient, setChargeClient] = useState([]);
+  // const [chargeClient, setChargeClient] = useState([]);
   const { id } = history.location.state ?? {};
-  let formatDate = "";
+  // let formatDate = "";
 
   useEffect(() => {
     async function callGetUser() {
@@ -24,12 +24,12 @@ function DetailsCustomers() {
     }
     callGetUser();
   }, []);
-  useEffect(() => {
-    function callSetCharge() {
-      setChargeClient(client.cobrancas);
-    }
-    callSetCharge();
-  }, []);
+  // useEffect(() => {
+  //   function callSetCharge() {
+  //     setChargeClient(client.cobrancas);
+  //   }
+  //   callSetCharge();
+  // }, []);
 
   return (
     <div className="container-details-customers">
@@ -79,7 +79,9 @@ function DetailsCustomers() {
         <div>
           <div>
             <p>Complemento</p>
-            <span>{client.complemento}</span>
+            <span>
+              {!client.complemento ? "Sem complemento" : client.complemento}
+            </span>
           </div>
           <div>
             <p>Ponto de Referência</p>
@@ -89,12 +91,12 @@ function DetailsCustomers() {
       </div>
       <img src={Line} alt="" />
       <div className="container-info-charges">
-        {!chargeClient ? (
+        {!client.cobrancas?.id ? (
           <div>
             <p>sem faturas pendentes</p>
           </div>
         ) : (
-          chargeClient.map(
+          client.cobrancas.map(
             ({ id, descricao, valor, status, data_vencimento }) => (
               <div key={id} className="box-info-charges">
                 <div>
@@ -107,15 +109,19 @@ function DetailsCustomers() {
                 <div>
                   <NumberFormat
                     className="span-md margin-md"
-                    value={!valor ? "0" : valor}
+                    value={valor ? valor : 0}
                     displayType={"text"}
                     thousandSeparator={true}
                     prefix={"R$"}
                   />
                 </div>
                 <div>
-                  {" "}
-                  <span className={`status-costumers ${status.toLowerCase()}`}>
+                  <span
+                    className={`status-costumers ${
+                      status ? status.toLowerCase() : "as"
+                    }`}
+                  >
+                    {/* className="status-costumers" > */}
                     {status.toUpperCase()}
                   </span>
                 </div>

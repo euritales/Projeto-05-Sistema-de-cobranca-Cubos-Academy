@@ -53,3 +53,13 @@
   margin-top: 10px;
   margin-bottom: 15px;
 }
+
+.pago {
+  color: #4ec06e;
+}
+.pendente {
+  color: #5197b5;
+}
+.vencido {
+  color: #ff4d4d;
+}
