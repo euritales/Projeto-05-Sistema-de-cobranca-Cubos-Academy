@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
+import Line from "../../assets/line.svg";
 import { useState } from "react/cjs/react.development";
 
 function DetailsCustomers() {
@@ -33,12 +34,12 @@ function DetailsCustomers() {
       <div className="container-info-clients">
         <h1>{client.nome}</h1>
         <span>{client.cpf}</span>
-        <div>
-          <div>
+        <div className="flex-column info-clients-first">
+          <div className="flex-row">
             <img src={EmailIcon} alt="" />
             <span>{client.email}</span>
           </div>
-          <div>
+          <div className="flex-row">
             <img src={PhoneIcon} alt="" />
             <span>{client.telefone}</span>
           </div>
@@ -63,15 +64,16 @@ function DetailsCustomers() {
         </div>
         <div>
           <div>
-            <p>Logradouro</p>
+            <p>Complemento</p>
             <span>{client.complemento}</span>
           </div>
           <div>
-            <p>Logradouro</p>
+            <p>Ponto de Referência</p>
             <span>{client.ponto_referencia}</span>
           </div>
         </div>
       </div>
+      <img src={Line} alt="" />
       <div className="container-info-charges">
         {!chargeClient ? (
           <div>

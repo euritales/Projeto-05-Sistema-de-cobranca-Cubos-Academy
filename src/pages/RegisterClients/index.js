@@ -51,11 +51,12 @@ function RegisterClients() {
   useEffect(() => {
     if (cepWatch) {
       const positionifen = cepWatch.indexOf("-");
+      const verifyIfen = cepWatch.includes("-");
+
       if (positionifen === 5 && cepWatch.length === 9) {
         loadAddressByCep();
-        return;
       }
-      if (cepWatch.length <= 9) {
+      if (positionifen === 5 && cepWatch.length <= 8) {
         setValue("localidade", "");
         setValue("bairro", "");
         setValue("logradouro", "");
@@ -63,7 +64,14 @@ function RegisterClients() {
         setValue("uf", "");
       }
 
-      if (cepWatch.length === 8) {
+      if (!verifyIfen && cepWatch.length >= 8) {
+        if (cepWatch.length === 9) {
+          setValue("localidade", "");
+          setValue("bairro", "");
+          setValue("logradouro", "");
+          setValue("complemento", "");
+          setValue("uf", "");
+        }
         loadAddressByCep();
       }
     }
@@ -126,7 +134,8 @@ function RegisterClients() {
                 <input
                   type="text"
                   id="cep"
-                  {...register("cep", { maxLength: 9 })}
+                  maxlength="9"
+                  {...register("cep")}
                 />
               </div>
             </div>
