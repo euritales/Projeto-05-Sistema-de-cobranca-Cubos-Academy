@@ -17,7 +17,7 @@ function DetailsCustomers() {
 
   useEffect(() => {
     async function callGetUser() {
-      return getClient(token, id);
+      return getClient({ token, id });
     }
     callGetUser();
   }, []);
@@ -26,7 +26,7 @@ function DetailsCustomers() {
       setChargeClient(client.cobrancas);
     }
     callSetCharge();
-  }, [getClient()]);
+  }, []);
 
   return (
     <div className="container-details-customers">
@@ -80,7 +80,7 @@ function DetailsCustomers() {
         ) : (
           chargeClient.map(
             ({ id, descricao, valor, status, data_vencimento }) => (
-              <div className="box-info-charges">
+              <div key={id} className="box-info-charges">
                 <div>
                   <div>
                     {id}

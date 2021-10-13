@@ -74,7 +74,7 @@
 
 .container-details-costumers {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   padding: 17px 0 11px 0;
   min-width: 960px;
@@ -110,7 +110,8 @@
 
 .status-costumers {
   display: flex;
-  justify-content: start;
+  width: 130px;
+  justify-content: center;
   font-weight: 600;
   font-size: 16px;
 }
@@ -144,4 +145,10 @@
   border: none;
   background: none;
   padding: 0;
+}
+.margin-lg {
+  margin-left: 25px;
+}
+.margin-md {
+  margin-left: 15px;
 }

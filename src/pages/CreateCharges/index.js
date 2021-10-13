@@ -32,20 +32,21 @@ function CreateCharges() {
       <p>{"//"} CRIAR COBRANÇA</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="container-unic-input">
+          <div className="container-unic-input ">
             <label htmlFor="cliente_id">Cliente</label>
 
             <select
               {...register("cliente_id", { require: true })}
               id="cliente_id"
+              className="select-client"
             >
               <option value="" disabled selected hidden>
                 Selecione um cliente
               </option>
               {clients.map(({ id, nome }) => (
-                <>
-                  <option value={id}>{nome}</option>
-                </>
+                <option key={id} value={id}>
+                  {nome}
+                </option>
               ))}
             </select>
           </div>
@@ -85,6 +86,7 @@ function CreateCharges() {
               <div>
                 <label htmlFor="data_vencimento">Vencimento</label>
                 <input
+                  className="data-vencimento"
                   type="date"
                   id="data_vencimento"
                   {...register("data_vencimento", { require: true })}
