@@ -3,6 +3,8 @@ import "./styles.css";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
+import NumberFormat from "react-number-format";
+
 import { format } from "date-fns";
 
 function Charges() {
@@ -38,7 +40,14 @@ function Charges() {
                 <span className="span-sm">#{id}</span>
                 <span className="span-lg margin-lg">{nome}</span>
                 <span className="span-lg margin-lg">{descricao}</span>
-                <span className="span-md margin-md">R$ {valor}</span>
+                {/* <span className="span-md margin-md">R$ {valor}</span> */}
+                <NumberFormat
+                  className="span-md margin-md"
+                  value={!valor ? "0" : valor}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"R$"}
+                />
                 <span className={`status-charge ${status}`}>
                   {status.toUpperCase()}
                 </span>
