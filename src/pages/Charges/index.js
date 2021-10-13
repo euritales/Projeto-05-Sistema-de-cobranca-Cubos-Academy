@@ -36,11 +36,9 @@ function Charges() {
             ({ id, nome, descricao, valor, status, data_vencimento }) => (
               <div className="container-details-charge" key={id}>
                 <span className="span-sm">#{id}</span>
-                <span className="span-lg">{nome}</span>
-                <span className="span-lg">{descricao}</span>
-                <span className="asd">
-                  R$ {valor.toString().split("").splice(-2, 0, ",").join("")}
-                </span>
+                <span className="span-lg margin-lg">{nome}</span>
+                <span className="span-lg margin-lg">{descricao}</span>
+                <span className="span-md margin-md">R$ {valor}</span>
                 <span className={`status-charge ${status}`}>
                   {status.toUpperCase()}
                 </span>

@@ -57,10 +57,17 @@
   font-size: 14px;
   line-height: 20px;
 }
+.margin-lg {
+  margin-left: 25px;
+}
+.margin-md {
+  margin-left: 15px;
+}
 
 .status-charge {
   display: flex;
-  justify-content: start;
+  width: 90px;
+  justify-content: center;
   font-weight: 600;
   font-size: 16px;
 }

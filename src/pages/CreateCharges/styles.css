@@ -76,8 +76,12 @@
 
 .container-form-create-charges input {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   border: 1px solid #374952;
   border-radius: 8px;
+}
+
+.data-vencimento {
+  padding: 9px 29px 10px;
 }

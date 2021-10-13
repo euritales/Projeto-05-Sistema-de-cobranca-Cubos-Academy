@@ -74,8 +74,10 @@ function Customers() {
                     <span className="">{telefone}</span>
                   </div>
                 </div>
-                <span className="span-lg">R$ {so_pago}</span>
-                <span className="span-lg">R$ {valor_cobrado}</span>
+                <span className="span-lg  ">R$ {so_pago}</span>
+                <span className="span-lg margin-lg">
+                  R$ {!valor_cobrado ? "0" : valor_cobrado}
+                </span>
                 <span
                   className={`status-costumers ${statusCliente.toLowerCase()}`}
                 >
