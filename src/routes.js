@@ -29,7 +29,6 @@ function RotasProtegidas(props) {
 }
 
 function Routes() {
-  const { token } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
@@ -49,7 +48,7 @@ function Routes() {
                   />
                   <Route path="/clients" exact component={Customers} />
                   <Route
-                    path="/clients/details/:id"
+                    path="/clients/:id/details"
                     exact
                     component={DetailsCustomers}
                   />

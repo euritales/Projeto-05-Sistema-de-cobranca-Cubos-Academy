@@ -85,7 +85,7 @@ function DetailsCustomers() {
               <div key={id} className="box-info-charges">
                 <div>
                   <div>
-                    {id}
+                    <p>{id}</p>
                     {descricao}
                   </div>
                   {data_vencimento}
