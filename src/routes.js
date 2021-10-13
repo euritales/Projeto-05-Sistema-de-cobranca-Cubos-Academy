@@ -20,6 +20,14 @@ import { ClientContextProvider } from "./context/client";
 import { ChargeContextProvider } from "./context/charge";
 import DetailsCustomers from "./pages/DetailsCustomers";
 
+function RotasProtegidas(props) {
+  const { token } = useContext(AuthContext);
+
+  return (
+    <Route render={() => (token ? props.children : <Redirect to="/" />)} />
+  );
+}
+
 function Routes() {
   const { token } = useContext(AuthContext);
   return (
@@ -28,12 +36,9 @@ function Routes() {
         <UserContextProvider>
           <ClientContextProvider>
             <ChargeContextProvider>
-              {!token ? (
-                <>
-                  <Route path="/" exact component={Login} />
-                  <Route path="/signup" exact component={SignUp} />
-                </>
-              ) : (
+              <Route path="/" exact component={Login} />
+              <Route path="/signup" exact component={SignUp} />
+              <RotasProtegidas>
                 <Main>
                   <Route path="/home" exact component={Home} />
                   <Route path="/charges" exact component={Charges} />
@@ -58,9 +63,13 @@ function Routes() {
                     exact
                     component={EditCustomers}
                   />
-                  <Route path="/" render={() => <Redirect to="/home" />} />
+                  <Route
+                    path="/"
+                    exact
+                    render={() => <Redirect to="/home" />}
+                  />
                 </Main>
-              )}
+              </RotasProtegidas>
             </ChargeContextProvider>
           </ClientContextProvider>
         </UserContextProvider>

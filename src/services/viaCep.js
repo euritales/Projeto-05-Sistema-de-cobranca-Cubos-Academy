@@ -1,18 +1,21 @@
+import ErrorMessage from "../components/ToastifyPopups/errorMessage";
+
 async function getAddressByCep(cep) {
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
       method: "GET",
     });
 
-    const { logradouro, bairro, localidade, uf, complemento, erro } =
+    const { logradouro, bairro, localidade, uf, complemento, erro, status } =
       await response.json();
 
     if (erro) {
-      return false;
+      return ErrorMessage("CEP não confere");
     }
+
     return { logradouro, bairro, localidade, uf, complemento };
   } catch (error) {
-    return false;
+    return ErrorMessage("CEP não confere");
   }
 }
 
