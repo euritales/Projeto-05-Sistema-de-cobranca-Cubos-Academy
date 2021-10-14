@@ -91,7 +91,7 @@ function DetailsCustomers() {
       </div>
       <img src={Line} alt="" />
       <div className="container-info-charges">
-        {!client.cobrancas?.id ? (
+        {!client.cobrancas ? (
           <div>
             <p>sem faturas pendentes</p>
           </div>
