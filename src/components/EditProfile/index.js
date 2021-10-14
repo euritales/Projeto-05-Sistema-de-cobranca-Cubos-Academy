@@ -32,6 +32,7 @@ function EditProfile({ setEditProfileStatus }) {
   }, [user]);
 
   async function onSubmit(data) {
+    setEditProfileStatus(false);
     return editUser({ data, token });
   }
 

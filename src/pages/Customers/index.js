@@ -7,6 +7,7 @@ import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import NumberFormat from "react-number-format";
+import SearchIcon from "../../assets/search-icon.svg";
 
 function Customers() {
   const history = useHistory();
@@ -22,12 +23,20 @@ function Customers() {
 
   return (
     <div className="container-costumers">
-      <button
-        className="btn btn-white"
-        onClick={() => history.push("/clients/register")}
-      >
-        Adicionar cliente
-      </button>
+      <div className="input-busca-botao">
+        <button
+          className="btn btn-white"
+          onClick={() => history.push("/clients/register")}
+        >
+          Adicionar cliente
+        </button>
+        <div>
+          <input placeholder="Procurar por Nome, E-mail ou CPF" />
+          <button>
+            <img src={SearchIcon} alt="" />
+          </button>
+        </div>
+      </div>
       <div className="container-description-costumers">
         <span className="span-lg">Cliente</span>
         <span className="span-lg">Cobranças Feitas</span>
@@ -80,15 +89,14 @@ function Customers() {
                   </div>
                 </div>
                 <NumberFormat
-                  className="span-lg"
+                  className="span-lg "
                   value={!valor_cobrado ? "0" : valor_cobrado}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"R$"}
                 />
                 <NumberFormat
-                  className="span-lg"
-                  decimalSeparator="."
+                  className="span-lg margin-lg"
                   value={so_pago}
                   displayType={"text"}
                   thousandSeparator={true}
