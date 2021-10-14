@@ -121,7 +121,6 @@ function DetailsCustomers() {
                       status ? status.toLowerCase() : "as"
                     }`}
                   >
-                    {/* className="status-costumers" > */}
                     {status.toUpperCase()}
                   </span>
                 </div>
