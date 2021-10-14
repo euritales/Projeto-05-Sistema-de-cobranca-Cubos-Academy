@@ -4,6 +4,7 @@ import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import NumberFormat from "react-number-format";
+import SearchIcon from "../../assets/search-icon.svg";
 
 import { format } from "date-fns";
 
@@ -20,6 +21,12 @@ function Charges() {
   }, []);
   return (
     <div className="container-charge">
+      <div className="input-busca">
+        <input placeholder="Procurar por Nome, E-mail ou CPF" />
+        <button>
+          <img src={SearchIcon} alt="" />
+        </button>
+      </div>
       <div className="container-description-charge">
         <span className="span-sm">ID</span>
         <span className="span-lg">Cliente</span>
@@ -45,6 +52,7 @@ function Charges() {
                   className="span-md margin-md"
                   value={!valor ? "0" : valor}
                   displayType={"text"}
+                  decimalSymbol="."
                   thousandSeparator={true}
                   prefix={"R$"}
                 />

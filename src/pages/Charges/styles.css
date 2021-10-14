@@ -6,14 +6,27 @@
   margin-top: 75px;
 }
 
+.input-busca {
+  display: flex;
+  height: 50px;
+  justify-content: end;
+  align-items: center;
+}
+.input-busca input {
+}
+
+.input-busca img {
+  margin: 0;
+}
+
 .container-description-charge {
   display: flex;
   justify-content: space-around;
+
   background-color: #9dbbc3;
   padding: 6px 0;
   width: 960px;
-  margin: 5px;
-
+  margin: 0 20px 5px;
   height: 32px;
   color: #ffffff;
   border-radius: 8px;
