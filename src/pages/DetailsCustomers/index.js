@@ -1,5 +1,5 @@
 import "./styles.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
@@ -7,14 +7,16 @@ import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import Line from "../../assets/line.svg";
 import { useState } from "react/cjs/react.development";
+import NumberFormat from "react-number-format";
+// import { format } from "date-fns";
 
 function DetailsCustomers() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
-  const [chargeClient, setChargeClient] = useState([]);
-
+  // const [chargeClient, setChargeClient] = useState([]);
   const { id } = history.location.state ?? {};
+  // let formatDate = "";
 
   useEffect(() => {
     async function callGetUser() {
@@ -22,32 +24,44 @@ function DetailsCustomers() {
     }
     callGetUser();
   }, []);
-  useEffect(() => {
-    function callSetCharge() {
-      setChargeClient(client.cobrancas);
-    }
-    callSetCharge();
-  }, []);
+  // useEffect(() => {
+  //   function callSetCharge() {
+  //     setChargeClient(client.cobrancas);
+  //   }
+  //   callSetCharge();
+  // }, []);
 
   return (
     <div className="container-details-customers">
       <div className="container-info-clients">
         <h1>{client.nome}</h1>
-        <span>{client.cpf}</span>
-        <div className="flex-column info-clients-first">
+        <NumberFormat
+          value={client.cpf}
+          displayType={"text"}
+          format="###.###.###-##"
+        />
+        <div className="flex-row info-clients-first">
           <div className="flex-row">
             <img src={EmailIcon} alt="" />
             <span>{client.email}</span>
           </div>
           <div className="flex-row">
             <img src={PhoneIcon} alt="" />
-            <span>{client.telefone}</span>
+            <NumberFormat
+              value={client.telefone}
+              displayType={"text"}
+              format="(##) # ####-####"
+            />
           </div>
         </div>
-        <div>
+        <div className="flex-row info-clients-second">
           <div>
             <p>CEP</p>
-            <span>{client.cep}</span>
+            <NumberFormat
+              value={client.cep}
+              displayType={"text"}
+              format="#####-###"
+            />{" "}
           </div>
           <div>
             <p>Bairro</p>
@@ -55,7 +69,7 @@ function DetailsCustomers() {
           </div>
           <div>
             <p>Cidade</p>
-            {/* <span>{client.cidade}</span> */}
+            <span>{client.cidade}</span>
           </div>
         </div>
         <div>
@@ -65,7 +79,9 @@ function DetailsCustomers() {
         <div>
           <div>
             <p>Complemento</p>
-            <span>{client.complemento}</span>
+            <span>
+              {!client.complemento ? "Sem complemento" : client.complemento}
+            </span>
           </div>
           <div>
             <p>Ponto de Referência</p>
@@ -75,23 +91,40 @@ function DetailsCustomers() {
       </div>
       <img src={Line} alt="" />
       <div className="container-info-charges">
-        {!chargeClient ? (
+        {!client.cobrancas ? (
           <div>
             <p>sem faturas pendentes</p>
           </div>
         ) : (
-          chargeClient.map(
+          client.cobrancas.map(
             ({ id, descricao, valor, status, data_vencimento }) => (
               <div key={id} className="box-info-charges">
                 <div>
                   <div>
-                    {id}
+                    <p>{id}</p>
                     {descricao}
                   </div>
-                  {data_vencimento}
+                  <span className="span-md"></span>
                 </div>
-                <div>{valor}</div>
-                <div>{status}</div>
+                <div>
+                  <NumberFormat
+                    className="span-md margin-md"
+                    value={valor ? valor : 0}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"R$"}
+                  />
+                </div>
+                <div>
+                  <span
+                    className={`status-costumers ${
+                      status ? status.toLowerCase() : "as"
+                    }`}
+                  >
+                    {/* className="status-costumers" > */}
+                    {status.toUpperCase()}
+                  </span>
+                </div>
               </div>
             )
           )

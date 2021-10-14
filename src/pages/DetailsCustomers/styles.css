@@ -35,3 +35,31 @@
   width: 410px;
   height: 90px;
 }
+
+.container-details-customers h1 {
+  color: #374952;
+  margin-bottom: 26px;
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.info-clients-first {
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+.info-clients-second {
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.pago {
+  color: #4ec06e;
+}
+.pendente {
+  color: #5197b5;
+}
+.vencido {
+  color: #ff4d4d;
+}

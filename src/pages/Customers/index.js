@@ -6,6 +6,7 @@ import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
+import NumberFormat from "react-number-format";
 
 function Customers() {
   const history = useHistory();
@@ -55,7 +56,7 @@ function Customers() {
                 <div className="client-details">
                   <div
                     onClick={() =>
-                      history.push(`/clients/details/${id}`, {
+                      history.push(`/clients/${id}/details/`, {
                         id,
                       })
                     }
@@ -71,13 +72,29 @@ function Customers() {
                   </div>
                   <div>
                     <img src={PhoneIcon} alt="telefone" />
-                    <span className="">{telefone}</span>
+                    <NumberFormat
+                      value={telefone}
+                      displayType={"text"}
+                      format="(##) # ####-####"
+                    />
                   </div>
                 </div>
-                <span className="span-lg  ">R$ {so_pago}</span>
-                <span className="span-lg margin-lg">
-                  R$ {!valor_cobrado ? "0" : valor_cobrado}
-                </span>
+                <NumberFormat
+                  className="span-lg"
+                  value={so_pago * 10}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"R$"}
+                />
+                <NumberFormat
+                  className="span-lg"
+                  decimalSeparator="."
+                  value={!valor_cobrado ? "0" : valor_cobrado * 10}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"R$"}
+                />
+
                 <span
                   className={`status-costumers ${statusCliente.toLowerCase()}`}
                 >
