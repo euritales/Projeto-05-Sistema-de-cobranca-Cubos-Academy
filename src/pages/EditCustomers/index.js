@@ -15,6 +15,8 @@ function EditCustomers() {
   const { editClient } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
   const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
+  const [telefoneAntigo, setTelefoneAntigo] = useState("");
+  const [cpfAntigo, setCpfAntigo] = useState("");
 
   useEffect(() => {
     async function loadUser() {
@@ -23,6 +25,8 @@ function EditCustomers() {
       setValue("telefone", telefone);
       setValue("cpf", cpf);
       setValue("cep", cep);
+      // setTelefoneAntigo(telefone);
+      // setCpfAntigo(cpf);
     }
     loadUser();
   }, []);
@@ -126,34 +130,36 @@ function EditCustomers() {
           </div>
           <div className="container-unic-input">
             <label htmlFor="cpf">CPF</label>
-            {/* <input
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
-            /> */}
-            <MaskedInput
-              mask="999.999.999-99"
+            <input
               type="text"
               id="cpf"
               {...register("cpf", { require: true })}
             />
+            {/* <MaskedInput
+              mask="999.999.999-99"
+              type="text"
+              id="cpf"
+              setValue={cpf}
+              {...register("cpf", { require: true })}
+            /> */}
           </div>
           <div>
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                {/* <input
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                /> */}
-
-                <MaskedInput
-                  mask="(99)9 9999-9999"
+                <input
                   type="text"
                   id="telefone"
                   {...register("telefone", { require: true })}
                 />
+
+                {/* <MaskedInput
+                  mask="(99)9 9999-9999"
+                  value={telefoneAntigo}
+                  type="text"
+                  id="telefone"
+                  {...register("telefone", { require: true })}
+                /> */}
               </div>
               <div>
                 <label htmlFor="cep">CEP</label>

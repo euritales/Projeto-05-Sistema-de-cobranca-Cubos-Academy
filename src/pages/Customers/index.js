@@ -63,7 +63,7 @@ function Customers() {
                     className="name-costumers"
                   >
                     <button>
-                      <span>{nome}</span>
+                      <p>{nome}</p>
                     </button>
                   </div>
                   <div className="span-client-email">
@@ -81,7 +81,7 @@ function Customers() {
                 </div>
                 <NumberFormat
                   className="span-lg"
-                  value={so_pago * 10}
+                  value={!valor_cobrado ? "0" : valor_cobrado}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"R$"}
@@ -89,7 +89,7 @@ function Customers() {
                 <NumberFormat
                   className="span-lg"
                   decimalSeparator="."
-                  value={!valor_cobrado ? "0" : valor_cobrado * 10}
+                  value={so_pago}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"R$"}

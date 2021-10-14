@@ -68,7 +68,6 @@ function CreateCharges() {
               </option>
               <option value="pago">PAGO</option>
               <option value="pendente">PENDENTE</option>
-              <option value="vencido">VENCIDO</option>
             </select>
           </div>
           <div>
