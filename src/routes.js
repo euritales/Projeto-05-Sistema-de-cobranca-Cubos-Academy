@@ -13,12 +13,10 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
-import EditCustomers from "./pages/EditCustomers";
 import { AuthContext } from "./context/auth";
 import { UserContextProvider } from "./context/user";
 import { ClientContextProvider } from "./context/client";
 import { ChargeContextProvider } from "./context/charge";
-import DetailsCustomers from "./pages/DetailsCustomers";
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
@@ -47,21 +45,13 @@ function Routes() {
                     component={CreateCharges}
                   />
                   <Route path="/clients" exact component={Customers} />
-                  <Route
-                    path="/clients/:id/details"
-                    exact
-                    component={DetailsCustomers}
-                  />
+
                   <Route
                     path="/clients/register"
                     exact
                     component={RegisterClients}
                   />
-                  <Route
-                    path="/clients/:id/edit"
-                    exact
-                    component={EditCustomers}
-                  />
+
                   <Route
                     path="/"
                     exact

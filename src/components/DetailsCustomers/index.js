@@ -61,7 +61,7 @@ function DetailsCustomers() {
               value={client.cep}
               displayType={"text"}
               format="#####-###"
-            />{" "}
+            />
           </div>
           <div>
             <p>Bairro</p>
