@@ -1,22 +1,25 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import { MaskedInput } from "../../hooks/MaskedInput";
+import CloseIcon from "../../assets/close-icon.svg";
 
-function EditCustomers() {
+function EditCustomers({ setEditClients }) {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
   const history = useHistory();
+  const location = useLocation();
+
   const { editClient } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
   const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
-  const [telefoneAntigo, setTelefoneAntigo] = useState("");
-  const [cpfAntigo, setCpfAntigo] = useState("");
+  // const [telefoneAntigo, setTelefoneAntigo] = useState("");
+  // const [cpfAntigo, setCpfAntigo] = useState("");
 
   useEffect(() => {
     async function loadUser() {
@@ -109,8 +112,17 @@ function EditCustomers() {
 
   return (
     <div className="container-form-clients">
-      <p>{"//"} EDITAR CLIENTE</p>
       <div>
+        <div className="close-icon">
+          <NavLink
+            to={location.pathname}
+            exact
+            className="close-button-edit"
+            onClick={() => setEditClients(false)}
+          >
+            <img src={CloseIcon} alt="" />
+          </NavLink>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
             <label htmlFor="nome">Nome</label>
@@ -135,13 +147,12 @@ function EditCustomers() {
               id="cpf"
               {...register("cpf", { require: true })}
             />
-            {/* <MaskedInput
+            <MaskedInput
               mask="999.999.999-99"
               type="text"
               id="cpf"
-              setValue={cpf}
               {...register("cpf", { require: true })}
-            /> */}
+            />
           </div>
           <div>
             <div className="container-double-form">

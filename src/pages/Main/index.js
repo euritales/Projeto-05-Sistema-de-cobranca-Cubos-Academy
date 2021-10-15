@@ -1,7 +1,6 @@
 import ProfileBar from "../../components/ProfileBar";
 import "./styles.css";
 import SideBar from "../../components/SideBar";
-
 import EditProfile from "../../components/EditProfile";
 import { useState } from "react";
 

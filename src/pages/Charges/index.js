@@ -3,15 +3,12 @@ import "./styles.css";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
-import NumberFormat from "react-number-format";
 import SearchIcon from "../../assets/search-icon.svg";
-
-import { format } from "date-fns";
+import { formatToBRL, formatToDate } from "brazilian-values";
 
 function Charges() {
   const { token } = useContext(AuthContext);
   const { getCharges, charges } = useContext(ChargeContext);
-  let formatDate = "";
 
   useEffect(() => {
     async function callGetClient() {
@@ -48,25 +45,15 @@ function Charges() {
                 <span className="span-lg margin-lg">{nome}</span>
                 <span className="span-lg margin-lg">{descricao}</span>
                 {/* <span className="span-md margin-md">R$ {valor}</span> */}
-                <NumberFormat
-                  className="span-md margin-md"
-                  value={!valor ? "0" : valor}
-                  displayType={"text"}
-                  decimalSymbol="."
-                  thousandSeparator={true}
-                  prefix={"R$"}
-                />
+
+                <span className="span-md margin-md">
+                  {formatToBRL(!valor ? "0" : valor / 100)}
+                </span>
                 <span className={`status-charge ${status}`}>
                   {status.toUpperCase()}
                 </span>
                 <span className="span-md">
-                  {" "}
-                  {
-                    (formatDate = format(
-                      new Date(data_vencimento),
-                      "dd/MM/yyyy"
-                    ))
-                  }
+                  {formatToDate(new Date(data_vencimento))}
                 </span>
               </div>
             )
