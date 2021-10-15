@@ -10,17 +10,20 @@ import { useState } from "react/cjs/react.development";
 import NumberFormat from "react-number-format";
 // import { format } from "date-fns";
 
-function DetailsCustomers() {
+function DetailsCustomers({ setDetailsClient, idClient }) {
   const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
-  // const [chargeClient, setChargeClient] = useState([]);
-  const { id } = history.location.state ?? {};
+  // // const [chargeClient, setChargeClient] = useState([]);
+  // const [getId, setGetId] = useState(idClient);
+
+  // const { id } = history.location.state ?? {};
   // let formatDate = "";
 
   useEffect(() => {
     async function callGetUser() {
-      return getClient({ token, id });
+      console.log(idClient);
+      return getClient({ token, idClient });
     }
     callGetUser();
   }, []);

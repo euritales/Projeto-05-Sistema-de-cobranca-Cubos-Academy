@@ -9,7 +9,7 @@ import { ClientContext } from "../../context/client";
 import { MaskedInput } from "../../hooks/MaskedInput";
 import CloseIcon from "../../assets/close-icon.svg";
 
-function EditCustomers({ setEditClients }) {
+function EditCustomers({ setEditClients, client }) {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
   const history = useHistory();
@@ -17,17 +17,17 @@ function EditCustomers({ setEditClients }) {
 
   const { editClient } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
+  // const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
   // const [telefoneAntigo, setTelefoneAntigo] = useState("");
   // const [cpfAntigo, setCpfAntigo] = useState("");
 
   useEffect(() => {
     async function loadUser() {
-      setValue("nome", nome);
-      setValue("email", email);
-      setValue("telefone", telefone);
-      setValue("cpf", cpf);
-      setValue("cep", cep);
+      // setValue("nome", client.n  ome);
+      // setValue("email", email);
+      // setValue("telefone", telefone);
+      // setValue("cpf", cpf);
+      // setValue("cep", cep);
       // setTelefoneAntigo(telefone);
       // setCpfAntigo(cpf);
     }
@@ -42,7 +42,7 @@ function EditCustomers({ setEditClients }) {
 
   async function onSubmit(data) {
     console.log(data);
-    return editClient({ data, token, id });
+    return editClient({ data, token });
   }
 
   useEffect(() => {
@@ -128,6 +128,7 @@ function EditCustomers({ setEditClients }) {
             <label htmlFor="nome">Nome</label>
             <input
               type="text"
+              // defaultValue={client.nome}
               id="nome"
               {...register("nome", { require: true })}
             />

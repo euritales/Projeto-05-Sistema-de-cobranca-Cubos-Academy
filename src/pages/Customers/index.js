@@ -18,6 +18,8 @@ function Customers() {
   const { getClients, clients } = useContext(ClientContext);
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
+  const [idClient, setIdClient] = useState("");
+  const [details, setDetails] = useState([]);
 
   useEffect(() => {
     async function callGetClient() {
@@ -26,15 +28,27 @@ function Customers() {
     callGetClient();
   }, []);
 
-  {
-    /* {detailsClient && (
-    <DetailsCustomers setDetailsClient={setDetailsClient} />
-  )} */
+  function handleEditClient(id) {
+    console.log(id);
+    setIdClient(id);
+    console.log(idClient);
+    setEditClients(true);
+  }
+
+  function handleDetailsClient(client) {
+    setIdClient(client);
+    setDetailsClient(true);
   }
   return (
     <div className="container-costumers">
+      {detailsClient && (
+        <DetailsCustomers
+          setDetailsClient={setDetailsClient}
+          clientDetail={details}
+        />
+      )}
       {editClients ? (
-        <EditCustomers setEditClients={setEditClients} />
+        <EditCustomers setEditClients={setEditClients} idClient={idClient} />
       ) : (
         <>
           <div className="input-busca-botao">
@@ -78,11 +92,7 @@ function Customers() {
                   <div className="container-details-costumers" key={id}>
                     <div className="client-details">
                       <div
-                        onClick={() =>
-                          history.push(`/clients/${id}/details/`, {
-                            id,
-                          })
-                        }
+                        onClick={() => handleDetailsClient(id)}
                         className="name-costumers"
                       >
                         <button>
@@ -116,7 +126,7 @@ function Customers() {
                       {statusCliente.toUpperCase()}
                     </span>
                     <div className="edit-clients-button">
-                      <button onClick={() => setEditClients(true)}>
+                      <button onClick={() => handleEditClient(id)}>
                         <img src={EditIcon} alt="Editar Cliente" />
                       </button>
                     </div>
