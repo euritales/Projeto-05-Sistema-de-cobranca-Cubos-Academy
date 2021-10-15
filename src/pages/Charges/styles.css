@@ -25,8 +25,8 @@
   justify-content: space-around;
   background-color: #9dbbc3;
   padding: 6px 0;
-  width: 960px;
-  margin: 0 20px 5px;
+  width: 970px;
+  margin: 0 15px 6px 12px;
   height: 32px;
   color: #ffffff;
   border-radius: 8px;
@@ -54,7 +54,13 @@
   flex-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+.container-details-charge span:hover:nth-child(4) {
+  overflow: visible;
+}
+
 .span-lg {
   justify-content: start;
   width: 180px;
