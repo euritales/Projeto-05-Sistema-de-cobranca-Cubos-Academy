@@ -18,37 +18,34 @@ function Customers() {
   const { getClients, clients } = useContext(ClientContext);
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
-  const [idClient, setIdClient] = useState("");
-  const [details, setDetails] = useState([]);
+  const [clientId, setClientId] = useState();
 
   useEffect(() => {
     async function callGetClient() {
       return getClients(token);
     }
     callGetClient();
-  }, []);
+  }, [editClients]);
 
   function handleEditClient(id) {
-    console.log(id);
-    setIdClient(id);
-    console.log(idClient);
+    setClientId(id);
     setEditClients(true);
   }
 
   function handleDetailsClient(client) {
-    setIdClient(client);
     setDetailsClient(true);
   }
+
+  // {detailsClient && (
+  //   <DetailsCustomers
+  //     setDetailsClient={setDetailsClient}
+  //     clientDetail={details}
+  //   />
+  // )}
   return (
     <div className="container-costumers">
-      {detailsClient && (
-        <DetailsCustomers
-          setDetailsClient={setDetailsClient}
-          clientDetail={details}
-        />
-      )}
       {editClients ? (
-        <EditCustomers setEditClients={setEditClients} idClient={idClient} />
+        <EditCustomers setEditClients={setEditClients} clientId={clientId} />
       ) : (
         <>
           <div className="input-busca-botao">
@@ -126,7 +123,11 @@ function Customers() {
                       {statusCliente.toUpperCase()}
                     </span>
                     <div className="edit-clients-button">
-                      <button onClick={() => handleEditClient(id)}>
+                      <button
+                        onClick={() => {
+                          handleEditClient(id);
+                        }}
+                      >
                         <img src={EditIcon} alt="Editar Cliente" />
                       </button>
                     </div>

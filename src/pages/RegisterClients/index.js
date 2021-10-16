@@ -94,7 +94,7 @@ function RegisterClients() {
   return (
     <div className="container-form-clients">
       <p>{"//"} ADCIONAR CLIENTE</p>
-      <div>
+      <div className="container-register-clients">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
             <label htmlFor="nome">Nome</label>
@@ -148,7 +148,7 @@ function RegisterClients() {
                 <input
                   type="text"
                   id="cep"
-                  maxlength="9"
+                  maxLength="9"
                   {...register("cep")}
                 />
               </div>

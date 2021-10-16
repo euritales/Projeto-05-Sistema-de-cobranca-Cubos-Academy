@@ -2,7 +2,7 @@ import React from "react";
 import InputMask from "react-input-mask";
 import "./styles.css";
 
-const onlyNumbers = (str) => str.replace(/[^0-9]/g, "");
+export const onlyNumbers = (str) => str.replace(/[^0-9]/g, "");
 
 export function MaskedInput({ value, onChange, name, mask }) {
   function handleChange(event) {

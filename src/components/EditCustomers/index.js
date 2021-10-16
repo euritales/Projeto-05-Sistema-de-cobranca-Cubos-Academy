@@ -8,31 +8,30 @@ import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import { MaskedInput } from "../../hooks/MaskedInput";
 import CloseIcon from "../../assets/close-icon.svg";
+import { formatToCPF, formatToCEP } from "brazilian-values";
 
-function EditCustomers({ setEditClients, client }) {
+function EditCustomers({ setEditClients, clientId }) {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
   const history = useHistory();
   const location = useLocation();
+  const { editClient, getClient, client } = useContext(ClientContext);
 
-  const { editClient } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  // const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
-  // const [telefoneAntigo, setTelefoneAntigo] = useState("");
-  // const [cpfAntigo, setCpfAntigo] = useState("");
 
   useEffect(() => {
+    return getClient({ token, id: clientId });
+  }, []);
+  useEffect(() => {
     async function loadUser() {
-      // setValue("nome", client.n  ome);
-      // setValue("email", email);
-      // setValue("telefone", telefone);
-      // setValue("cpf", cpf);
-      // setValue("cep", cep);
-      // setTelefoneAntigo(telefone);
-      // setCpfAntigo(cpf);
+      setValue("nome", client.nome);
+      setValue("email", client.email);
+      setValue("telefone", client.telefone);
+      setValue("cpf", client.cpf);
+      setValue("cep", client.cep);
     }
     loadUser();
-  }, []);
+  }, [client]);
 
   let nomeWatch = watch("nome");
   let emailWatch = watch("email");
@@ -42,7 +41,7 @@ function EditCustomers({ setEditClients, client }) {
 
   async function onSubmit(data) {
     console.log(data);
-    return editClient({ data, token });
+    return editClient({ data, token, id: clientId, setEditClients });
   }
 
   useEffect(() => {
@@ -111,18 +110,18 @@ function EditCustomers({ setEditClients, client }) {
   }
 
   return (
-    <div className="container-form-clients">
-      <div>
-        <div className="close-icon">
-          <NavLink
-            to={location.pathname}
-            exact
-            className="close-button-edit"
-            onClick={() => setEditClients(false)}
-          >
-            <img src={CloseIcon} alt="" />
-          </NavLink>
-        </div>
+    <div className="edit-customers">
+      <div className="container-form-editclients">
+        {/* <div className="close-icon"> */}
+        <NavLink
+          to={location.pathname}
+          exact
+          className="close-button-edit"
+          onClick={() => setEditClients(false)}
+        >
+          <img src={CloseIcon} alt="" />
+        </NavLink>
+        {/* </div> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
             <label htmlFor="nome">Nome</label>
@@ -146,13 +145,9 @@ function EditCustomers({ setEditClients, client }) {
             <input
               type="text"
               id="cpf"
-              {...register("cpf", { require: true })}
-            />
-            <MaskedInput
-              mask="999.999.999-99"
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
+              {...register("cpf", {
+                require: true,
+              })}
             />
           </div>
           <div>
@@ -162,23 +157,16 @@ function EditCustomers({ setEditClients, client }) {
                 <input
                   type="text"
                   id="telefone"
+                  minLength="8"
                   {...register("telefone", { require: true })}
                 />
-
-                {/* <MaskedInput
-                  mask="(99)9 9999-9999"
-                  value={telefoneAntigo}
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                /> */}
               </div>
               <div>
                 <label htmlFor="cep">CEP</label>
                 <input
                   type="text"
                   id="cep"
-                  maxlength="9"
+                  maxLength="9"
                   {...register("cep")}
                 />
               </div>
@@ -232,7 +220,7 @@ function EditCustomers({ setEditClients, client }) {
           </div>
           <div className="container-buttonsClient">
             <button
-              onClick={() => history.push("/clients")}
+              onClick={() => setEditClients(false)}
               className="btn btn-white"
               type="submit"
             >
