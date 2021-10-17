@@ -20,6 +20,9 @@
   background-color: #ffffff;
   border-radius: 16px;
 }
+
+.container-register-clients {
+}
 .container-unic-input {
   display: flex;
   flex-direction: column;

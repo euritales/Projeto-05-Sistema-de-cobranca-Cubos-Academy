@@ -58,7 +58,7 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function editClient({ data, token, id }) {
+  async function editClient({ data, token, id, setEditClients }) {
     const body = {
       nome: data.nome,
       cpf: data.cpf,
@@ -89,7 +89,7 @@ export const ClientContextProvider = ({ children }) => {
     const dados = await response.json();
 
     if (response.ok) {
-      history.push("/clients");
+      setEditClients(false);
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
