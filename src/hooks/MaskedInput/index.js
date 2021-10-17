@@ -12,6 +12,7 @@ export function MaskedInput({ value, onChange, name, mask }) {
         ...event.target,
         name,
         value: onlyNumbers(event.target.value),
+        // value: event.target.value,
       },
     });
   }

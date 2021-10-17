@@ -125,6 +125,12 @@ function RegisterClients() {
               id="cpf"
               {...register("cpf", { require: true })}
             />
+            {/* <input
+              id="cpf"
+              name="cpf"
+              placeholder="CPF - formato: 000.000.000-00"
+              {...register("cpf", { require: true })}
+            /> */}
           </div>
           <div>
             <div className="container-double-form">
@@ -151,6 +157,14 @@ function RegisterClients() {
                   maxLength="9"
                   {...register("cep")}
                 />
+                {/* <MaskedInput
+                  name="cep"
+                  mask="99999-999"
+                  type="text"
+                  id="cep"
+                  {...register("cep")} 
+                />
+                  */}
               </div>
             </div>
             <div className="container-double-form">

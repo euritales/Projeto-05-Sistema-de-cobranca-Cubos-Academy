@@ -1,35 +1,33 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
-import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
-import { MaskedInput } from "../../hooks/MaskedInput";
 import CloseIcon from "../../assets/close-icon.svg";
-import { formatToCPF, formatToCEP } from "brazilian-values";
 
 function EditCustomers({ setEditClients, clientId }) {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
-  const history = useHistory();
   const location = useLocation();
   const { editClient, getClient, client } = useContext(ClientContext);
-
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   useEffect(() => {
     return getClient({ token, id: clientId });
   }, []);
+
   useEffect(() => {
     async function loadUser() {
       setValue("nome", client.nome);
       setValue("email", client.email);
-      setValue("telefone", client.telefone);
-      setValue("cpf", client.cpf);
       setValue("cep", client.cep);
+      setValue("cpf", client.cpf);
+      setValue("telefone", client.telefone);
     }
+
     loadUser();
   }, [client]);
 
@@ -41,6 +39,7 @@ function EditCustomers({ setEditClients, clientId }) {
 
   async function onSubmit(data) {
     console.log(data);
+
     return editClient({ data, token, id: clientId, setEditClients });
   }
 
@@ -112,7 +111,6 @@ function EditCustomers({ setEditClients, clientId }) {
   return (
     <div className="edit-customers">
       <div className="container-form-editclients">
-        {/* <div className="close-icon"> */}
         <NavLink
           to={location.pathname}
           exact
@@ -121,13 +119,11 @@ function EditCustomers({ setEditClients, clientId }) {
         >
           <img src={CloseIcon} alt="" />
         </NavLink>
-        {/* </div> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
             <label htmlFor="nome">Nome</label>
             <input
               type="text"
-              // defaultValue={client.nome}
               id="nome"
               {...register("nome", { require: true })}
             />
@@ -145,30 +141,18 @@ function EditCustomers({ setEditClients, clientId }) {
             <input
               type="text"
               id="cpf"
-              {...register("cpf", {
-                require: true,
-              })}
+              {...register("cpf", { require: true })}
             />
           </div>
           <div>
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                <input
-                  type="text"
-                  id="telefone"
-                  minLength="8"
-                  {...register("telefone", { require: true })}
-                />
+                <input type="text" id="telefone" {...register("telefone")} />
               </div>
               <div>
                 <label htmlFor="cep">CEP</label>
-                <input
-                  type="text"
-                  id="cep"
-                  maxLength="9"
-                  {...register("cep")}
-                />
+                <input type="text" id="cep" {...register("cep")} />
               </div>
             </div>
             <div className="container-double-form">
@@ -229,7 +213,6 @@ function EditCustomers({ setEditClients, clientId }) {
             <button
               onClick={() => handleNotifications()}
               className={statusButton}
-              type="submit"
             >
               Editar Cliente
             </button>
