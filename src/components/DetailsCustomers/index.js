@@ -1,53 +1,50 @@
 import "./styles.css";
-import { useHistory, NavLink } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
+import NumberFormat from "react-number-format";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import Line from "../../assets/line.svg";
-import { useState } from "react/cjs/react.development";
-import NumberFormat from "react-number-format";
-// import { format } from "date-fns";
+import CloseIcon from "../../assets/close-icon.svg";
+import { formatToBRL, formatToDate } from "brazilian-values";
 
-function DetailsCustomers({ setDetailsClient, idClient }) {
+function DetailsCustomers({ setDetailsClient, clientId }) {
   const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
-  // // const [chargeClient, setChargeClient] = useState([]);
-  // const [getId, setGetId] = useState(idClient);
-
-  // const { id } = history.location.state ?? {};
-  // let formatDate = "";
+  const location = useLocation();
 
   useEffect(() => {
-    async function callGetUser() {
-      console.log(idClient);
-      return getClient({ token, idClient });
-    }
-    callGetUser();
+    console.log(clientId);
+    return getClient({ token, id: clientId });
   }, []);
-  // useEffect(() => {
-  //   function callSetCharge() {
-  //     setChargeClient(client.cobrancas);
-  //   }
-  //   callSetCharge();
-  // }, []);
 
   return (
     <div className="position-absolute">
+      <NavLink
+        to={location.pathname}
+        exact
+        className="close-button-details"
+        onClick={() => setDetailsClient(false)}
+      >
+        <img src={CloseIcon} alt="" />
+      </NavLink>
       <div className="container-details-customers">
         <div className="container-info-clients">
-          <h1>{client.nome}</h1>
-          <NumberFormat
-            value={client.cpf}
-            displayType={"text"}
-            format="###.###.###-##"
-          />
+          <div className="title-customer">
+            <h1>{client.nome}</h1>
+            <NumberFormat
+              value={client.cpf}
+              displayType="321.123.123-45"
+              format="###.###.###-##"
+            />
+          </div>
           <div className="flex-row info-clients-first">
-            <div className="flex-row">
+            <div className="flex-row over-text">
               <img src={EmailIcon} alt="" />
-              <span>{client.email}</span>
+              <span className="span-lg">{client.email}</span>
             </div>
             <div className="flex-row">
               <img src={PhoneIcon} alt="" />
@@ -76,11 +73,11 @@ function DetailsCustomers({ setDetailsClient, idClient }) {
               <span>{client.cidade}</span>
             </div>
           </div>
-          <div>
+          <div className="logradouro">
             <p>Logradouro</p>
             <span>{client.logradouro}</span>
           </div>
-          <div>
+          <div className="flex-row complemento">
             <div>
               <p>Complemento</p>
               <span>
@@ -89,44 +86,47 @@ function DetailsCustomers({ setDetailsClient, idClient }) {
             </div>
             <div>
               <p>Ponto de Referência</p>
-              <span>{client.ponto_referencia}</span>
+              <span>
+                {client.ponto_referencia
+                  ? client.ponto_referencia
+                  : "Sem Ponto de Referência"}
+              </span>
             </div>
           </div>
         </div>
         <img src={Line} alt="" />
         <div className="container-info-charges">
-          {!client.cobrancas ? (
-            <div>
+          {!client.cobrancas?.length ? (
+            <div className="box-info-charges">
               <p>sem faturas pendentes</p>
             </div>
           ) : (
             client.cobrancas.map(
               ({ id, descricao, valor, status, data_vencimento }) => (
                 <div key={id} className="box-info-charges">
-                  <div>
+                  <div className="info-charge-one">
                     <div>
-                      <p>{id}</p>
-                      {descricao}
+                      <p>#{id}</p>
+                      <span className="span-md">{descricao}</span>
                     </div>
-                    <span className="span-md"></span>
+                    <div>
+                      <span>{formatToDate(new Date(data_vencimento))}</span>
+                    </div>
                   </div>
-                  <div>
-                    <NumberFormat
-                      className="span-md margin-md"
-                      value={valor ? valor : 0}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"R$"}
-                    />
-                  </div>
-                  <div>
-                    <span
-                      className={`status-costumers ${
-                        status ? status.toLowerCase() : "as"
-                      }`}
-                    >
-                      {status.toUpperCase()}
-                    </span>
+
+                  <div className="info-charge-two">
+                    <div>
+                      <p>{formatToBRL(valor)}</p>
+                    </div>
+                    <div>
+                      <span
+                        className={`status-costumers ${
+                          status ? status.toLowerCase() : "as"
+                        }`}
+                      >
+                        {status.toUpperCase()}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )
