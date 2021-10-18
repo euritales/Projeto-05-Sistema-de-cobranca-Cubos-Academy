@@ -10,6 +10,8 @@ export const ClientContextProvider = ({ children }) => {
   const history = useHistory();
   const [clients, setClients] = useState([]);
   const [client, setClient] = useState([]);
+  const [statusEmdia, setStatusEmdia] = useState([]);
+  const [statusInad, setStatusInad] = useState([]);
 
   async function getClients(token) {
     try {
@@ -28,6 +30,52 @@ export const ClientContextProvider = ({ children }) => {
 
       if (response.ok) {
         return setClients(dados);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
+  async function getClientStatusEmdia(token) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/reports/clients/em_dia`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      if (response.ok) {
+        return setStatusEmdia(dados);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
+  async function getClientStatusInad(token) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/reports/clients/inadimplente`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      if (response.ok) {
+        return setStatusInad(dados);
       }
     } catch (error) {
       return ErrorMessage(error.message);
@@ -127,6 +175,10 @@ export const ClientContextProvider = ({ children }) => {
       value={{
         getClients,
         clients,
+        getClientStatusEmdia,
+        getClientStatusInad,
+        statusInad,
+        statusEmdia,
         getClient,
         client,
         createClient,
