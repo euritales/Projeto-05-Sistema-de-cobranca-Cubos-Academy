@@ -94,6 +94,7 @@ export const ChargeContextProvider = ({ children }) => {
     <ChargeContext.Provider //checkList integração:
       value={{
         charges,
+        setCharges,
         createCharges,
         editCharges,
         getCharges,

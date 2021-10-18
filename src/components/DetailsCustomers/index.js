@@ -35,11 +35,13 @@ function DetailsCustomers({ setDetailsClient, clientId }) {
         <div className="container-info-clients">
           <div className="title-customer">
             <h1>{client.nome}</h1>
-            <NumberFormat
-              value={client.cpf}
-              displayType="321.123.123-45"
-              format="###.###.###-##"
-            />
+            <span>
+              <NumberFormat
+                value={client.cpf}
+                displayType="321.123.123-45"
+                format="###.###.###-##"
+              />
+            </span>
           </div>
           <div className="flex-row info-clients-first">
             <div className="flex-row over-text">
@@ -66,7 +68,7 @@ function DetailsCustomers({ setDetailsClient, clientId }) {
             </div>
             <div>
               <p>Bairro</p>
-              <span>{client.bairro}</span>
+              <span>{client.bairro ? client.cidade : "Sem cidade"}</span>
             </div>
             <div>
               <p>Cidade</p>
@@ -75,13 +77,15 @@ function DetailsCustomers({ setDetailsClient, clientId }) {
           </div>
           <div className="logradouro">
             <p>Logradouro</p>
-            <span>{client.logradouro}</span>
+            <span>
+              {client.logradouro ? client.logradouro : "Sem Logradouro"}
+            </span>
           </div>
           <div className="flex-row complemento">
             <div>
               <p>Complemento</p>
               <span>
-                {!client.complemento ? "Sem complemento" : client.complemento}
+                {!client.complemento ? "Sem Complemento" : client.complemento}
               </span>
             </div>
             <div>
