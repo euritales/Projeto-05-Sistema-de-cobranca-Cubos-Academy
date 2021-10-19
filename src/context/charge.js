@@ -197,10 +197,10 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  async function deleteCharge(chargeId, setOpenEditCharges) {
+  async function deleteCharge(id, setOpenEditCharges) {
     try {
       const response = await fetch(
-        `https://cubosacademy-projeto-5.herokuapp.com/charges/${chargeId}`,
+        `https://cubosacademy-projeto-5.herokuapp.com/charges/${id}`,
         {
           method: "DELETE",
           headers: {

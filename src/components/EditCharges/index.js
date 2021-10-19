@@ -8,29 +8,41 @@ import TrashIcon from "../../assets/trash-icon.svg";
 import { useLocation, NavLink } from "react-router-dom";
 import CloseIcon from "../../assets/close-icon.svg";
 
-function EditChargesModal({ setOpenEditCharges, chargeId }) {
-  const { register, handleSubmit } = useForm();
+function EditChargesModal({ setOpenEditCharges, id }) {
+  const { register, handleSubmit, setValue } = useForm();
   const [openDelete, setOpenDelete] = useState(false);
   const location = useLocation();
 
   const { getClients, clients } = useContext(ClientContext);
   const { token } = useContext(AuthContext);
-  const { charges, editCharges, deleteCharge } = useContext(ChargeContext);
+  const { getCharge, charges, editCharges, deleteCharge } =
+    useContext(ChargeContext);
 
   async function onSubmit(data) {
     console.log(data);
 
     return editCharges({
       data,
-      token,
-      client_id: chargeId,
+      id,
       setOpenEditCharges,
     });
   }
+  useEffect(() => {
+    getCharge(id);
+  }, []);
+
+  useEffect(() => {
+    async function loadUser() {
+      setValue("cliente_id", charges.cliente_id);
+      setValue("descricao", charges.descricao);
+      setValue("status", charges.status);
+      setValue("valor", charges.valor);
+    }
+    loadUser();
+  }, [charges]);
 
   function handleDelete() {
-    console.log(chargeId);
-    return deleteCharge(chargeId, setOpenEditCharges);
+    return deleteCharge(id, setOpenEditCharges);
   }
 
   return (

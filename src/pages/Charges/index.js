@@ -43,7 +43,7 @@ function Charges() {
     <>
       {openEditCharges && (
         <EditChargesModal
-          chargeId={chargeId}
+          id={chargeId}
           setOpenEditCharges={setOpenEditCharges}
         />
       )}
