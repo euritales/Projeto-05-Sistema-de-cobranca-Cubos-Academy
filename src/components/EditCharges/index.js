@@ -37,7 +37,7 @@ function EditChargesModal({ setOpenEditCharges, id }) {
       setValue("status", charge[0]?.status);
       setValue("valor", charge[0]?.valor);
       setValue("data_vencimento", charge[0]?.data_vencimento);
-      console.log(charge);
+      // console.log(charge);
     }
     loadUser();
   }, [getCharge]);
@@ -107,7 +107,6 @@ function EditChargesModal({ setOpenEditCharges, id }) {
                   {...register("valor", { require: true })}
                 />
               </div>
-
               <div>
                 <label htmlFor="data_vencimento">Vencimento</label>
                 <input
