@@ -52,6 +52,13 @@
 }
 
 */
+.details-status button {
+  cursor: pointer;
+  width: 266px;
+  margin: 0;
+  background: none;
+  border: none;
+}
 .status {
   display: flex;
   justify-content: space-between;

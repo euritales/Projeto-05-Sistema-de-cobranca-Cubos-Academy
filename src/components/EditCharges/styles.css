@@ -1,0 +1,17 @@
+.container-delete-button {
+  display: flex;
+  height: 50px;
+}
+.container-delete-button span {
+  color: #868686;
+  text-decoration-line: underline;
+}
+.container-delete-button button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}

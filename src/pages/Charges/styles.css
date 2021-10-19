@@ -33,16 +33,18 @@
   font-weight: 600;
   font-size: 14px;
 }
-.box-container-detail {
-  width: 960px;
+.box-container-details button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 8px 0;
 }
-
 .container-details-charge {
   display: flex;
   justify-content: space-around;
   padding: 17px 0 11px 0;
   min-width: 960px;
-  margin-top: 16px;
   height: 48px;
   background: #ffffff;
   border-radius: 8px;

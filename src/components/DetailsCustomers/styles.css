@@ -14,12 +14,13 @@
   display: flex;
   position: absolute;
   justify-content: center;
+  margin-right: 19px;
   align-items: center;
 }
 
 .container-details-customers {
   display: flex;
-  width: 958px;
+  width: 980px;
   height: 530px;
   display: flex;
   justify-content: space-evenly;
@@ -42,6 +43,7 @@
 
 .title-customer input {
   padding: 0;
+  font-size: 14px;
 }
 .title-customer {
   display: flex;
@@ -119,7 +121,10 @@
 .logradouro {
   margin: 26px 0;
 }
-.info-charge-two {
+.info-charge-two div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 .over-text span {
   overflow: hidden;

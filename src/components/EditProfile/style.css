@@ -6,7 +6,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.53);
 }
-.close-button-edit {
+.close-button-edit-profile {
   display: flex;
   width: 400px;
   flex-direction: column;
@@ -14,7 +14,7 @@
   align-items: flex-end;
   margin: 0;
 }
-.close-button-edit img {
+.close-button-edit-profile img {
   margin: 35px;
 }
 .edit-profile {
