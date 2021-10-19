@@ -15,12 +15,13 @@ export function StatusClient({ nome, img }) {
   const { getClientStatusEmdia, getClientStatusInad, statusEmdia, statusInad } =
     useContext(ClientContext);
 
+  async function callClientStatus() {
+    await getClientStatusEmdia(token);
+    await getClientStatusInad(token);
+    return;
+  }
+
   useEffect(() => {
-    async function callClientStatus() {
-      await getClientStatusEmdia(token);
-      await getClientStatusInad(token);
-      return;
-    }
     callClientStatus();
   }, []);
 
@@ -59,16 +60,17 @@ export function StatusCharges({ nome, img }) {
     statusPago,
     statusVencido,
   } = useContext(ChargeContext);
+
   useEffect(() => {
-    async function callClientStatus() {
-      await getChargeStatusPendente();
-      setPendente(statusPendente);
-      await getChargeStatusPago();
-      await getChargeStatusVencido();
-      return;
-    }
     callClientStatus();
   }, []);
+
+  async function callClientStatus() {
+    await getChargeStatusPendente();
+    await getChargeStatusPago();
+    await getChargeStatusVencido();
+    return;
+  }
 
   return (
     <div className="container-status">
