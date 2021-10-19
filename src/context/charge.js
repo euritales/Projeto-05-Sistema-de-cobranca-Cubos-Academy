@@ -42,9 +42,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getCharges();
-  }, []);
+  // useEffect(() => {
+  //   getCharges();
+  // }, []);
 
   async function getCharge(id) {
     try {
