@@ -11,6 +11,7 @@ import CloseIcon from "../../assets/close-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 
 function DetailsCustomers({ setDetailsClient, clientId }) {
+  // const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
   const location = useLocation();
