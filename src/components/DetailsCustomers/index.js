@@ -68,11 +68,11 @@ function DetailsCustomers({ setDetailsClient, clientId }) {
             </div>
             <div>
               <p>Bairro</p>
-              <span>{client.bairro ? client.cidade : "Sem cidade"}</span>
+              <span>{client.bairro ? client.bairro : "Sem Bairro"}</span>
             </div>
             <div>
               <p>Cidade</p>
-              <span>{client.cidade}</span>
+              <span>{client.cidade ? client.cidade : "Sem Cidade"}</span>
             </div>
           </div>
           <div className="logradouro">

@@ -1,34 +1,29 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
 
-function CreateCharges() {
+function EditChargesModal({ setOpenEditCharges, chargeId }) {
   const { register, handleSubmit } = useForm();
-  const { token } = useContext(AuthContext);
-  const { createCharges } = useContext(ChargeContext);
   const { getClients, clients } = useContext(ClientContext);
-
-  const history = useHistory();
-
-  useEffect(() => {
-    async function callGetClient() {
-      return getClients(token);
-    }
-    callGetClient();
-  }, []);
+  const { token } = useContext(AuthContext);
+  const { charges, editCharges } = useContext(ChargeContext);
 
   async function onSubmit(data) {
     console.log(data);
-    return createCharges({ data, token });
+
+    return editCharges({
+      data,
+      token,
+      client_id: chargeId,
+      setOpenEditCharges,
+    });
   }
 
   return (
     <div className="container-form-create-charges ">
-      <p>{"//"} CRIAR COBRANÇA</p>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input ">
@@ -92,9 +87,15 @@ function CreateCharges() {
               </div>
             </div>
           </div>
+          <div className="container-delete-button">
+            <button>
+              <span>Excluir Cobrança</span>
+              <img src="" alt="" />
+            </button>
+          </div>
           <div className="container-buttonsClient">
             <button
-              onClick={() => history.push("/charges")}
+              onClick={() => setOpenEditCharges(false)}
               className="btn btn-white"
             >
               Cancelar
@@ -109,4 +110,4 @@ function CreateCharges() {
   );
 }
 
-export default CreateCharges;
+export default EditChargesModal;

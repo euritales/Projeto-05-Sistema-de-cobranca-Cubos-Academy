@@ -42,12 +42,15 @@ export function StatusClient({ nome, img }) {
       </div>
       <div className="details-status">
         <button onClick={() => history.push("/reports/clients/")}>
-          <PayStatus situacao="Em dia" quantidade={statusEmdia.length} />
+          <PayStatus
+            situacao="Em dia"
+            quantidade={statusEmdia.length ? statusEmdia.length : "0"}
+          />
         </button>
         <button>
           <ForeseenStatus
             situacao="Inadimplentes"
-            quantidade={statusInad.length}
+            quantidade={statusInad.length ? statusInad.length : "0"}
           />
         </button>
       </div>
@@ -87,20 +90,23 @@ export function StatusCharges({ nome, img }) {
         <span>{nome}</span>
       </div>
       <div className="details-status">
-        <button>
+        <button onClick={() => history.push("/reports/charges/")}>
           <DefaultStatus
             situacao="Previstas"
-            quantidade={statusPendente.length}
+            quantidade={statusPendente.length ? statusPendente.length : "0"}
           />
         </button>
-        <button>
+        <button onClick={() => history.push("/reports/charges/")}>
           <ForeseenStatus
             situacao="Vencidas"
-            quantidade={statusVencido.length}
+            quantidade={statusVencido.length ? statusVencido.length : "0"}
           />
         </button>
-        <button>
-          <PayStatus situacao="Pagas" quantidade={statusPago.length} />
+        <button onClick={() => history.push("/reports/charges/")}>
+          <PayStatus
+            situacao="Pagas"
+            quantidade={statusPago.length ? statusPago.length : "0"}
+          />
         </button>
       </div>
     </div>
