@@ -11,14 +11,7 @@ import { useContext } from "react";
 export function StatusClient({ nome, img }) {
   const history = useHistory();
   const { token } = useContext(AuthContext);
-  // const {
-  //   getChargeStatusPendente,
-  //   getChargeStatusPago,
-  //   getChargeStatusVencido,
-  //   statusPendente,
-  //   statusPago,
-  //   statusVencido,
-  // } = useContext(ChargeContext);
+
   const { getClientStatusEmdia, getClientStatusInad, statusEmdia, statusInad } =
     useContext(ClientContext);
 
@@ -26,9 +19,6 @@ export function StatusClient({ nome, img }) {
     async function callClientStatus() {
       await getClientStatusEmdia(token);
       await getClientStatusInad(token);
-      // await getChargeStatusPendente(token);
-      // await getChargeStatusPago(token);
-      // await getChargeStatusVencido(token);
       return;
     }
     callClientStatus();
@@ -41,13 +31,13 @@ export function StatusClient({ nome, img }) {
         <span>{nome}</span>
       </div>
       <div className="details-status">
-        <button onClick={() => history.push("/reports/clients/")}>
+        <button onClick={() => history.push("/reports/clients/em_dia")}>
           <PayStatus
             situacao="Em dia"
             quantidade={statusEmdia.length ? statusEmdia.length : "0"}
           />
         </button>
-        <button>
+        <button onClick={() => history.push("/reports/clients/inadimplente")}>
           <ForeseenStatus
             situacao="Inadimplentes"
             quantidade={statusInad.length ? statusInad.length : "0"}
@@ -60,7 +50,7 @@ export function StatusClient({ nome, img }) {
 
 export function StatusCharges({ nome, img }) {
   const history = useHistory();
-  const { token } = useContext(AuthContext);
+  const [pendente, setPendente] = useState([]);
   const {
     getChargeStatusPendente,
     getChargeStatusPago,
@@ -69,20 +59,17 @@ export function StatusCharges({ nome, img }) {
     statusPago,
     statusVencido,
   } = useContext(ChargeContext);
-  // const { getClientStatusEmdia, getClientStatusInad, statusEmdia, statusInad } =
-  //   useContext(ClientContext);
-
   useEffect(() => {
     async function callClientStatus() {
-      // await getClientStatusEmdia(token);
-      // await getClientStatusInad(token);
-      await getChargeStatusPendente(token);
-      await getChargeStatusPago(token);
-      await getChargeStatusVencido(token);
+      await getChargeStatusPendente();
+      setPendente(statusPendente);
+      await getChargeStatusPago();
+      await getChargeStatusVencido();
       return;
     }
     callClientStatus();
   }, []);
+
   return (
     <div className="container-status">
       <div className="head-status">
@@ -90,19 +77,19 @@ export function StatusCharges({ nome, img }) {
         <span>{nome}</span>
       </div>
       <div className="details-status">
-        <button onClick={() => history.push("/reports/charges/")}>
+        <button onClick={() => history.push("/reports/charges/pendente")}>
           <DefaultStatus
             situacao="Previstas"
             quantidade={statusPendente.length ? statusPendente.length : "0"}
           />
         </button>
-        <button onClick={() => history.push("/reports/charges/")}>
+        <button onClick={() => history.push("/reports/charges/vencido")}>
           <ForeseenStatus
             situacao="Vencidas"
             quantidade={statusVencido.length ? statusVencido.length : "0"}
           />
         </button>
-        <button onClick={() => history.push("/reports/charges/")}>
+        <button onClick={() => history.push("/reports/charges/pago")}>
           <PayStatus
             situacao="Pagas"
             quantidade={statusPago.length ? statusPago.length : "0"}

@@ -15,6 +15,7 @@ export const ChargeContextProvider = ({ children }) => {
   const [statusPendente, setStatusPendente] = useState([]);
   const [statusVencido, setStatusVencido] = useState([]);
   const [statusPago, setStatusPago] = useState([]);
+  const [statusCharges, setStatusCharges] = useState([]);
   const { token } = useContext(AuthContext);
 
   async function getCharges() {
@@ -141,6 +142,30 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
+  async function getChargeStatus(status) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/reports/charges/${status}`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+      console.log(dados);
+
+      if (response.ok) {
+        return setStatusCharges(dados);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
   async function editCharges({ data, id, setOpenCharges }) {
     const body = {
       cliente_id: data.id,
@@ -217,6 +242,8 @@ export const ChargeContextProvider = ({ children }) => {
       if (response.ok) {
         history.push("/charges");
         setOpenEditCharges(false);
+        getCharges();
+
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);
@@ -231,17 +258,19 @@ export const ChargeContextProvider = ({ children }) => {
         charges,
         charge,
         getCharge,
+        getChargeStatus,
+        statusCharges,
+        setCharges,
+        createCharges,
+        editCharges,
+        getCharges,
+        deleteCharge,
         getChargeStatusPendente,
         statusPendente,
         getChargeStatusVencido,
         statusVencido,
         getChargeStatusPago,
         statusPago,
-        setCharges,
-        createCharges,
-        editCharges,
-        getCharges,
-        deleteCharge,
       }}
     >
       {children}

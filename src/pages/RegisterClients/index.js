@@ -114,33 +114,18 @@ function RegisterClients() {
           </div>
           <div className="container-unic-input">
             <label htmlFor="cpf">CPF</label>
-            {/* <input
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
-            /> */}
+
             <MaskedInput
               mask="999.999.999-99"
               type="text"
               id="cpf"
               {...register("cpf", { require: true })}
             />
-            {/* <input
-              id="cpf"
-              name="cpf"
-              placeholder="CPF - formato: 000.000.000-00"
-              {...register("cpf", { require: true })}
-            /> */}
           </div>
           <div>
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                {/* <input
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                /> */}
 
                 <MaskedInput
                   mask="(99)9 9999-9999"
@@ -157,14 +142,6 @@ function RegisterClients() {
                   maxLength="9"
                   {...register("cep")}
                 />
-                {/* <MaskedInput
-                  name="cep"
-                  mask="99999-999"
-                  type="text"
-                  id="cep"
-                  {...register("cep")} 
-                />
-                  */}
               </div>
             </div>
             <div className="container-double-form">

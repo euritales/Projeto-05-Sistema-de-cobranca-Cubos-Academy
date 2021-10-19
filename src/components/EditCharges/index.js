@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import TrashIcon from "../../assets/trash-icon.svg";
 import { useLocation, NavLink } from "react-router-dom";
 import CloseIcon from "../../assets/close-icon.svg";
-import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
 
@@ -12,7 +11,6 @@ function EditChargesModal({ setOpenEditCharges, id }) {
   const { register, handleSubmit, setValue } = useForm();
   const [openDelete, setOpenDelete] = useState(false);
   const location = useLocation();
-
   const { getClients, clients } = useContext(ClientContext);
   const { getCharges } = useContext(ChargeContext);
   const { getCharge, charge, editCharges, deleteCharge } =
