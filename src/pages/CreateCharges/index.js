@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
+// import { formatToBRL } from "brazilian-values";
 
 function CreateCharges() {
   const { register, handleSubmit } = useForm();
@@ -80,6 +81,7 @@ function CreateCharges() {
                   {...register("valor", { require: true })}
                 />
               </div>
+
               <div>
                 <label htmlFor="data_vencimento">Vencimento</label>
                 <input

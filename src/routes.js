@@ -19,8 +19,6 @@ import { ClientContextProvider } from "./context/client";
 import { ChargeContextProvider } from "./context/charge";
 import ReportsClients from "./pages/ReportsClients";
 import ReportsCharges from "./pages/ReportsCharges";
-import ReportsChargesVencido from "./pages/ReportsChargesVencido";
-import ReportsChargesPago from "./pages/ReportsChargesPago";
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
@@ -42,40 +40,15 @@ function Routes() {
               <RotasProtegidas>
                 <Main>
                   <Route path="/home" exact component={Home} />
-                  {/* <Route
+                  <Route
                     path="/reports/clients/:statusCliente"
                     exact
                     component={ReportsClients}
-                  /> */}
-                  <Route
-                    path="/reports/clients/em_dia"
-                    exact
-                    component={ReportsClients}
                   />
                   <Route
-                    path="/reports/clients/inadimplentes"
-                    exact
-                    component={ReportsClients}
-                  />
-                  {/* <Route
                     path="/reports/charges/:statusCobranca"
                     exact
                     component={ReportsCharges}
-                  /> */}
-                  <Route
-                    path="/reports/charges/pendente"
-                    exact
-                    component={ReportsCharges}
-                  />
-                  <Route
-                    path="/reports/charges/pago"
-                    exact
-                    component={ReportsChargesPago}
-                  />
-                  <Route
-                    path="/reports/charges/vencido"
-                    exact
-                    component={ReportsChargesVencido}
                   />
                   <Route path="/charges" exact component={Charges} />
                   <Route
