@@ -4,15 +4,38 @@
   width: 958px; */
   /* height: 700px; */
 }
+.margin-busca {
+  margin: 30px 20px;
+}
 
 .input-busca {
   display: flex;
   height: 50px;
-  margin: 30px 20px;
   justify-content: end;
   align-items: center;
 }
+
+.input-busca input {
+  padding: 15px 8px 14px;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.input-busca span {
+  color: #ffffff;
+  font-weight: bold;
+
+  font-size: 12px;
+}
 .input-busca button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 124px;
+  padding: 12px 0 13px;
+  background: #374952;
+  border-radius: 8px;
   margin: 0;
 }
 

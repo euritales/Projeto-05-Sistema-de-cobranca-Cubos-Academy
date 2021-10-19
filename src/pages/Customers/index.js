@@ -19,6 +19,8 @@ function Customers() {
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
   const [clientId, setClientId] = useState();
+  const [busca, setBusca] = useState("");
+  const [listagem, setListagem] = useState([]);
 
   useEffect(() => {
     async function callGetClient() {
@@ -26,6 +28,11 @@ function Customers() {
     }
     callGetClient();
   }, [editClients]);
+
+  useEffect(() => {
+    // console.log(charges);
+    setListagem(clients);
+  }, [clients]);
 
   function handleEditClient(id) {
     setClientId(id);
@@ -35,6 +42,19 @@ function Customers() {
   function handleDetailsClient(id) {
     setClientId(id);
     setDetailsClient(true);
+  }
+  function handleChange(value) {
+    console.log(value);
+    if (value === "") {
+      setListagem(clients);
+      return;
+    }
+    const filterClient = clients.filter(
+      (charge) => charge.nome.toLowerCase().includes(value)
+      // || charge.id.includes(value) ||
+      // charge.email.includes(value)
+    );
+    setListagem(filterClient);
   }
 
   return (
@@ -57,10 +77,17 @@ function Customers() {
               >
                 Adicionar cliente
               </button>
-              <div>
-                <input placeholder="Procurar por Nome, E-mail ou CPF" />
-                <button>
+              <div className="input-busca">
+                <input
+                  type="text"
+                  id="busca"
+                  // onChange={(e) => handleChange(e.target.value.toLowerCase())}
+                  onChange={(e) => setBusca(e.target.value.toLowerCase())}
+                  placeholder="Procurar por Nome, E-mail ou CPF"
+                />
+                <button onClick={() => handleChange(busca)}>
                   <img src={SearchIcon} alt="" />
+                  <span>BUSCAR</span>
                 </button>
               </div>
             </div>
@@ -71,12 +98,12 @@ function Customers() {
               <span>Status</span>
             </div>
             <div className="box-container-details">
-              {!clients ? (
+              {!listagem ? (
                 <div className="no-register">
                   <h3>Sem registros no momento!</h3>
                 </div>
               ) : (
-                clients.map(
+                listagem.map(
                   ({
                     id,
                     nome,

@@ -186,3 +186,12 @@
 .margin-md {
   margin-left: 15px;
 }
+
+.no-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.margin-busca {
+  margin: 30px 20px;
+}
