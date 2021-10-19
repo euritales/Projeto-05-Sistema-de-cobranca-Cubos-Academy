@@ -30,7 +30,6 @@ function Customers() {
   }, [editClients]);
 
   useEffect(() => {
-    // console.log(charges);
     setListagem(clients);
   }, [clients]);
 
@@ -49,10 +48,8 @@ function Customers() {
       setListagem(clients);
       return;
     }
-    const filterClient = clients.filter(
-      (charge) => charge.nome.toLowerCase().includes(value)
-      // || charge.id.includes(value) ||
-      // charge.email.includes(value)
+    const filterClient = clients.filter((charge) =>
+      charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
   }
@@ -81,7 +78,6 @@ function Customers() {
               <input
                 type="text"
                 id="busca"
-                // onChange={(e) => handleChange(e.target.value.toLowerCase())}
                 onChange={(e) => setBusca(e.target.value.toLowerCase())}
                 placeholder="Procurar por Nome, E-mail ou CPF"
               />
@@ -146,7 +142,7 @@ function Customers() {
                     <span
                       className={`status-costumers ${statusCliente.toLowerCase()}`}
                     >
-                      {statusCliente.toUpperCase()}
+                      {statusCliente.replace("_", " ").toUpperCase()}
                     </span>
                     <div className="edit-clients-button">
                       <button

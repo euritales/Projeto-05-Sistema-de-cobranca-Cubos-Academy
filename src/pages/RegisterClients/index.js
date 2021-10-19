@@ -42,11 +42,11 @@ function RegisterClients() {
   async function loadAddressByCep() {
     const addressByCep = await getAddressByCep(cepWatch);
 
-    setValue("localidade", addressByCep.localidade);
+    setValue("cidade", addressByCep.localidade);
     setValue("bairro", addressByCep.bairro);
     setValue("logradouro", addressByCep.logradouro);
     setValue("complemento", addressByCep.complemento);
-    setValue("uf", addressByCep.uf);
+    setValue("estado", addressByCep.uf);
   }
 
   useEffect(() => {
@@ -58,20 +58,20 @@ function RegisterClients() {
         loadAddressByCep();
       }
       if (positionifen === 5 && cepWatch.length <= 8) {
-        setValue("localidade", "");
+        setValue("cidade", "");
         setValue("bairro", "");
         setValue("logradouro", "");
         setValue("complemento", "");
-        setValue("uf", "");
+        setValue("estado", "");
       }
 
       if (!verifyIfen && cepWatch.length >= 8) {
         if (cepWatch.length === 9) {
-          setValue("localidade", "");
+          setValue("cidade", "");
           setValue("bairro", "");
           setValue("logradouro", "");
           setValue("complemento", "");
-          setValue("uf", "");
+          setValue("estado", "");
         }
         loadAddressByCep();
       }
@@ -114,33 +114,18 @@ function RegisterClients() {
           </div>
           <div className="container-unic-input">
             <label htmlFor="cpf">CPF</label>
-            {/* <input
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
-            /> */}
+
             <MaskedInput
               mask="999.999.999-99"
               type="text"
               id="cpf"
               {...register("cpf", { require: true })}
             />
-            {/* <input
-              id="cpf"
-              name="cpf"
-              placeholder="CPF - formato: 000.000.000-00"
-              {...register("cpf", { require: true })}
-            /> */}
           </div>
           <div>
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                {/* <input
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                /> */}
 
                 <MaskedInput
                   mask="(99)9 9999-9999"
@@ -157,14 +142,6 @@ function RegisterClients() {
                   maxLength="9"
                   {...register("cep")}
                 />
-                {/* <MaskedInput
-                  name="cep"
-                  mask="99999-999"
-                  type="text"
-                  id="cep"
-                  {...register("cep")} 
-                />
-                  */}
               </div>
             </div>
             <div className="container-double-form">
@@ -183,16 +160,12 @@ function RegisterClients() {
             </div>
             <div className="container-double-form">
               <div>
-                <label htmlFor="uf">Estado</label>
-                <input type="text" id="uf" {...register("uf")} />
+                <label htmlFor="estado">Estado</label>
+                <input type="text" id="estado" {...register("estado")} />
               </div>
               <div>
-                <label htmlFor="localidade">Cidade</label>
-                <input
-                  type="text"
-                  id="localidade"
-                  {...register("localidade")}
-                />
+                <label htmlFor="cidade">Cidade</label>
+                <input type="text" id="cidade" {...register("cidade")} />
               </div>
             </div>
             <div className="container-double-form">
@@ -205,11 +178,11 @@ function RegisterClients() {
                 />
               </div>
               <div>
-                <label htmlFor="referencia">Ponto de Referencia</label>
+                <label htmlFor="ponto_referencia">Ponto de Referencia</label>
                 <input
                   type="text"
-                  id="referencia"
-                  {...register("referencia")}
+                  id="ponto_referencia"
+                  {...register("ponto_referencia")}
                 />
               </div>
             </div>

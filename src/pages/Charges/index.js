@@ -1,22 +1,18 @@
 import "./styles.css";
-import { useEffect, useContext, useState } from "react";
-// import { AuthContext } from "../../context/auth";
-import { ChargeContext, useCharges } from "../../context/charge";
+import { useEffect, useState } from "react";
+import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 
 function Charges() {
-  // const { token } = useContext(AuthContext);
-
-  const { getCharges, charges } = useCharges();
+  const { charges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
 
   useEffect(() => {
-    // console.log(charges);
     setListagem(charges);
   }, [charges]);
 
@@ -26,10 +22,8 @@ function Charges() {
       setListagem(charges);
       return;
     }
-    const filterClient = charges.filter(
-      (charge) => charge.nome.toLowerCase().includes(value)
-      // || charge.id.includes(value) ||
-      // charge.email.includes(value)
+    const filterClient = charges.filter((charge) =>
+      charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
   }
@@ -43,7 +37,7 @@ function Charges() {
     <>
       {openEditCharges && (
         <EditChargesModal
-          chargeId={chargeId}
+          id={chargeId}
           setOpenEditCharges={setOpenEditCharges}
         />
       )}
@@ -52,7 +46,6 @@ function Charges() {
           <input
             type="text"
             id="busca"
-            // onChange={(e) => handleChange(e.target.value.toLowerCase())}
             onChange={(e) => setBusca(e.target.value.toLowerCase())}
             placeholder="Procurar por Nome, E-mail ou CPF"
           />
@@ -77,15 +70,12 @@ function Charges() {
           ) : (
             listagem.map(
               ({ id, nome, descricao, valor, status, data_vencimento }) => {
-                // console.log(id);
                 return (
                   <button onClick={() => handleEditClient(id)} key={id}>
                     <div className="container-details-charge">
                       <span className="span-sm">#{id}</span>
                       <span className="span-lg margin-lg">{nome}</span>
                       <span className="span-lg margin-lg">{descricao}</span>
-                      {/* <span className="span-md margin-md">R$ {valor}</span> */}
-
                       <span className="span-md margin-md">
                         {formatToBRL(!valor ? "0" : valor / 100)}
                       </span>
