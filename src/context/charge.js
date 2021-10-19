@@ -197,6 +197,30 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+  async function deleteCharge(chargeId, setOpenEditCharges) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/charges/${chargeId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      if (response.ok) {
+        history.push("/charges");
+        setOpenEditCharges(false);
+        return SucessMessage(dados);
+      }
+      return ErrorMessage(dados);
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
 
   return (
     <ChargeContext.Provider //checkList integração:
@@ -214,6 +238,7 @@ export const ChargeContextProvider = ({ children }) => {
         createCharges,
         editCharges,
         getCharges,
+        deleteCharge,
       }}
     >
       {children}

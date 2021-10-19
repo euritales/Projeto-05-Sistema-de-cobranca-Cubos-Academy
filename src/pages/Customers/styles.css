@@ -148,7 +148,7 @@
   font-weight: 600;
   font-size: 16px;
 }
-.dia {
+.em_dia {
   color: #4ec06e;
 }
 .inadimplente {
@@ -191,7 +191,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.margin-busca {
-  margin: 30px 20px;
 }

@@ -20,6 +20,11 @@ function Charges() {
     setListagem(charges);
   }, [charges]);
 
+  useEffect(() => {
+    // console.log(charges);
+    setListagem(charges);
+  });
+
   function handleChange(value) {
     console.log(value);
     if (value === "") {

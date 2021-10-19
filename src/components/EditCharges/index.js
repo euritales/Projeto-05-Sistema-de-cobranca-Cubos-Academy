@@ -1,15 +1,17 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
+import TrashIcon from "../../assets/trash-icon.svg";
 
 function EditChargesModal({ setOpenEditCharges, chargeId }) {
   const { register, handleSubmit } = useForm();
+  const [openDelete, setOpenDelete] = useState(false);
   const { getClients, clients } = useContext(ClientContext);
   const { token } = useContext(AuthContext);
-  const { charges, editCharges } = useContext(ChargeContext);
+  const { charges, editCharges, deleteCharge } = useContext(ChargeContext);
 
   async function onSubmit(data) {
     console.log(data);
@@ -20,6 +22,11 @@ function EditChargesModal({ setOpenEditCharges, chargeId }) {
       client_id: chargeId,
       setOpenEditCharges,
     });
+  }
+
+  function handleDelete() {
+    console.log(chargeId);
+    return deleteCharge(chargeId, setOpenEditCharges);
   }
 
   return (
@@ -88,10 +95,23 @@ function EditChargesModal({ setOpenEditCharges, chargeId }) {
             </div>
           </div>
           <div className="container-delete-button">
-            <button>
+            <button type="button" onClick={() => setOpenDelete(!openDelete)}>
+              <img src={TrashIcon} alt="" />
               <span>Excluir Cobrança</span>
-              <img src="" alt="" />
             </button>
+            {openDelete && (
+              <div className="confirm-delete">
+                <span>Apagar item?</span>
+                <div className="box-confirm">
+                  <button type="button" onClick={() => handleDelete()}>
+                    Sim
+                  </button>
+                  <button type="button" onClick={() => setOpenDelete(false)}>
+                    Não
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <div className="container-buttonsClient">
             <button
