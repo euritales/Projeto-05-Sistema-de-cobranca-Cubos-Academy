@@ -1,6 +1,6 @@
 import Customers from "../Customers";
 import { NavLink, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 
 function ReportsClients() {
   //   const history = useHistory();

@@ -1,7 +1,6 @@
 import { PayStatus, ForeseenStatus, DefaultStatus } from "./detailsStatus.js";
 import "./styles.css";
-
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
