@@ -48,7 +48,7 @@ function Charges() {
         />
       ) : (
         <div className="container-charge">
-          <div className="input-busca">
+          <div className="input-busca margin-busca">
             <input
               type="text"
               id="busca"
@@ -58,6 +58,7 @@ function Charges() {
             />
             <button onClick={() => handleChange(busca)}>
               <img src={SearchIcon} alt="" />
+              <span>BUSCAR</span>
             </button>
           </div>
           <div className="container-description-charge">
