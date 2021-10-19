@@ -94,6 +94,10 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
+  // useEffect(() => {
+  //   getChargeStatusPendente();
+  // }, []);
+
   async function getChargeStatusVencido() {
     try {
       const response = await fetch(
@@ -117,6 +121,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+  // useEffect(() => {
+  //   getChargeStatusVencido();
+  // }, []);
 
   async function getChargeStatusPago() {
     try {
@@ -141,6 +148,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+  // useEffect(() => {
+  //   getChargeStatusPago();
+  // }, []);
 
   async function getChargeStatus(status) {
     try {
@@ -166,9 +176,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getChargeStatus("pendente");
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatus("pendente");
+  // }, []);
 
   async function editCharges({ data, id, setOpenCharges }) {
     const body = {
