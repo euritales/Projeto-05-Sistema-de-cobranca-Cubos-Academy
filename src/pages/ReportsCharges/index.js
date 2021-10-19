@@ -11,12 +11,14 @@ function ReportsCharges() {
   const [busca, setBusca] = useState("");
   const { getChargeStatusPendente, statusPendente } = useCharges();
 
-  // useEffect(() => {
-  //   async function callGetClient() {
-  //     return getChargeStatusPendente();
-  //   }
-  //   callGetClient();
-  // }, [statusPendente]);
+  useEffect(() => {
+    async function callGetClient() {
+      await getChargeStatusPendente();
+      return setListagem(statusPendente);
+      //return getChargeStatusPendente();
+    }
+    callGetClient();
+  }, []);
 
   function handleChange(value) {
     if (value === "") {
