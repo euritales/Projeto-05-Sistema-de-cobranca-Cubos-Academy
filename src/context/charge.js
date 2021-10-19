@@ -238,6 +238,7 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+
   async function deleteCharge(id, setOpenEditCharges) {
     try {
       const response = await fetch(
