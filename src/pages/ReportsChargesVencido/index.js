@@ -4,29 +4,28 @@ import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 
-function ReportsClients() {
-  const { statusEmdia, getClientStatusEmdia } = useCharges();
+function ReportsChargesVencido() {
   const [openEditCharges, setOpenEditCharges] = useState(false);
+  const [listagem, setListagem] = useState([]);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
-  const [listagem, setListagem] = useState([]);
+  const { getChargeStatusVencido, statusVencido } = useCharges();
 
   useEffect(() => {
     async function callGetClient() {
-      await getClientStatusEmdia();
-      return setListagem(statusEmdia);
+      await getChargeStatusVencido();
+      return setListagem(statusVencido);
       //return getChargeStatusPendente();
     }
     callGetClient();
   }, []);
 
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
-      setListagem(statusEmdia);
+      setListagem(statusVencido);
       return;
     }
-    const filterClient = statusEmdia.filter((charge) =>
+    const filterClient = statusVencido.filter((charge) =>
       charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
@@ -101,4 +100,4 @@ function ReportsClients() {
   );
 }
 
-export default ReportsClients;
+export default ReportsChargesVencido;

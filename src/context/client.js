@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createContext } from "react";
 import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "./auth";
+import { useEffect } from "react";
 
 export const ClientContext = createContext();
 
@@ -12,6 +14,7 @@ export const ClientContextProvider = ({ children }) => {
   const [client, setClient] = useState([]);
   const [statusEmdia, setStatusEmdia] = useState([]);
   const [statusInad, setStatusInad] = useState([]);
+  const { token } = useContext(AuthContext);
 
   async function getClients(token) {
     try {
@@ -36,7 +39,7 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function getClientStatusEmdia(token) {
+  async function getClientStatusEmdia() {
     try {
       const response = await fetch(
         `https://cubosacademy-projeto-5.herokuapp.com/reports/clients/em_dia`,
@@ -59,7 +62,11 @@ export const ClientContextProvider = ({ children }) => {
     }
   }
 
-  async function getClientStatusInad(token) {
+  useEffect(() => {
+    getClientStatusInad();
+  }, []);
+
+  async function getClientStatusInad() {
     try {
       const response = await fetch(
         `https://cubosacademy-projeto-5.herokuapp.com/reports/clients/inadimplente`,
@@ -81,6 +88,10 @@ export const ClientContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+
+  useEffect(() => {
+    getClientStatusInad();
+  }, []);
 
   async function getClient({ token, id }) {
     console.log(id);
@@ -189,3 +200,7 @@ export const ClientContextProvider = ({ children }) => {
     </ClientContext.Provider>
   );
 };
+
+export function useClients() {
+  return useContext(ClientContext);
+}
