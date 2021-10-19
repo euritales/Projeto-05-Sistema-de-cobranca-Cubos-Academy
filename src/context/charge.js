@@ -93,9 +93,6 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusPendente();
-  }, []);
 
   async function getChargeStatusVencido() {
     try {
@@ -120,9 +117,6 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusVencido();
-  }, []);
 
   async function getChargeStatusPago() {
     try {
@@ -147,9 +141,6 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusPago();
-  }, []);
 
   async function getChargeStatus(status) {
     try {
@@ -179,15 +170,15 @@ export const ChargeContextProvider = ({ children }) => {
     getChargeStatus("pendente");
   }, []);
 
-  async function editCharges({ data, id, setOpenEditCharges }) {
+  async function editCharges({ data, id, setOpenCharges }) {
     const body = {
-      cliente_id: data.cliente_id,
+      cliente_id: data.id,
       descricao: data.descricao,
       status: data.status,
       valor: data.valor,
       data_vencimento: data.data_vencimento,
     };
-    console.log(data);
+    console.log(body);
     const response = await fetch(
       `https://cubosacademy-projeto-5.herokuapp.com/charges/${id}`,
       {
@@ -204,7 +195,7 @@ export const ChargeContextProvider = ({ children }) => {
     const dados = await response.json();
 
     if (response.ok) {
-      setOpenEditCharges(false);
+      setOpenCharges(false);
       getCharges();
       return SucessMessage(dados);
     }
