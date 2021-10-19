@@ -166,6 +166,10 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
+  useEffect(() => {
+    getChargeStatus("pendente");
+  }, []);
+
   async function editCharges({ data, id, setOpenCharges }) {
     const body = {
       cliente_id: data.id,
