@@ -5,10 +5,14 @@ import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
 import TrashIcon from "../../assets/trash-icon.svg";
+import { useLocation, NavLink } from "react-router-dom";
+import CloseIcon from "../../assets/close-icon.svg";
 
 function EditChargesModal({ setOpenEditCharges, chargeId }) {
   const { register, handleSubmit } = useForm();
   const [openDelete, setOpenDelete] = useState(false);
+  const location = useLocation();
+
   const { getClients, clients } = useContext(ClientContext);
   const { token } = useContext(AuthContext);
   const { charges, editCharges, deleteCharge } = useContext(ChargeContext);
@@ -32,6 +36,14 @@ function EditChargesModal({ setOpenEditCharges, chargeId }) {
   return (
     <div className="container-form-create-charges ">
       <div>
+        <NavLink
+          to={location.pathname}
+          exact
+          className="close-button-edit"
+          onClick={() => setOpenEditCharges(false)}
+        >
+          <img src={CloseIcon} alt="" />
+        </NavLink>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input ">
             <label htmlFor="cliente_id">Cliente</label>

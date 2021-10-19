@@ -66,106 +66,103 @@ function Customers() {
         />
       )}{" "}
       <div className="container-costumers">
-        {editClients ? (
+        {editClients && (
           <EditCustomers setEditClients={setEditClients} clientId={clientId} />
-        ) : (
-          <>
-            <div className="input-busca-botao">
-              <button
-                className="btn btn-white"
-                onClick={() => history.push("/clients/register")}
-              >
-                Adicionar cliente
+        )}
+        <>
+          <div className="input-busca-botao">
+            <button
+              className="btn btn-white"
+              onClick={() => history.push("/clients/register")}
+            >
+              Adicionar cliente
+            </button>
+            <div className="input-busca">
+              <input
+                type="text"
+                id="busca"
+                // onChange={(e) => handleChange(e.target.value.toLowerCase())}
+                onChange={(e) => setBusca(e.target.value.toLowerCase())}
+                placeholder="Procurar por Nome, E-mail ou CPF"
+              />
+              <button onClick={() => handleChange(busca)}>
+                <img src={SearchIcon} alt="" />
+                <span>BUSCAR</span>
               </button>
-              <div className="input-busca">
-                <input
-                  type="text"
-                  id="busca"
-                  // onChange={(e) => handleChange(e.target.value.toLowerCase())}
-                  onChange={(e) => setBusca(e.target.value.toLowerCase())}
-                  placeholder="Procurar por Nome, E-mail ou CPF"
-                />
-                <button onClick={() => handleChange(busca)}>
-                  <img src={SearchIcon} alt="" />
-                  <span>BUSCAR</span>
-                </button>
+            </div>
+          </div>
+          <div className="container-description-costumers">
+            <span className="span-lg">Cliente</span>
+            <span className="span-lg">Cobranças Feitas</span>
+            <span className="span-lg">Cobranças Recebidas</span>
+            <span>Status</span>
+          </div>
+          <div className="box-container-details">
+            {!listagem ? (
+              <div className="no-register">
+                <h3>Sem registros no momento!</h3>
               </div>
-            </div>
-            <div className="container-description-costumers">
-              <span className="span-lg">Cliente</span>
-              <span className="span-lg">Cobranças Feitas</span>
-              <span className="span-lg">Cobranças Recebidas</span>
-              <span>Status</span>
-            </div>
-            <div className="box-container-details">
-              {!listagem ? (
-                <div className="no-register">
-                  <h3>Sem registros no momento!</h3>
-                </div>
-              ) : (
-                listagem.map(
-                  ({
-                    id,
-                    nome,
-                    cpf,
-                    email,
-                    cep,
-                    telefone,
-                    so_pago,
-                    valor_cobrado,
-                    statusCliente,
-                  }) => (
-                    <div className="container-details-costumers" key={id}>
-                      <div className="client-details">
-                        <div className="name-costumers">
-                          <button onClick={() => handleDetailsClient(id)}>
-                            <p>{nome}</p>
-                          </button>
-                        </div>
-                        <div className="span-client-email">
-                          <img src={EmailIcon} alt="email" />
-                          <span>{email}</span>
-                        </div>
-                        <div>
-                          <img src={PhoneIcon} alt="telefone" />
-                          <NumberFormat
-                            value={telefone}
-                            displayType={"text"}
-                            format="(##) # ####-####"
-                          />
-                        </div>
-                      </div>
-
-                      <span className="span-lg  ">
-                        {formatToBRL(
-                          !valor_cobrado ? "0" : valor_cobrado / 100
-                        )}
-                      </span>
-                      <span className="span-lg margin-lg">
-                        {formatToBRL(so_pago / 100)}
-                      </span>
-
-                      <span
-                        className={`status-costumers ${statusCliente.toLowerCase()}`}
-                      >
-                        {statusCliente.toUpperCase()}
-                      </span>
-                      <div className="edit-clients-button">
-                        <button
-                          onClick={() => {
-                            handleEditClient(id);
-                          }}
-                        >
-                          <img src={EditIcon} alt="Editar Cliente" />
+            ) : (
+              listagem.map(
+                ({
+                  id,
+                  nome,
+                  cpf,
+                  email,
+                  cep,
+                  telefone,
+                  so_pago,
+                  valor_cobrado,
+                  statusCliente,
+                }) => (
+                  <div className="container-details-costumers" key={id}>
+                    <div className="client-details">
+                      <div className="name-costumers">
+                        <button onClick={() => handleDetailsClient(id)}>
+                          <p>{nome}</p>
                         </button>
                       </div>
+                      <div className="span-client-email">
+                        <img src={EmailIcon} alt="email" />
+                        <span>{email}</span>
+                      </div>
+                      <div>
+                        <img src={PhoneIcon} alt="telefone" />
+                        <NumberFormat
+                          value={telefone}
+                          displayType={"text"}
+                          format="(##) # ####-####"
+                        />
+                      </div>
                     </div>
-                  )
+
+                    <span className="span-lg  ">
+                      {formatToBRL(!valor_cobrado ? "0" : valor_cobrado / 100)}
+                    </span>
+                    <span className="span-lg margin-lg">
+                      {formatToBRL(so_pago / 100)}
+                    </span>
+
+                    <span
+                      className={`status-costumers ${statusCliente.toLowerCase()}`}
+                    >
+                      {statusCliente.toUpperCase()}
+                    </span>
+                    <div className="edit-clients-button">
+                      <button
+                        onClick={() => {
+                          handleEditClient(id);
+                        }}
+                      >
+                        <img src={EditIcon} alt="Editar Cliente" />
+                      </button>
+                    </div>
+                  </div>
                 )
-              )}
-            </div>
-          </>
-        )}
+              )
+            )}
+          </div>
+        </>
       </div>
     </>
   );

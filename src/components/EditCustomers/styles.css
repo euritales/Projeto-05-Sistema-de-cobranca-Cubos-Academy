@@ -1,8 +1,7 @@
 .edit-customers {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
+  padding-left: 17px;
+  position: absolute;
+  padding-top: 147px;
 }
 
 .container-form-editclients {

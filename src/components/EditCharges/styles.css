@@ -1,3 +1,8 @@
+.container-form-create-charges {
+  position: absolute;
+  margin-top: 20px;
+}
+
 .container-delete-button {
   display: flex;
   height: 50px;

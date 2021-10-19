@@ -41,12 +41,12 @@ function Routes() {
                 <Main>
                   <Route path="/home" exact component={Home} />
                   <Route
-                    path="/reports/clients/"
+                    path="/reports/clients/:statusCliente"
                     exact
                     component={ReportsClients}
                   />
                   <Route
-                    path="/reports/charges/"
+                    path="/reports/charges/:statusCobranca"
                     exact
                     component={ReportsCharges}
                   />
