@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
+// import { formatToBRL } from "brazilian-values";
 
 function CreateCharges() {
   const { register, handleSubmit } = useForm();
@@ -54,7 +55,7 @@ function CreateCharges() {
             <input
               type="text"
               id="descricao"
-              placeholder="A descrição informada será impressa no boleto."
+              placeholder="Referente ao pagamento da compra online."
               {...register("descricao", { require: true })}
             />
             <span>A descrição informada será impressa no boleto.</span>

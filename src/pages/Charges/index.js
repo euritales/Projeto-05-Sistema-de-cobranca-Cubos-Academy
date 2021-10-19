@@ -9,14 +9,13 @@ import EditChargesModal from "../../components/EditCharges";
 function Charges() {
   // const { token } = useContext(AuthContext);
 
-  const { getCharges, charges } = useCharges();
+  const { charges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
 
   useEffect(() => {
-    // console.log(charges);
     setListagem(charges);
   }, [charges]);
 

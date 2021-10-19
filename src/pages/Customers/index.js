@@ -146,7 +146,7 @@ function Customers() {
                     <span
                       className={`status-costumers ${statusCliente.toLowerCase()}`}
                     >
-                      {statusCliente.toUpperCase()}
+                      {statusCliente.replace("_", " ").toUpperCase()}
                     </span>
                     <div className="edit-clients-button">
                       <button

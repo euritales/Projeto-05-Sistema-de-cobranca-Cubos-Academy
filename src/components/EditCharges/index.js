@@ -1,12 +1,12 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/auth";
-import { ChargeContext } from "../../context/charge";
-import { ClientContext } from "../../context/client";
 import TrashIcon from "../../assets/trash-icon.svg";
 import { useLocation, NavLink } from "react-router-dom";
 import CloseIcon from "../../assets/close-icon.svg";
+import { AuthContext } from "../../context/auth";
+import { ChargeContext } from "../../context/charge";
+import { ClientContext } from "../../context/client";
 
 function EditChargesModal({ setOpenEditCharges, id }) {
   const { register, handleSubmit, setValue } = useForm();
@@ -14,8 +14,8 @@ function EditChargesModal({ setOpenEditCharges, id }) {
   const location = useLocation();
 
   const { getClients, clients } = useContext(ClientContext);
-  const { token } = useContext(AuthContext);
-  const { getCharge, charges, editCharges, deleteCharge } =
+  const { getCharges } = useContext(ChargeContext);
+  const { getCharge, charge, editCharges, deleteCharge } =
     useContext(ChargeContext);
 
   async function onSubmit(data) {
@@ -27,19 +27,22 @@ function EditChargesModal({ setOpenEditCharges, id }) {
       setOpenEditCharges,
     });
   }
+
   useEffect(() => {
     getCharge(id);
   }, []);
 
   useEffect(() => {
     async function loadUser() {
-      setValue("cliente_id", charges.cliente_id);
-      setValue("descricao", charges.descricao);
-      setValue("status", charges.status);
-      setValue("valor", charges.valor);
+      setValue("cliente_id", charge[0]?.cliente_id);
+      setValue("descricao", charge[0]?.descricao);
+      setValue("status", charge[0]?.status);
+      setValue("valor", charge[0]?.valor);
+      setValue("data_vencimento", charge[0]?.data_vencimento);
+      console.log(charge);
     }
     loadUser();
-  }, [charges]);
+  }, [getCharge]);
 
   function handleDelete() {
     return deleteCharge(id, setOpenEditCharges);
@@ -80,7 +83,7 @@ function EditChargesModal({ setOpenEditCharges, id }) {
             <input
               type="text"
               id="descricao"
-              placeholder="A descrição informada será impressa no boleto."
+              placeholder="Referente ao pagamento da compra online."
               {...register("descricao", { require: true })}
             />
             <span>A descrição informada será impressa no boleto.</span>
@@ -145,7 +148,7 @@ function EditChargesModal({ setOpenEditCharges, id }) {
               Cancelar
             </button>
             <button type="submit" className="btn btn-pink">
-              Criar cobranças
+              Editar cobranças
             </button>
           </div>
         </form>

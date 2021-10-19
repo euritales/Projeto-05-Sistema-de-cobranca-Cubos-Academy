@@ -143,12 +143,13 @@ export const ChargeContextProvider = ({ children }) => {
 
   async function editCharges({ data, id, setOpenCharges }) {
     const body = {
-      cliente: data.cliente,
-      data_vencimento: data.data_vencimento,
+      cliente_id: data.id,
       descricao: data.descricao,
       status: data.status,
       valor: data.valor,
+      data_vencimento: data.data_vencimento,
     };
+    console.log(body);
     const response = await fetch(
       `https://cubosacademy-projeto-5.herokuapp.com/charges/${id}`,
       {
@@ -166,6 +167,7 @@ export const ChargeContextProvider = ({ children }) => {
 
     if (response.ok) {
       setOpenCharges(false);
+      getCharges();
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
@@ -190,6 +192,7 @@ export const ChargeContextProvider = ({ children }) => {
 
       if (response.ok) {
         history.push("/charges");
+        getCharges();
         return SucessMessage(dados);
       }
       return ErrorMessage(dados);

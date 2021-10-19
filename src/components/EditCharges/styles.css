@@ -2,6 +2,9 @@
   position: absolute;
   margin-top: 20px;
 }
+.container-form-create-charges > div button {
+  position: relative;
+}
 
 .container-delete-button {
   display: flex;
