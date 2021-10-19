@@ -1,10 +1,20 @@
 .container-costumers {
-  padding-bottom: 63px;
   /* width: 100vw;
   height: 100vh; */
 }
-.container-costumers button {
-  margin: 52px 0;
+
+.input-busca-botao {
+  display: flex;
+  margin: 30px 20px;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+.input-busca-botao button {
+  margin: 0;
+}
+.input-busca-botao img {
+  margin: 0;
 }
 
 .container-description-costumers {
@@ -12,8 +22,8 @@
   justify-content: space-around;
   background-color: #9dbbc3;
   padding: 6px 150px 6px 0;
-  width: 960px;
-  margin: 5px;
+  width: 970px;
+  margin: 0 15px 5px 12px;
   height: 32px;
   color: #ffffff;
   border-radius: 8px;
@@ -27,11 +37,12 @@
   flex-direction: column;
   align-items: flex-start;
   width: 250px;
-  height: 130px;
+  /* height: 130px; */
+  padding: 0 0 10px 0;
 }
 .name-costumers {
   width: 161px;
-  height: 40px;
+  height: 32px;
 }
 .name-costumers button {
   cursor: pointer;
@@ -55,12 +66,22 @@
 
 .span-client-email {
   width: 240px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
+.span-client-email span:hover {
+  overflow: visible;
+}
+
 .box-container-details {
-  width: 970px;
-  height: 400px;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1000px;
+  height: 676px;
+  overflow-y: scroll;
 }
 .box-container-details::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0.53);
@@ -76,13 +97,21 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 17px 0 11px 0;
+  padding: 17px 4px 11px;
   min-width: 960px;
   margin-top: 16px;
-  height: 131px;
   background: #ffffff;
   border-radius: 8px;
   color: #4c4c4c;
+}
+
+.container-details-costumers p {
+  text-align: start;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4c4c4c;
+  line-height: 20px;
 }
 
 .container-details-costumers span {
@@ -90,6 +119,10 @@
   flex-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.container-details-costumers span:hover {
+  overflow: visible;
 }
 
 .span-lg {
@@ -115,7 +148,7 @@
   font-weight: 600;
   font-size: 16px;
 }
-.dia {
+.em_dia {
   color: #4ec06e;
 }
 .inadimplente {
@@ -144,6 +177,7 @@
   cursor: pointer;
   border: none;
   background: none;
+  margin: 5px 0 0 0;
   padding: 0;
 }
 .margin-lg {
@@ -151,4 +185,10 @@
 }
 .margin-md {
   margin-left: 15px;
+}
+
+.no-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

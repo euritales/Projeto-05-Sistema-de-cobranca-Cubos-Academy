@@ -1,35 +1,62 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../context/auth";
+import { useContext, useEffect, useState } from "react";
+import TrashIcon from "../../assets/trash-icon.svg";
+import { useLocation, NavLink } from "react-router-dom";
+import CloseIcon from "../../assets/close-icon.svg";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
 
-function CreateCharges() {
-  const { register, handleSubmit } = useForm();
-  const { token } = useContext(AuthContext);
-  const { createCharges } = useContext(ChargeContext);
+function EditChargesModal({ setOpenEditCharges, id }) {
+  const { register, handleSubmit, setValue } = useForm();
+  const [openDelete, setOpenDelete] = useState(false);
+  const location = useLocation();
   const { getClients, clients } = useContext(ClientContext);
-
-  const history = useHistory();
-
-  useEffect(() => {
-    async function callGetClient() {
-      return getClients(token);
-    }
-    callGetClient();
-  }, []);
+  const { getCharges } = useContext(ChargeContext);
+  const { getCharge, charge, editCharges, deleteCharge } =
+    useContext(ChargeContext);
 
   async function onSubmit(data) {
     console.log(data);
-    return createCharges({ data, token });
+
+    return editCharges({
+      data,
+      id,
+      setOpenEditCharges,
+    });
+  }
+
+  useEffect(() => {
+    getCharge(id);
+  }, []);
+
+  useEffect(() => {
+    async function loadUser() {
+      setValue("cliente_id", charge[0]?.cliente_id);
+      setValue("descricao", charge[0]?.descricao);
+      setValue("status", charge[0]?.status);
+      setValue("valor", charge[0]?.valor);
+      setValue("data_vencimento", charge[0]?.data_vencimento);
+      // console.log(charge);
+    }
+    loadUser();
+  }, [getCharge]);
+
+  function handleDelete() {
+    return deleteCharge(id, setOpenEditCharges);
   }
 
   return (
     <div className="container-form-create-charges ">
-      <p>{"//"} CRIAR COBRANÇA</p>
       <div>
+        <NavLink
+          to={location.pathname}
+          exact
+          className="close-button-edit"
+          onClick={() => setOpenEditCharges(false)}
+        >
+          <img src={CloseIcon} alt="" />
+        </NavLink>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input ">
             <label htmlFor="cliente_id">Cliente</label>
@@ -91,15 +118,34 @@ function CreateCharges() {
               </div>
             </div>
           </div>
+          <div className="container-delete-button">
+            <button type="button" onClick={() => setOpenDelete(!openDelete)}>
+              <img src={TrashIcon} alt="" />
+              <span>Excluir Cobrança</span>
+            </button>
+            {openDelete && (
+              <div className="confirm-delete">
+                <span>Apagar item?</span>
+                <div className="box-confirm">
+                  <button type="button" onClick={() => handleDelete()}>
+                    Sim
+                  </button>
+                  <button type="button" onClick={() => setOpenDelete(false)}>
+                    Não
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="container-buttonsClient">
             <button
-              onClick={() => history.push("/charges")}
+              onClick={() => setOpenEditCharges(false)}
               className="btn btn-white"
             >
               Cancelar
             </button>
             <button type="submit" className="btn btn-pink">
-              Criar cobranças
+              Editar cobranças
             </button>
           </div>
         </form>
@@ -108,4 +154,4 @@ function CreateCharges() {
   );
 }
 
-export default CreateCharges;
+export default EditChargesModal;

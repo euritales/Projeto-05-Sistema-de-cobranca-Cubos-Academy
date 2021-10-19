@@ -32,6 +32,7 @@ function EditProfile({ setEditProfileStatus }) {
   }, [user]);
 
   async function onSubmit(data) {
+    setEditProfileStatus(false);
     return editUser({ data, token });
   }
 
@@ -42,7 +43,7 @@ function EditProfile({ setEditProfileStatus }) {
           <NavLink
             to={location.pathname}
             exact
-            className="close-button-edit"
+            className="close-button-edit-profile"
             onClick={() => setEditProfileStatus(false)}
           >
             <img src={CloseIcon} alt="" />

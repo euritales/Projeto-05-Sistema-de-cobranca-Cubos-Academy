@@ -1,28 +1,31 @@
-import "./styles.css";
 import { useEffect, useState } from "react";
 import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 
-function Charges() {
-  const { charges } = useCharges();
+function ReportsChargesPago() {
   const [openEditCharges, setOpenEditCharges] = useState(false);
+  const [listagem, setListagem] = useState([]);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
-  const [listagem, setListagem] = useState([]);
+  const { getChargeStatusPago, statusPago } = useCharges();
 
   useEffect(() => {
-    setListagem(charges);
-  }, [charges]);
+    async function callGetClient() {
+      await getChargeStatusPago();
+      return setListagem(statusPago);
+      //return getChargeStatusPendente();
+    }
+    callGetClient();
+  }, []);
 
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
-      setListagem(charges);
+      setListagem(statusPago);
       return;
     }
-    const filterClient = charges.filter((charge) =>
+    const filterClient = statusPago.filter((charge) =>
       charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
@@ -97,4 +100,4 @@ function Charges() {
   );
 }
 
-export default Charges;
+export default ReportsChargesPago;

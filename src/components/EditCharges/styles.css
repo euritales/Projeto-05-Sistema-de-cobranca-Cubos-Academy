@@ -1,0 +1,58 @@
+.container-form-create-charges {
+  position: absolute;
+  margin-top: 20px;
+}
+.container-form-create-charges > div button {
+  position: relative;
+}
+
+.container-delete-button {
+  display: flex;
+  height: 50px;
+}
+.container-delete-button span {
+  color: #868686;
+  text-decoration-line: underline;
+}
+.container-delete-button button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+.confirm-delete {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 7px 27px 10px;
+  margin-left: 10px;
+  flex-direction: column;
+  background: #f8f8f8;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+.confirm-delete span {
+  font-size: 10px;
+  color: #000000;
+  text-decoration-line: none;
+}
+
+.confirm-delete div {
+  display: flex;
+}
+.confirm-delete > div button {
+  cursor: pointer;
+  color: #fff;
+  font-size: 9px;
+  border-radius: 4px;
+  padding: 2px 10px;
+  background: #3a9ff1;
+  margin: 4px;
+}
+
+.confirm-delete > div button:first-child {
+  background-color: #ff576b;
+}

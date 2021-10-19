@@ -1,28 +1,62 @@
-.container-form-clients {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 960px;
+.edit-customers {
+  padding-left: 17px;
+  position: absolute;
+  padding-top: 147px;
 }
-.container-form-clients > p {
-  font-size: 24px;
-  margin-bottom: 25px;
-}
-.container-form-clients div {
-  margin-bottom: 6px;
-}
-.container-form-clients > div {
+
+.container-form-editclients {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  width: 960px;
+  padding: 10px 30px 20px;
   background-color: #ffffff;
   border-radius: 16px;
 }
-
-.container-register-clients {
+.container-form-editclients input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #374952;
+  border-radius: 8px;
 }
+
+.container-form-editclients > p {
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+.container-form-editclients div {
+  margin-bottom: 6px;
+}
+.close-button-edit {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 30px;
+  left: 430px;
+}
+.close-button-edit img {
+  margin: 0;
+}
+
+/* .close-icon {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: end;
+  width: 960px;
+}
+
+.close-icon a {
+  width: 50px;
+  margin: 15px 35px;
+  padding: 0;
+}
+.close-icon img {
+  margin: 0;
+  padding: 0;
+} */
 .container-unic-input {
   display: flex;
   flex-direction: column;
@@ -56,12 +90,4 @@
 .container-buttonsClient button {
   margin: 0 8px 12px;
   padding: 11px 40px;
-}
-
-.container-form-clients input {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border: 1px solid #374952;
-  border-radius: 8px;
 }

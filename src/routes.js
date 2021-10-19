@@ -13,12 +13,14 @@ import RegisterClients from "./pages/RegisterClients";
 import Charges from "./pages/Charges";
 import Customers from "./pages/Customers";
 import CreateCharges from "./pages/CreateCharges";
-import EditCustomers from "./pages/EditCustomers";
 import { AuthContext } from "./context/auth";
 import { UserContextProvider } from "./context/user";
 import { ClientContextProvider } from "./context/client";
 import { ChargeContextProvider } from "./context/charge";
-import DetailsCustomers from "./pages/DetailsCustomers";
+import ReportsClients from "./pages/ReportsClients";
+import ReportsCharges from "./pages/ReportsCharges";
+import ReportsChargesVencido from "./pages/ReportsChargesVencido";
+import ReportsChargesPago from "./pages/ReportsChargesPago";
 
 function RotasProtegidas(props) {
   const { token } = useContext(AuthContext);
@@ -40,6 +42,41 @@ function Routes() {
               <RotasProtegidas>
                 <Main>
                   <Route path="/home" exact component={Home} />
+                  {/* <Route
+                    path="/reports/clients/:statusCliente"
+                    exact
+                    component={ReportsClients}
+                  /> */}
+                  <Route
+                    path="/reports/clients/em_dia"
+                    exact
+                    component={ReportsClients}
+                  />
+                  <Route
+                    path="/reports/clients/inadimplentes"
+                    exact
+                    component={ReportsClients}
+                  />
+                  {/* <Route
+                    path="/reports/charges/:statusCobranca"
+                    exact
+                    component={ReportsCharges}
+                  /> */}
+                  <Route
+                    path="/reports/charges/pendente"
+                    exact
+                    component={ReportsCharges}
+                  />
+                  <Route
+                    path="/reports/charges/pago"
+                    exact
+                    component={ReportsChargesPago}
+                  />
+                  <Route
+                    path="/reports/charges/vencido"
+                    exact
+                    component={ReportsChargesVencido}
+                  />
                   <Route path="/charges" exact component={Charges} />
                   <Route
                     path="/charges/register"
@@ -47,21 +84,13 @@ function Routes() {
                     component={CreateCharges}
                   />
                   <Route path="/clients" exact component={Customers} />
-                  <Route
-                    path="/clients/:id/details"
-                    exact
-                    component={DetailsCustomers}
-                  />
+
                   <Route
                     path="/clients/register"
                     exact
                     component={RegisterClients}
                   />
-                  <Route
-                    path="/clients/:id/edit"
-                    exact
-                    component={EditCustomers}
-                  />
+
                   <Route
                     path="/"
                     exact

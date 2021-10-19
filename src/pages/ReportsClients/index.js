@@ -1,28 +1,32 @@
-import "./styles.css";
 import { useEffect, useState } from "react";
 import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 
-function Charges() {
-  const { charges } = useCharges();
+function ReportsClients() {
+  const { statusEmdia, getClientStatusEmdia } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
 
   useEffect(() => {
-    setListagem(charges);
-  }, [charges]);
+    async function callGetClient() {
+      await getClientStatusEmdia();
+      return setListagem(statusEmdia);
+      //return getChargeStatusPendente();
+    }
+    callGetClient();
+  }, []);
 
   function handleChange(value) {
     console.log(value);
     if (value === "") {
-      setListagem(charges);
+      setListagem(statusEmdia);
       return;
     }
-    const filterClient = charges.filter((charge) =>
+    const filterClient = statusEmdia.filter((charge) =>
       charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
@@ -97,4 +101,4 @@ function Charges() {
   );
 }
 
-export default Charges;
+export default ReportsClients;

@@ -1,31 +1,35 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
 import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
-import { MaskedInput } from "../../hooks/MaskedInput";
+import CloseIcon from "../../assets/close-icon.svg";
 
-function EditCustomers() {
+function EditCustomers({ setEditClients, clientId }) {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { token } = useContext(AuthContext);
-  const history = useHistory();
-  const { editClient } = useContext(ClientContext);
+  const location = useLocation();
+  const { editClient, getClient, client } = useContext(ClientContext);
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
-  const { id, nome, cpf, cep, email, telefone } = history.location.state ?? {};
+
+  useEffect(() => {
+    return getClient({ token, id: clientId });
+  }, []);
 
   useEffect(() => {
     async function loadUser() {
-      setValue("nome", nome);
-      setValue("email", email);
-      setValue("telefone", telefone);
-      setValue("cpf", cpf);
-      setValue("cep", cep);
+      setValue("nome", client.nome);
+      setValue("email", client.email);
+      setValue("cep", client.cep);
+      setValue("cpf", client.cpf);
+      setValue("telefone", client.telefone);
     }
+
     loadUser();
-  }, []);
+  }, [client]);
 
   let nomeWatch = watch("nome");
   let emailWatch = watch("email");
@@ -35,7 +39,8 @@ function EditCustomers() {
 
   async function onSubmit(data) {
     console.log(data);
-    return editClient({ data, token, id });
+
+    return editClient({ data, token, id: clientId, setEditClients });
   }
 
   useEffect(() => {
@@ -104,9 +109,16 @@ function EditCustomers() {
   }
 
   return (
-    <div className="container-form-clients">
-      <p>{"//"} EDITAR CLIENTE</p>
-      <div>
+    <div className="edit-customers">
+      <div className="container-form-editclients">
+        <NavLink
+          to={location.pathname}
+          exact
+          className="close-button-edit"
+          onClick={() => setEditClients(false)}
+        >
+          <img src={CloseIcon} alt="" />
+        </NavLink>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-unic-input">
             <label htmlFor="nome">Nome</label>
@@ -126,13 +138,7 @@ function EditCustomers() {
           </div>
           <div className="container-unic-input">
             <label htmlFor="cpf">CPF</label>
-            {/* <input
-              type="text"
-              id="cpf"
-              {...register("cpf", { require: true })}
-            /> */}
-            <MaskedInput
-              mask="999.999.999-99"
+            <input
               type="text"
               id="cpf"
               {...register("cpf", { require: true })}
@@ -142,27 +148,11 @@ function EditCustomers() {
             <div className="container-double-form">
               <div>
                 <label htmlFor="telefone">Telefone</label>
-                {/* <input
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                /> */}
-
-                <MaskedInput
-                  mask="(99)9 9999-9999"
-                  type="text"
-                  id="telefone"
-                  {...register("telefone", { require: true })}
-                />
+                <input type="text" id="telefone" {...register("telefone")} />
               </div>
               <div>
                 <label htmlFor="cep">CEP</label>
-                <input
-                  type="text"
-                  id="cep"
-                  maxlength="9"
-                  {...register("cep")}
-                />
+                <input type="text" id="cep" {...register("cep")} />
               </div>
             </div>
             <div className="container-double-form">
@@ -214,7 +204,7 @@ function EditCustomers() {
           </div>
           <div className="container-buttonsClient">
             <button
-              onClick={() => history.push("/clients")}
+              onClick={() => setEditClients(false)}
               className="btn btn-white"
               type="submit"
             >
@@ -223,7 +213,6 @@ function EditCustomers() {
             <button
               onClick={() => handleNotifications()}
               className={statusButton}
-              type="submit"
             >
               Editar Cliente
             </button>

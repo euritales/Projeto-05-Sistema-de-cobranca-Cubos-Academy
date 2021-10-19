@@ -6,7 +6,7 @@ async function getAddressByCep(cep) {
       method: "GET",
     });
 
-    const { logradouro, bairro, localidade, uf, complemento, erro, status } =
+    const { logradouro, bairro, localidade, uf, complemento, erro } =
       await response.json();
 
     if (erro) {
