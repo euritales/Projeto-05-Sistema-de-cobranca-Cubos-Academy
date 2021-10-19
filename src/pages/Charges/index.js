@@ -12,6 +12,7 @@ function Charges() {
   const { charges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
+  const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function Charges() {
       return;
     }
     const filterClient = charges.filter(
-      (charge) => charge.nome.includes(value)
+      (charge) => charge.nome.toLowerCase().includes(value)
       // || charge.id.includes(value) ||
       // charge.email.includes(value)
     );
@@ -51,10 +52,11 @@ function Charges() {
             <input
               type="text"
               id="busca"
-              onChange={(e) => handleChange(e.target.value)}
+              // onChange={(e) => handleChange(e.target.value.toLowerCase())}
+              onChange={(e) => setBusca(e.target.value.toLowerCase())}
               placeholder="Procurar por Nome, E-mail ou CPF"
             />
-            <button>
+            <button onClick={() => handleChange(busca)}>
               <img src={SearchIcon} alt="" />
             </button>
           </div>
