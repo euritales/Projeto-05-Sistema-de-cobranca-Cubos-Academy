@@ -42,9 +42,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getCharges();
-  }, []);
+  // useEffect(() => {
+  //   getCharges();
+  // }, []);
 
   async function getCharge(id) {
     try {
@@ -93,9 +93,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusPendente();
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatusPendente();
+  // }, []);
 
   async function getChargeStatusVencido() {
     try {
@@ -120,9 +120,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusVencido();
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatusVencido();
+  // }, []);
 
   async function getChargeStatusPago() {
     try {
@@ -147,9 +147,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  useEffect(() => {
-    getChargeStatusPago();
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatusPago();
+  // }, []);
 
   async function getChargeStatus(status) {
     try {
@@ -175,9 +175,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getChargeStatus("pendente");
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatus("pendente");
+  // }, []);
 
   async function editCharges({ data, id, setOpenEditCharges }) {
     const body = {
@@ -238,6 +238,7 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
+
   async function deleteCharge(id, setOpenEditCharges) {
     try {
       const response = await fetch(
