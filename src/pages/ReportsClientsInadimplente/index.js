@@ -11,10 +11,10 @@ import EditCustomers from "../../components/EditCustomers";
 import DetailsCustomers from "../../components/DetailsCustomers";
 import { formatToBRL } from "brazilian-values";
 
-function ReportsClients() {
+function ReportsClientsInad() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
-  const { getClientStatusEmdia, statusEmdia } = useContext(ClientContext);
+  const { getClientStatusInad, statusInad } = useContext(ClientContext);
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
   const [clientId, setClientId] = useState();
@@ -23,14 +23,14 @@ function ReportsClients() {
 
   useEffect(() => {
     async function callGetClient() {
-      return getClientStatusEmdia(token);
+      return getClientStatusInad(token);
     }
     callGetClient();
   }, [editClients]);
 
   useEffect(() => {
-    setListagem(statusEmdia);
-  }, [statusEmdia]);
+    setListagem(statusInad);
+  }, [statusInad]);
 
   function handleEditClient(id) {
     setClientId(id);
@@ -44,10 +44,10 @@ function ReportsClients() {
   function handleChange(value) {
     console.log(value);
     if (value === "") {
-      setListagem(statusEmdia);
+      setListagem(statusInad);
       return;
     }
-    const filterClient = statusEmdia.filter((charge) =>
+    const filterClient = statusInad.filter((charge) =>
       charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
@@ -163,4 +163,4 @@ function ReportsClients() {
   );
 }
 
-export default ReportsClients;
+export default ReportsClientsInad;
