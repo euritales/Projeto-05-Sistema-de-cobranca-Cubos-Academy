@@ -4,7 +4,7 @@ import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./auth";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 export const ChargeContext = createContext();
 
