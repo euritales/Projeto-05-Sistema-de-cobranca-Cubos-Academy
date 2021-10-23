@@ -4,6 +4,7 @@ import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
+import SortIcon from "../../assets/sort-icon.svg";
 
 function Charges() {
   const { charges } = useCharges();
@@ -11,26 +12,45 @@ function Charges() {
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
 
   useEffect(() => {
     setListagem(charges);
   }, [charges]);
 
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
       setListagem(charges);
       return;
     }
-    const filterClient = charges.filter((charge) =>
-      charge.nome.toLowerCase().includes(value)
-    );
+
+    const filterClient = charges.filter((charge) => {
+      if (
+        charge.nome.toLowerCase().includes(value) ||
+        charge.id.toString().toLowerCase().includes(value)
+        // ||charge.cpf.toLowerCase().includes(value)
+        // ||charge.email.toLowerCase().includes(value)
+      ) {
+        return charge;
+      }
+    });
     setListagem(filterClient);
   }
 
   function handleEditClient(id) {
     setChargeId(id);
     setOpenEditCharges(true);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      charges.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...charges]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...charges].reverse());
   }
 
   return (
@@ -56,7 +76,18 @@ function Charges() {
         </div>
         <div className="container-description-charge">
           <span className="span-sm">ID</span>
-          <span className="span-lg">Cliente</span>
+
+          <button
+            className="span-lg flex-row items-center  "
+            onClick={handleSort}
+          >
+            <span>Cliente</span>
+            <img
+              className={ordenacao === "decrescente" ? "rotate" : ""}
+              src={SortIcon}
+              alt=""
+            />
+          </button>
           <span className="span-lg">Descrição</span>
           <span className="span-md">Valor</span>
           <span>Status</span>
