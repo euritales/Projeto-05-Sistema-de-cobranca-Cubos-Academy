@@ -56,6 +56,24 @@
   font-weight: 600;
   font-size: 14px;
 }
+
+.container-description-charge > button {
+  cursor: pointer;
+  background: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0;
+  border: 0;
+}
+.container-description-charge > button img {
+  margin-left: 5px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
 .box-container-details button {
   cursor: pointer;
   border: none;

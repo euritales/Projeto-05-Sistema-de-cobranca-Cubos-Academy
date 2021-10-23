@@ -31,13 +31,25 @@
   font-size: 14px;
 }
 
+.container-description-costumers > button {
+  cursor: pointer;
+  background: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0;
+  border: 0;
+}
+.container-description-costumers > button img {
+  margin-left: 5px;
+}
+
 .client-details {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
   width: 250px;
-  /* height: 130px; */
   padding: 0 0 10px 0;
 }
 .name-costumers {

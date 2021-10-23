@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
+import SortIcon from "../../assets/sort-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import NumberFormat from "react-number-format";
 import SearchIcon from "../../assets/search-icon.svg";
@@ -21,6 +22,7 @@ function Customers() {
   const [clientId, setClientId] = useState();
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
 
   useEffect(() => {
     async function callGetClient() {
@@ -43,15 +45,32 @@ function Customers() {
     setDetailsClient(true);
   }
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
       setListagem(clients);
       return;
     }
-    const filterClient = clients.filter((charge) =>
-      charge.nome.toLowerCase().includes(value)
-    );
+
+    const filterClient = clients.filter((clients) => {
+      if (
+        clients.nome.toLowerCase().includes(value) ||
+        clients.email.toLowerCase().includes(value) ||
+        clients.cpf.toLowerCase().includes(value)
+      ) {
+        return clients;
+      }
+    });
     setListagem(filterClient);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      clients.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...clients]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...clients].reverse());
   }
 
   return (
@@ -88,7 +107,17 @@ function Customers() {
             </div>
           </div>
           <div className="container-description-costumers">
-            <span className="span-lg">Cliente</span>
+            <button
+              className="span-lg flex-row items-center  "
+              onClick={handleSort}
+            >
+              <span>Cliente</span>
+              <img
+                className={ordenacao === "decrescente" ? "rotate" : ""}
+                src={SortIcon}
+                alt=""
+              />
+            </button>{" "}
             <span className="span-lg">Cobranças Feitas</span>
             <span className="span-lg">Cobranças Recebidas</span>
             <span>Status</span>
