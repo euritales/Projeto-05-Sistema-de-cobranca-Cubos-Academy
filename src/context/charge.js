@@ -4,7 +4,7 @@ import ErrorMessage from "../components/ToastifyPopups/errorMessage";
 import SucessMessage from "../components/ToastifyPopups/sucessMessage";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./auth";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 export const ChargeContext = createContext();
 
@@ -42,9 +42,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   getCharges();
-  // }, []);
+  useEffect(() => {
+    getCharges();
+  }, []);
 
   async function getCharge(id) {
     try {
@@ -94,9 +94,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   getChargeStatusPendente();
-  // }, []);
+  useEffect(() => {
+    getChargeStatusPendente();
+  }, []);
 
   async function getChargeStatusVencido() {
     try {
@@ -121,9 +121,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  // useEffect(() => {
-  //   getChargeStatusVencido();
-  // }, []);
+  useEffect(() => {
+    getChargeStatusVencido();
+  }, []);
 
   async function getChargeStatusPago() {
     try {
@@ -148,9 +148,9 @@ export const ChargeContextProvider = ({ children }) => {
       return ErrorMessage(error.message);
     }
   }
-  // useEffect(() => {
-  //   getChargeStatusPago();
-  // }, []);
+  useEffect(() => {
+    getChargeStatusPago();
+  }, []);
 
   async function getChargeStatus(status) {
     try {
@@ -176,13 +176,13 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   getChargeStatus("pendente");
-  // }, []);
+  useEffect(() => {
+    getChargeStatus("pendente");
+  }, []);
 
-  async function editCharges({ data, id, setOpenCharges }) {
+  async function editCharges({ data, id, setOpenEditCharges }) {
     const body = {
-      cliente_id: data.id,
+      cliente_id: data.cliente_id,
       descricao: data.descricao,
       status: data.status,
       valor: data.valor,
@@ -205,7 +205,7 @@ export const ChargeContextProvider = ({ children }) => {
     const dados = await response.json();
 
     if (response.ok) {
-      setOpenCharges(false);
+      setOpenEditCharges(false);
       getCharges();
       return SucessMessage(dados);
     }
