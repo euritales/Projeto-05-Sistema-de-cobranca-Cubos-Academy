@@ -177,9 +177,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getChargeStatus(typeStatus);
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatus(typeStatus);
+  // }, []);
 
   async function editCharges({ data, id, setOpenEditCharges }) {
     const body = {
