@@ -50,6 +50,7 @@ export function StatusClient({ nome, img }) {
 export function StatusCharges({ nome, img }) {
   const history = useHistory();
   const [pendente, setPendente] = useState([]);
+
   const {
     getChargeStatusPendente,
     getChargeStatusPago,
@@ -57,6 +58,7 @@ export function StatusCharges({ nome, img }) {
     statusPendente,
     statusPago,
     statusVencido,
+    getChargeStatus,
   } = useContext(ChargeContext);
   useEffect(() => {
     async function callClientStatus() {
@@ -69,6 +71,19 @@ export function StatusCharges({ nome, img }) {
     callClientStatus();
   }, []);
 
+  async function handleStatusPendente() {
+    await getChargeStatus("pendente");
+    return history.push(`/reports/charges/pendente`);
+  }
+  async function handleStatusPago() {
+    await getChargeStatus("pago");
+    return history.push(`/reports/charges/pago`);
+  }
+  async function handleStatusVencido() {
+    await getChargeStatus("vencido");
+    return history.push(`/reports/charges/vencido`);
+  }
+  //"Insira um status válido ('pago', 'pendente' ou 'vencido')"
   return (
     <div className="container-status">
       <div className="head-status">
@@ -76,19 +91,19 @@ export function StatusCharges({ nome, img }) {
         <span>{nome}</span>
       </div>
       <div className="details-status">
-        <button onClick={() => history.push("/reports/charges/pendente")}>
+        <button onClick={() => handleStatusPendente()}>
           <DefaultStatus
             situacao="Previstas"
             quantidade={statusPendente.length ? statusPendente.length : "0"}
           />
         </button>
-        <button onClick={() => history.push("/reports/charges/vencido")}>
+        <button onClick={() => handleStatusVencido()}>
           <ForeseenStatus
             situacao="Vencidas"
             quantidade={statusVencido.length ? statusVencido.length : "0"}
           />
         </button>
-        <button onClick={() => history.push("/reports/charges/pago")}>
+        <button onClick={() => handleStatusPago()}>
           <PayStatus
             situacao="Pagas"
             quantidade={statusPago.length ? statusPago.length : "0"}

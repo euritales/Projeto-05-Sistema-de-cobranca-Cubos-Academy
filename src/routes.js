@@ -58,12 +58,12 @@ function Routes() {
                     exact
                     component={ReportsClientsInad}
                   />
-                  {/* <Route
+                  <Route
                     path="/reports/charges/:statusCobranca"
                     exact
                     component={ReportsCharges}
-                  /> */}
-                  <Route
+                  />
+                  {/* <Route
                     path="/reports/charges/pendente"
                     exact
                     component={ReportsCharges}
@@ -77,7 +77,7 @@ function Routes() {
                     path="/reports/charges/pago"
                     exact
                     component={ReportsChargesPago}
-                  />
+                  /> */}
                   <Route path="/charges" exact component={Charges} />
                   <Route
                     path="/charges/register"

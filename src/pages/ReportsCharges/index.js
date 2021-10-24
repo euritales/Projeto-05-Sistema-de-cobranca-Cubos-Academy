@@ -4,9 +4,10 @@ import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 import SortIcon from "../../assets/sort-icon.svg";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 
 function ReportsCharges() {
-  const { getChargeStatusPendente, statusPendente } = useCharges();
+  const { getChargeStatus, statusCharges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
@@ -14,20 +15,19 @@ function ReportsCharges() {
   const [ordenacao, setOrdenacao] = useState();
 
   useEffect(() => {
-    async function callGetClient() {
-      await getChargeStatusPendente();
-      return setListagem(statusPendente);
-      //return getChargeStatusPendente();
-    }
-    callGetClient();
+    // async function callGetClient() {
+    //   // await getChargeStatus(status);
+    // }
+    // callGetClient();
+    setListagem(statusCharges);
   }, []);
 
   function handleChange(value) {
     if (value === "") {
-      setListagem(statusPendente);
+      setListagem(statusCharges);
       return;
     }
-    const filterClient = statusPendente.filter((charge) => {
+    const filterClient = statusCharges.filter((charge) => {
       if (
         charge.nome.toLowerCase().includes(value) ||
         charge.id.toString().toLowerCase().includes(value)
@@ -47,12 +47,12 @@ function ReportsCharges() {
   function handleSort() {
     if (ordenacao !== "crescente") {
       setOrdenacao("crescente");
-      statusPendente.sort((a, b) => a.nome.localeCompare(b.nome));
-      setListagem([...statusPendente]);
+      statusCharges.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...statusCharges]);
       return;
     }
     setOrdenacao("decrescente");
-    setListagem([...statusPendente].reverse());
+    setListagem([...statusCharges].reverse());
   }
 
   return (
