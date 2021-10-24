@@ -123,7 +123,7 @@ function Customers() {
             <span>Status</span>
           </div>
           <div className="box-container-details">
-            {!listagem ? (
+            {listagem.length <= 0 ? (
               <div className="no-register">
                 <h3>Sem registros no momento!</h3>
               </div>

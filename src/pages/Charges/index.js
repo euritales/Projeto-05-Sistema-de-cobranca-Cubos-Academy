@@ -7,12 +7,19 @@ import EditChargesModal from "../../components/EditCharges";
 import SortIcon from "../../assets/sort-icon.svg";
 
 function Charges() {
-  const { charges } = useCharges();
+  const { getCharges, charges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
   const [ordenacao, setOrdenacao] = useState();
+
+  useEffect(() => {
+    async function callGetClient() {
+      return getCharges();
+    }
+    callGetClient();
+  }, []);
 
   useEffect(() => {
     setListagem(charges);
@@ -94,7 +101,7 @@ function Charges() {
           <span className="span-md">Vencimento</span>
         </div>
         <div className="box-container-details">
-          {listagem.length < 0 ? (
+          {listagem.length <= 0 ? (
             <div className="no-register">
               <h3>Sem registros no momento!</h3>
             </div>
