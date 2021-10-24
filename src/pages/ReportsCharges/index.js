@@ -34,9 +34,9 @@ function ReportsCharges() {
     const filterClient = statusCharges.filter((charge) => {
       if (
         charge.nome.toLowerCase().includes(value) ||
-        charge.id.toString().toLowerCase().includes(value)
-        // ||charge.cpf.toLowerCase().includes(value)
-        // ||charge.email.toLowerCase().includes(value)
+        charge.id.toString().toLowerCase().includes(value) ||
+        charge.cpf.toLowerCase().includes(value) ||
+        charge.email.toLowerCase().includes(value)
       ) {
         return charge;
       }
@@ -73,7 +73,7 @@ function ReportsCharges() {
             type="text"
             id="busca"
             onChange={(e) => setBusca(e.target.value.toLowerCase())}
-            placeholder="Procurar por Nome, E-mail ou CPF"
+            placeholder="Procurar por ID, Nome, E-mail ou CPF"
           />
           <button type="submit" onClick={() => handleChange(busca)}>
             <img src={SearchIcon} alt="" />
