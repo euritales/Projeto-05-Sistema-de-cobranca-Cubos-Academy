@@ -120,7 +120,7 @@ function DetailsCustomers({ setDetailsClient, clientId }) {
 
                   <div className="info-charge-two">
                     <div>
-                      <p>{formatToBRL(valor)}</p>
+                      <p>{formatToBRL(valor / 100)}</p>
                     </div>
                     <div>
                       <span

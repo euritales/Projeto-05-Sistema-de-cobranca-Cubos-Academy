@@ -16,6 +16,7 @@ export const ChargeContextProvider = ({ children }) => {
   const [statusVencido, setStatusVencido] = useState([]);
   const [statusPago, setStatusPago] = useState([]);
   const [statusCharges, setStatusCharges] = useState([]);
+  const [typeStatus, setTypeStatus] = useState();
   const { token } = useContext(AuthContext);
 
   async function getCharges() {
@@ -166,9 +167,9 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
+        setTypeStatus(status);
         return setStatusCharges(dados);
       }
     } catch (error) {
@@ -176,9 +177,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   getChargeStatus();
-  // }, []);
+  useEffect(() => {
+    getChargeStatus(typeStatus);
+  }, []);
 
   async function editCharges({ data, id, setOpenEditCharges }) {
     const body = {
@@ -286,6 +287,7 @@ export const ChargeContextProvider = ({ children }) => {
         statusVencido,
         getChargeStatusPago,
         statusPago,
+        typeStatus,
       }}
     >
       {children}

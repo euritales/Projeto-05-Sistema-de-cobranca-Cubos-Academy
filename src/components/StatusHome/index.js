@@ -11,8 +11,14 @@ export function StatusClient({ nome, img }) {
   const history = useHistory();
   const { token } = useContext(AuthContext);
 
-  const { getClientStatusEmdia, getClientStatusInad, statusEmdia, statusInad } =
-    useContext(ClientContext);
+  const {
+    getClientStatusEmdia,
+    getClientStatusInad,
+    getClientStatus,
+    statusClient,
+    statusEmdia,
+    statusInad,
+  } = useContext(ClientContext);
 
   useEffect(() => {
     async function callClientStatus() {
@@ -23,6 +29,17 @@ export function StatusClient({ nome, img }) {
     callClientStatus();
   }, []);
 
+  async function handleStatusEmDia() {
+    const statusAtual = "em_dia";
+    await getClientStatus("em_dia");
+    return history.push(`/reports/clients/em_dia`, statusAtual);
+  }
+  async function handleStatusInadimplente() {
+    const statusAtual = "inadimplente";
+    await getClientStatus("inadimplente");
+    return history.push(`/reports/clients/inadimplente`, statusAtual);
+  }
+
   return (
     <div className="container-status">
       <div className="head-status">
@@ -30,13 +47,13 @@ export function StatusClient({ nome, img }) {
         <span>{nome}</span>
       </div>
       <div className="details-status">
-        <button onClick={() => history.push("/reports/clients/em_dia")}>
+        <button onClick={() => handleStatusEmDia()}>
           <PayStatus
             situacao="Em dia"
             quantidade={statusEmdia.length ? statusEmdia.length : "0"}
           />
         </button>
-        <button onClick={() => history.push("/reports/clients/inadimplente")}>
+        <button onClick={() => handleStatusInadimplente()}>
           <ForeseenStatus
             situacao="Inadimplentes"
             quantidade={statusInad.length ? statusInad.length : "0"}
@@ -73,7 +90,9 @@ export function StatusCharges({ nome, img }) {
 
   async function handleStatusPendente() {
     await getChargeStatus("pendente");
-    return history.push(`/reports/charges/pendente`);
+    const statusAtual = "pendente";
+    console.log(statusAtual);
+    return history.push(`/reports/charges/pendente`, statusAtual);
   }
   async function handleStatusPago() {
     await getChargeStatus("pago");

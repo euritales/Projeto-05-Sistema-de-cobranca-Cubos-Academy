@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
+import SortIcon from "../../assets/sort-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import NumberFormat from "react-number-format";
 import SearchIcon from "../../assets/search-icon.svg";
@@ -14,23 +15,26 @@ import { formatToBRL } from "brazilian-values";
 function ReportsClients() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
-  const { getClientStatusEmdia, statusEmdia } = useContext(ClientContext);
+  const { getClientStatus, statusClient } = useContext(ClientContext);
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
   const [clientId, setClientId] = useState();
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
+  const statusAtual = history.location.state ?? {};
 
   useEffect(() => {
     async function callGetClient() {
-      return getClientStatusEmdia(token);
+      console.log(statusAtual);
+      return getClientStatus(token, statusAtual);
     }
     callGetClient();
   }, [editClients]);
 
   useEffect(() => {
-    setListagem(statusEmdia);
-  }, [statusEmdia]);
+    setListagem(statusClient);
+  }, [statusClient]);
 
   function handleEditClient(id) {
     setClientId(id);
@@ -44,13 +48,24 @@ function ReportsClients() {
   function handleChange(value) {
     console.log(value);
     if (value === "") {
-      setListagem(statusEmdia);
+      setListagem(statusClient);
       return;
     }
-    const filterClient = statusEmdia.filter((charge) =>
+    const filterClient = statusClient.filter((charge) =>
       charge.nome.toLowerCase().includes(value)
     );
     setListagem(filterClient);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      statusClient.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...statusClient]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...statusClient].reverse());
   }
 
   return (
@@ -87,7 +102,17 @@ function ReportsClients() {
             </div>
           </div>
           <div className="container-description-costumers">
-            <span className="span-lg">Cliente</span>
+            <button
+              className="span-lg flex-row items-center  "
+              onClick={handleSort}
+            >
+              <span>Cliente</span>
+              <img
+                className={ordenacao === "decrescente" ? "rotate" : ""}
+                src={SortIcon}
+                alt=""
+              />
+            </button>{" "}
             <span className="span-lg">Cobranças Feitas</span>
             <span className="span-lg">Cobranças Recebidas</span>
             <span>Status</span>

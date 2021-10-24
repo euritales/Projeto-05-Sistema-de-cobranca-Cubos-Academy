@@ -8,17 +8,21 @@ import { NavLink, useLocation, useHistory } from "react-router-dom";
 
 function ReportsCharges() {
   const { getChargeStatus, statusCharges } = useCharges();
+  const history = useHistory();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
   const [ordenacao, setOrdenacao] = useState();
+  const statusAtual = history.location.state ?? {};
 
   useEffect(() => {
-    // async function callGetClient() {
-    //   // await getChargeStatus(status);
-    // }
-    // callGetClient();
+    async function callGetClient() {
+      if (statusAtual === "pendente") {
+        await getChargeStatus(statusAtual);
+      }
+    }
+    callGetClient();
     setListagem(statusCharges);
   }, []);
 

@@ -43,12 +43,12 @@ function Routes() {
               <RotasProtegidas>
                 <Main>
                   <Route path="/home" exact component={Home} />
-                  {/* <Route
+                  <Route
                     path="/reports/clients/:statusCliente"
                     exact
                     component={ReportsClients}
-                  /> */}
-                  <Route
+                  />
+                  {/* <Route
                     path="/reports/clients/em_dia"
                     exact
                     component={ReportsClients}
@@ -57,13 +57,13 @@ function Routes() {
                     path="/reports/clients/inadimplente"
                     exact
                     component={ReportsClientsInad}
-                  />
-                  <Route
+                  /> */}
+                  {/* <Route
                     path="/reports/charges/:statusCobranca"
                     exact
                     component={ReportsCharges}
-                  />
-                  {/* <Route
+                  /> */}
+                  <Route
                     path="/reports/charges/pendente"
                     exact
                     component={ReportsCharges}
@@ -71,13 +71,13 @@ function Routes() {
                   <Route
                     path="/reports/charges/vencido"
                     exact
-                    component={ReportsChargesVencida}
+                    component={ReportsCharges}
                   />
                   <Route
                     path="/reports/charges/pago"
                     exact
-                    component={ReportsChargesPago}
-                  /> */}
+                    component={ReportsCharges}
+                  />
                   <Route path="/charges" exact component={Charges} />
                   <Route
                     path="/charges/register"
