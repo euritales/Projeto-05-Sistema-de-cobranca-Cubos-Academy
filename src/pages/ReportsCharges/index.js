@@ -3,13 +3,15 @@ import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
+import SortIcon from "../../assets/sort-icon.svg";
 
 function ReportsCharges() {
+  const { getChargeStatusPendente, statusPendente } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
-  const [listagem, setListagem] = useState([]);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
-  const { getChargeStatusPendente, statusPendente } = useCharges();
+  const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
 
   useEffect(() => {
     async function callGetClient() {
@@ -25,15 +27,32 @@ function ReportsCharges() {
       setListagem(statusPendente);
       return;
     }
-    const filterClient = statusPendente.filter((charge) =>
-      charge.nome.toLowerCase().includes(value)
-    );
+    const filterClient = statusPendente.filter((charge) => {
+      if (
+        charge.nome.toLowerCase().includes(value) ||
+        charge.id.toString().toLowerCase().includes(value)
+        // ||charge.cpf.toLowerCase().includes(value)
+        // ||charge.email.toLowerCase().includes(value)
+      ) {
+        return charge;
+      }
+    });
     setListagem(filterClient);
   }
-
   function handleEditClient(id) {
     setChargeId(id);
     setOpenEditCharges(true);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      statusPendente.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...statusPendente]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...statusPendente].reverse());
   }
 
   return (
@@ -59,7 +78,17 @@ function ReportsCharges() {
         </div>
         <div className="container-description-charge">
           <span className="span-sm">ID</span>
-          <span className="span-lg">Cliente</span>
+          <button
+            className="span-lg flex-row items-center  "
+            onClick={handleSort}
+          >
+            <span>Cliente</span>
+            <img
+              className={ordenacao === "decrescente" ? "rotate" : ""}
+              src={SortIcon}
+              alt=""
+            />
+          </button>{" "}
           <span className="span-lg">Descrição</span>
           <span className="span-md">Valor</span>
           <span>Status</span>
