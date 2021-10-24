@@ -12,6 +12,7 @@ export const ClientContextProvider = ({ children }) => {
   const [client, setClient] = useState([]);
   const [statusEmdia, setStatusEmdia] = useState([]);
   const [statusInad, setStatusInad] = useState([]);
+  const [statusClient, setStatusClient] = useState([]);
 
   async function getClients(token) {
     try {
@@ -30,6 +31,29 @@ export const ClientContextProvider = ({ children }) => {
 
       if (response.ok) {
         return setClients(dados);
+      }
+    } catch (error) {
+      return ErrorMessage(error.message);
+    }
+  }
+
+  async function getClientStatus(token, status) {
+    try {
+      const response = await fetch(
+        `https://cubosacademy-projeto-5.herokuapp.com/reports/clients/${status}`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dados = await response.json();
+
+      if (response.ok) {
+        return setStatusClient(dados);
       }
     } catch (error) {
       return ErrorMessage(error.message);
@@ -183,6 +207,8 @@ export const ClientContextProvider = ({ children }) => {
         client,
         createClient,
         editClient,
+        getClientStatus,
+        statusClient,
       }}
     >
       {children}

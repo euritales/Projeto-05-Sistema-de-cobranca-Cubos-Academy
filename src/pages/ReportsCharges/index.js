@@ -3,37 +3,60 @@ import { useCharges } from "../../context/charge";
 import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
+import SortIcon from "../../assets/sort-icon.svg";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 
 function ReportsCharges() {
+  const { getChargeStatus, statusCharges } = useCharges();
+  const history = useHistory();
   const [openEditCharges, setOpenEditCharges] = useState(false);
-  const [listagem, setListagem] = useState([]);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
-  const { getChargeStatusPendente, statusPendente } = useCharges();
+  const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
+  const statusAtual = history.location.state ?? {};
 
   useEffect(() => {
     async function callGetClient() {
-      await getChargeStatusPendente();
-      return setListagem(statusPendente);
-      //return getChargeStatusPendente();
+      if (statusAtual === "pendente") {
+        await getChargeStatus(statusAtual);
+      }
     }
     callGetClient();
+    setListagem(statusCharges);
   }, []);
 
   function handleChange(value) {
     if (value === "") {
-      setListagem(statusPendente);
+      setListagem(statusCharges);
       return;
     }
-    const filterClient = statusPendente.filter((charge) =>
-      charge.nome.toLowerCase().includes(value)
-    );
+    const filterClient = statusCharges.filter((charge) => {
+      if (
+        charge.nome.toLowerCase().includes(value) ||
+        charge.id.toString().toLowerCase().includes(value)
+        // ||charge.cpf.toLowerCase().includes(value)
+        // ||charge.email.toLowerCase().includes(value)
+      ) {
+        return charge;
+      }
+    });
     setListagem(filterClient);
   }
-
   function handleEditClient(id) {
     setChargeId(id);
     setOpenEditCharges(true);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      statusCharges.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...statusCharges]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...statusCharges].reverse());
   }
 
   return (
@@ -59,7 +82,17 @@ function ReportsCharges() {
         </div>
         <div className="container-description-charge">
           <span className="span-sm">ID</span>
-          <span className="span-lg">Cliente</span>
+          <button
+            className="span-lg flex-row items-center  "
+            onClick={handleSort}
+          >
+            <span>Cliente</span>
+            <img
+              className={ordenacao === "decrescente" ? "rotate" : ""}
+              src={SortIcon}
+              alt=""
+            />
+          </button>{" "}
           <span className="span-lg">Descrição</span>
           <span className="span-md">Valor</span>
           <span>Status</span>
