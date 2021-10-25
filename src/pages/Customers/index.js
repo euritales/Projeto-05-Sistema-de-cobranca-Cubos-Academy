@@ -97,7 +97,24 @@ function Customers() {
               <input
                 type="text"
                 id="busca"
-                onChange={(e) => setBusca(e.target.value.toLowerCase())}
+                onChange={(e) =>
+                  setBusca(
+                    e.target.value
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace("-", "")
+                      .toLowerCase()
+                  )
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    return handleChange(busca);
+                  }
+                  if (e.keyCode === 27) {
+                    return handleChange("");
+                  }
+                }}
                 placeholder="Procurar por Nome, E-mail ou CPF"
               />
               <button onClick={() => handleChange(busca)}>
@@ -123,7 +140,7 @@ function Customers() {
             <span>Status</span>
           </div>
           <div className="box-container-details">
-            {!listagem ? (
+            {listagem.length <= 0 ? (
               <div className="no-register">
                 <h3>Sem registros no momento!</h3>
               </div>

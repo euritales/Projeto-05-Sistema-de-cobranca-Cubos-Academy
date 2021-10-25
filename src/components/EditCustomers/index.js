@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
-import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import CloseIcon from "../../assets/close-icon.svg";
+import { formatToCPF, formatToPhone } from "brazilian-values";
 
 function EditCustomers({ setEditClients, clientId }) {
   const { register, handleSubmit, watch, setValue } = useForm();
@@ -26,6 +26,10 @@ function EditCustomers({ setEditClients, clientId }) {
       setValue("cep", client.cep);
       setValue("cpf", client.cpf);
       setValue("telefone", client.telefone);
+      setValue("bairro", client.bairro);
+      setValue("logradouro", client.logradouro);
+      setValue("complemento", client.complemento);
+      setValue("referencia", client.ponto_referencia);
     }
 
     loadUser();
@@ -38,9 +42,20 @@ function EditCustomers({ setEditClients, clientId }) {
   let cepWatch = watch("cep");
 
   async function onSubmit(data) {
-    console.log(data);
-
-    return editClient({ data, token, id: clientId, setEditClients });
+    const body = {
+      id: data.id,
+      nome: data.nome,
+      email: data.email,
+      cpf: data.cpf,
+      cep: data.cep,
+      telefone: data.telefone,
+      bairro: data.bairro,
+      cidade: data.localidade,
+      logradouro: data.logradouro,
+      complemento: data.complemento,
+      ponto_referencia: data.referencia,
+    };
+    return editClient({ data: body, token, id: clientId, setEditClients });
   }
 
   useEffect(() => {
@@ -94,19 +109,6 @@ function EditCustomers({ setEditClients, clientId }) {
       }
     }
   }, [cepWatch]);
-
-  function handleNotifications() {
-    if (
-      emailWatch?.length === 0 ||
-      nomeWatch?.length === 0 ||
-      cpfWatch?.length === 0 ||
-      telefoneWatch?.length === 0
-    ) {
-      return ErrorMessage(
-        "Campos 'Nome', 'Email', 'CPF' e 'Telefone' são obrigatórios"
-      );
-    }
-  }
 
   return (
     <div className="edit-customers">
@@ -210,12 +212,7 @@ function EditCustomers({ setEditClients, clientId }) {
             >
               Cancelar
             </button>
-            <button
-              onClick={() => handleNotifications()}
-              className={statusButton}
-            >
-              Editar Cliente
-            </button>
+            <button className={statusButton}>Editar Cliente</button>
           </div>
         </form>
       </div>

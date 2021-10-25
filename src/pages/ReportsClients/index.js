@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
+import SortIcon from "../../assets/sort-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import NumberFormat from "react-number-format";
 import SearchIcon from "../../assets/search-icon.svg";
@@ -14,23 +15,25 @@ import { formatToBRL } from "brazilian-values";
 function ReportsClients() {
   const history = useHistory();
   const { token } = useContext(AuthContext);
-  const { getClientStatusEmdia, statusEmdia } = useContext(ClientContext);
+  const { getClientStatus, statusClient } = useContext(ClientContext);
   const [editClients, setEditClients] = useState(false);
   const [detailsClient, setDetailsClient] = useState(false);
   const [clientId, setClientId] = useState();
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
+  const [ordenacao, setOrdenacao] = useState();
+  const statusAtual = history.location.state ?? {};
 
   useEffect(() => {
     async function callGetClient() {
-      return getClientStatusEmdia(token);
+      return getClientStatus(token, statusAtual);
     }
     callGetClient();
   }, [editClients]);
 
   useEffect(() => {
-    setListagem(statusEmdia);
-  }, [statusEmdia]);
+    setListagem(statusClient);
+  }, [statusClient]);
 
   function handleEditClient(id) {
     setClientId(id);
@@ -42,15 +45,31 @@ function ReportsClients() {
     setDetailsClient(true);
   }
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
-      setListagem(statusEmdia);
+      setListagem(statusClient);
       return;
     }
-    const filterClient = statusEmdia.filter((charge) =>
-      charge.nome.toLowerCase().includes(value)
-    );
+    const filterClient = statusClient.filter((client) => {
+      if (
+        client.nome.toLowerCase().includes(value) ||
+        client.email.toLowerCase().includes(value) ||
+        client.cpf.toLowerCase().includes(value)
+      ) {
+        return client;
+      }
+    });
     setListagem(filterClient);
+  }
+
+  function handleSort() {
+    if (ordenacao !== "crescente") {
+      setOrdenacao("crescente");
+      statusClient.sort((a, b) => a.nome.localeCompare(b.nome));
+      setListagem([...statusClient]);
+      return;
+    }
+    setOrdenacao("decrescente");
+    setListagem([...statusClient].reverse());
   }
 
   return (
@@ -77,7 +96,24 @@ function ReportsClients() {
               <input
                 type="text"
                 id="busca"
-                onChange={(e) => setBusca(e.target.value.toLowerCase())}
+                onChange={(e) =>
+                  setBusca(
+                    e.target.value
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace("-", "")
+                      .toLowerCase()
+                  )
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    return handleChange(busca);
+                  }
+                  if (e.keyCode === 27) {
+                    return handleChange("");
+                  }
+                }}
                 placeholder="Procurar por Nome, E-mail ou CPF"
               />
               <button onClick={() => handleChange(busca)}>
@@ -87,13 +123,23 @@ function ReportsClients() {
             </div>
           </div>
           <div className="container-description-costumers">
-            <span className="span-lg">Cliente</span>
+            <button
+              className="span-lg flex-row items-center  "
+              onClick={handleSort}
+            >
+              <span>Cliente</span>
+              <img
+                className={ordenacao === "decrescente" ? "rotate" : ""}
+                src={SortIcon}
+                alt=""
+              />
+            </button>{" "}
             <span className="span-lg">Cobranças Feitas</span>
             <span className="span-lg">Cobranças Recebidas</span>
             <span>Status</span>
           </div>
           <div className="box-container-details">
-            {!listagem ? (
+            {listagem.length <= 0 ? (
               <div className="no-register">
                 <h3>Sem registros no momento!</h3>
               </div>

@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import CloseIcon from "../../assets/close-icon.svg";
 import { UserContext } from "../../context/user";
 import { AuthContext } from "../../context/auth";
+import { formatToCPF, formatToPhone } from "brazilian-values";
 
 function EditProfile({ setEditProfileStatus }) {
   const { register, handleSubmit, setValue } = useForm();
@@ -25,15 +26,14 @@ function EditProfile({ setEditProfileStatus }) {
     async function loadUser() {
       setValue("nome", user.nome);
       setValue("email", user.email);
-      setValue("telefone", user.telefone);
-      setValue("cpf", user.cpf);
+      setValue("telefone", formatToPhone(user.telefone));
+      setValue("cpf", formatToCPF(user.cpf));
     }
     loadUser();
   }, [user]);
 
   async function onSubmit(data) {
-    setEditProfileStatus(false);
-    return editUser({ data, token });
+    return editUser({ data, token, setEditProfileStatus });
   }
 
   return (

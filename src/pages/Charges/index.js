@@ -7,12 +7,19 @@ import EditChargesModal from "../../components/EditCharges";
 import SortIcon from "../../assets/sort-icon.svg";
 
 function Charges() {
-  const { charges } = useCharges();
+  const { getCharges, charges } = useCharges();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
   const [busca, setBusca] = useState("");
   const [listagem, setListagem] = useState([]);
   const [ordenacao, setOrdenacao] = useState();
+
+  useEffect(() => {
+    async function callGetClient() {
+      return getCharges();
+    }
+    callGetClient();
+  }, []);
 
   useEffect(() => {
     setListagem(charges);
@@ -27,9 +34,9 @@ function Charges() {
     const filterClient = charges.filter((charge) => {
       if (
         charge.nome.toLowerCase().includes(value) ||
-        charge.id.toString().toLowerCase().includes(value)
-        // ||charge.cpf.toLowerCase().includes(value)
-        // ||charge.email.toLowerCase().includes(value)
+        charge.id.toString().toLowerCase().includes(value) ||
+        charge.cpf.toLowerCase().includes(value) ||
+        charge.email.toLowerCase().includes(value)
       ) {
         return charge;
       }
@@ -66,8 +73,25 @@ function Charges() {
           <input
             type="text"
             id="busca"
-            onChange={(e) => setBusca(e.target.value.toLowerCase())}
-            placeholder="Procurar por Nome, E-mail ou CPF"
+            onChange={(e) =>
+              setBusca(
+                e.target.value
+                  .replace(".", "")
+                  .replace(".", "")
+                  .replace(".", "")
+                  .replace("-", "")
+                  .toLowerCase()
+              )
+            }
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                return handleChange(busca);
+              }
+              if (e.keyCode === 27) {
+                return handleChange("");
+              }
+            }}
+            placeholder="Procurar por ID, Nome, E-mail ou CPF"
           />
           <button type="submit" onClick={() => handleChange(busca)}>
             <img src={SearchIcon} alt="" />
@@ -94,7 +118,7 @@ function Charges() {
           <span className="span-md">Vencimento</span>
         </div>
         <div className="box-container-details">
-          {listagem.length < 0 ? (
+          {listagem.length <= 0 ? (
             <div className="no-register">
               <h3>Sem registros no momento!</h3>
             </div>

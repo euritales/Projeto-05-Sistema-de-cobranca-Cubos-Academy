@@ -16,6 +16,7 @@ export const ChargeContextProvider = ({ children }) => {
   const [statusVencido, setStatusVencido] = useState([]);
   const [statusPago, setStatusPago] = useState([]);
   const [statusCharges, setStatusCharges] = useState([]);
+  const [typeStatus, setTypeStatus] = useState();
   const { token } = useContext(AuthContext);
 
   async function getCharges() {
@@ -32,7 +33,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setCharges(dados);
@@ -60,7 +60,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setCharge(dados);
@@ -84,7 +83,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusPendente(dados);
@@ -112,7 +110,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusVencido(dados);
@@ -139,7 +136,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusPago(dados);
@@ -166,9 +162,9 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
+        setTypeStatus(status);
         return setStatusCharges(dados);
       }
     } catch (error) {
@@ -176,9 +172,9 @@ export const ChargeContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getChargeStatus("pendente");
-  }, []);
+  // useEffect(() => {
+  //   getChargeStatus(typeStatus);
+  // }, []);
 
   async function editCharges({ data, id, setOpenEditCharges }) {
     const body = {
@@ -188,7 +184,6 @@ export const ChargeContextProvider = ({ children }) => {
       valor: data.valor,
       data_vencimento: data.data_vencimento,
     };
-    console.log(body);
     const response = await fetch(
       `https://cubosacademy-projeto-5.herokuapp.com/charges/${id}`,
       {
@@ -286,6 +281,7 @@ export const ChargeContextProvider = ({ children }) => {
         statusVencido,
         getChargeStatusPago,
         statusPago,
+        typeStatus,
       }}
     >
       {children}
