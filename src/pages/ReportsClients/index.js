@@ -98,7 +98,9 @@ function ReportsClients() {
               <input
                 type="text"
                 id="busca"
-                onChange={(e) => setBusca(e.target.value.toLowerCase())}
+                onChange={(e) =>
+                  setBusca(e.target.value.replace(/[^0-9]/g, "").toLowerCase())
+                }
                 placeholder="Procurar por Nome, E-mail ou CPF"
               />
               <button onClick={() => handleChange(busca)}>
