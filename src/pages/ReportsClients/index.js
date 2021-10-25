@@ -1,10 +1,12 @@
-import { useHistory } from "react-router-dom";
+import "./styles.css";
+import { NavLink, useHistory } from "react-router-dom";
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
 import SortIcon from "../../assets/sort-icon.svg";
+import SpacerIcon from "../../assets/spacer-icon.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import NumberFormat from "react-number-format";
 import SearchIcon from "../../assets/search-icon.svg";
@@ -85,6 +87,19 @@ function ReportsClients() {
           <EditCustomers setEditClients={setEditClients} clientId={clientId} />
         )}
         <>
+          <div className="container-report-menu flex-row ">
+            <div>
+              <button>
+                <span>CLIENTES</span>
+              </button>
+            </div>
+            <img src={SpacerIcon} alt="" />
+            <div>
+              <button>
+                <span>{statusAtual.toUpperCase().replace("_", " ")}</span>
+              </button>
+            </div>
+          </div>
           <div className="input-busca-botao">
             <button
               className="btn btn-white"

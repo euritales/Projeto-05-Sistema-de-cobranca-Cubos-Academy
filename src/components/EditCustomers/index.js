@@ -42,20 +42,7 @@ function EditCustomers({ setEditClients, clientId }) {
   let cepWatch = watch("cep");
 
   async function onSubmit(data) {
-    const body = {
-      id: data.id,
-      nome: data.nome,
-      email: data.email,
-      cpf: data.cpf,
-      cep: data.cep,
-      telefone: data.telefone,
-      bairro: data.bairro,
-      cidade: data.localidade,
-      logradouro: data.logradouro,
-      complemento: data.complemento,
-      ponto_referencia: data.referencia,
-    };
-    return editClient({ data: body, token, id: clientId, setEditClients });
+    return editClient({ data, token, id: clientId, setEditClients });
   }
 
   useEffect(() => {
