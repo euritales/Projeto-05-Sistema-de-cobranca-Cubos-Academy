@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import getAddressByCep from "../../services/viaCep";
-import ErrorMessage from "../../components/ToastifyPopups/errorMessage";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
 import CloseIcon from "../../assets/close-icon.svg";
@@ -26,6 +25,10 @@ function EditCustomers({ setEditClients, clientId }) {
       setValue("cep", client.cep);
       setValue("cpf", client.cpf);
       setValue("telefone", client.telefone);
+      setValue("bairro", client.bairro);
+      setValue("logradouro", client.logradouro);
+      setValue("complemento", client.complemento);
+      setValue("referencia", client.ponto_referencia);
     }
 
     loadUser();
@@ -94,19 +97,6 @@ function EditCustomers({ setEditClients, clientId }) {
       }
     }
   }, [cepWatch]);
-
-  function handleNotifications() {
-    if (
-      emailWatch?.length === 0 ||
-      nomeWatch?.length === 0 ||
-      cpfWatch?.length === 0 ||
-      telefoneWatch?.length === 0
-    ) {
-      return ErrorMessage(
-        "Campos 'Nome', 'Email', 'CPF' e 'Telefone' são obrigatórios"
-      );
-    }
-  }
 
   return (
     <div className="edit-customers">
@@ -210,12 +200,7 @@ function EditCustomers({ setEditClients, clientId }) {
             >
               Cancelar
             </button>
-            <button
-              onClick={() => handleNotifications()}
-              className={statusButton}
-            >
-              Editar Cliente
-            </button>
+            <button className={statusButton}>Editar Cliente</button>
           </div>
         </form>
       </div>

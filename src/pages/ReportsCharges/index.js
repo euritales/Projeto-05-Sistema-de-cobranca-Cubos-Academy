@@ -72,7 +72,9 @@ function ReportsCharges() {
           <input
             type="text"
             id="busca"
-            onChange={(e) => setBusca(e.target.value.toLowerCase())}
+            onChange={(e) =>
+              setBusca(e.target.value.replace(/[^0-9]/g, "").toLowerCase())
+            }
             placeholder="Procurar por ID, Nome, E-mail ou CPF"
           />
           <button type="submit" onClick={() => handleChange(busca)}>

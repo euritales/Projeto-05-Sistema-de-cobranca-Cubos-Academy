@@ -34,7 +34,10 @@ function EditChargesModal({ setOpenEditCharges, id }) {
     async function loadUser() {
       setValue("cliente_id", charge[0]?.cliente_id);
       setValue("descricao", charge[0]?.descricao);
-      setValue("status", charge[0]?.status);
+      setValue(
+        "status",
+        charge[0]?.status === "vencido" ? "pendente" : charge[0]?.status
+      );
       setValue("valor", charge[0]?.valor);
       setValue("data_vencimento", charge[0]?.data_vencimento);
       console.log(charge);
