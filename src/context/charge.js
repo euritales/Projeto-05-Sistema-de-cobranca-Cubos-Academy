@@ -33,7 +33,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setCharges(dados);
@@ -61,7 +60,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setCharge(dados);
@@ -85,7 +83,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusPendente(dados);
@@ -113,7 +110,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusVencido(dados);
@@ -140,7 +136,6 @@ export const ChargeContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
 
       if (response.ok) {
         return setStatusPago(dados);
@@ -189,7 +184,6 @@ export const ChargeContextProvider = ({ children }) => {
       valor: data.valor,
       data_vencimento: data.data_vencimento,
     };
-    console.log(body);
     const response = await fetch(
       `https://cubosacademy-projeto-5.herokuapp.com/charges/${id}`,
       {

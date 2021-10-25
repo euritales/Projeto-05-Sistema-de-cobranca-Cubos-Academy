@@ -30,7 +30,6 @@ export const UserContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log({ dados });
       if (response.ok) {
         return setUser(dados[0]);
       }
@@ -39,13 +38,13 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  async function editUser({ token, data }) {
+  async function editUser({ token, data, setEditProfileStatus }) {
     const body = {
       nome: data.nome,
       email: data.email,
-      cpf: data.cpf,
+      cpf: data.cpf.replace(/[^0-9]/g, ""),
       senha: data.senha,
-      telefone: data.telefone,
+      telefone: data.telefone.replace(/[^0-9]/g, ""),
     };
     const response = await fetch(
       "https://cubosacademy-projeto-5.herokuapp.com/users",
@@ -63,13 +62,13 @@ export const UserContextProvider = ({ children }) => {
     const dados = await response.json();
 
     if (response.ok) {
+      setEditProfileStatus(false);
       return SucessMessage(dados);
     }
     return ErrorMessage(dados);
   }
 
   async function createUser({ data }) {
-    console.log(data);
     try {
       const response = await fetch(
         "https://cubosacademy-projeto-5.herokuapp.com/users",

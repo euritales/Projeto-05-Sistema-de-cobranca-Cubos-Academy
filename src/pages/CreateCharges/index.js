@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
-// import { formatToBRL } from "brazilian-values";
 
 function CreateCharges() {
   const { register, handleSubmit } = useForm();
@@ -23,8 +22,18 @@ function CreateCharges() {
   }, []);
 
   async function onSubmit(data) {
-    console.log(data);
-    return createCharges({ data, token });
+    const body = {
+      id: data.id,
+      cliente_id: data.cliente_id,
+      nome: data.nome,
+      cpf: data.cpf,
+      email: data.email,
+      descricao: data.descricao,
+      valor: data.valor.replace(/[^0-9]/g, ""),
+      status: data.status,
+      data_vencimento: data.data_vencimento,
+    };
+    return createCharges({ data: body, token });
   }
 
   return (

@@ -1,5 +1,4 @@
 import "./styles.css";
-// Apenas exibção dos numeros na home
 export function DefaultStatus({ situacao, quantidade }) {
   return (
     <div className="status default">

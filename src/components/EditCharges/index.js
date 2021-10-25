@@ -6,6 +6,7 @@ import { useLocation, NavLink } from "react-router-dom";
 import CloseIcon from "../../assets/close-icon.svg";
 import { ChargeContext } from "../../context/charge";
 import { ClientContext } from "../../context/client";
+import { formatToBRL } from "brazilian-values";
 
 function EditChargesModal({ setOpenEditCharges, id }) {
   const { register, handleSubmit, setValue } = useForm();
@@ -17,10 +18,19 @@ function EditChargesModal({ setOpenEditCharges, id }) {
     useContext(ChargeContext);
 
   async function onSubmit(data) {
-    console.log(data);
-
+    const body = {
+      id: data.id,
+      cliente_id: data.cliente_id,
+      nome: data.nome,
+      cpf: data.cpf,
+      email: data.email,
+      descricao: data.descricao,
+      valor: data.valor.replace(/[^0-9]/g, ""),
+      status: data.status,
+      data_vencimento: data.data_vencimento,
+    };
     return editCharges({
-      data,
+      data: body,
       id,
       setOpenEditCharges,
     });
@@ -38,9 +48,8 @@ function EditChargesModal({ setOpenEditCharges, id }) {
         "status",
         charge[0]?.status === "vencido" ? "pendente" : charge[0]?.status
       );
-      setValue("valor", charge[0]?.valor);
+      setValue("valor", formatToBRL(charge[0]?.valor / 100));
       setValue("data_vencimento", charge[0]?.data_vencimento);
-      console.log(charge);
     }
     loadUser();
   }, [getCharge]);

@@ -7,7 +7,7 @@ import SortIcon from "../../assets/sort-icon.svg";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 
 function ReportsCharges() {
-  const { getChargeStatus, statusCharges } = useCharges();
+  const { getChargeStatus, statusCharges, charges } = useCharges();
   const history = useHistory();
   const [openEditCharges, setOpenEditCharges] = useState(false);
   const [chargeId, setChargeId] = useState("");
@@ -18,13 +18,11 @@ function ReportsCharges() {
 
   useEffect(() => {
     async function callGetClient() {
-      if (statusAtual === "pendente") {
-        await getChargeStatus(statusAtual);
-      }
+      return getChargeStatus(statusAtual);
     }
     callGetClient();
     setListagem(statusCharges);
-  }, []);
+  }, [charges]);
 
   function handleChange(value) {
     if (value === "") {
