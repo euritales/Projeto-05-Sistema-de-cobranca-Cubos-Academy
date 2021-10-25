@@ -131,7 +131,7 @@ export const ClientContextProvider = ({ children }) => {
   async function editClient({ data, token, id, setEditClients }) {
     const body = {
       nome: data.nome,
-      cpf: data.cpf,
+      cpf: data.cpf.replace(/[^0-9]/g, ""),
       email: data.email,
       telefone: data.telefone,
       cep: data.cep,

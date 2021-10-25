@@ -4,6 +4,7 @@ import SearchIcon from "../../assets/search-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 import EditChargesModal from "../../components/EditCharges";
 import SortIcon from "../../assets/sort-icon.svg";
+import SpacerIcon from "../../assets/spacer-icon.svg";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 
 function ReportsCharges() {
@@ -22,14 +23,14 @@ function ReportsCharges() {
     }
     callGetClient();
     setListagem(statusCharges);
-  }, [charges]);
+  }, [charges, openEditCharges]);
 
   function handleChange(value) {
     if (value === "") {
       setListagem(statusCharges);
       return;
     }
-    const filterClient = statusCharges.filter((charge) => {
+    const filterClient = listagem.filter((charge) => {
       if (
         charge.nome.toLowerCase().includes(value) ||
         charge.id.toString().toLowerCase().includes(value) ||
@@ -66,6 +67,22 @@ function ReportsCharges() {
         />
       )}
       <div className="container-charge">
+        <div className="container-report-menu flex-row ">
+          <div>
+            <button>
+              <span>CLIENTES</span>
+            </button>
+          </div>
+          <img src={SpacerIcon} alt="" />
+          <div>
+            <button>
+              {statusAtual === "pendente" && <span>PENDENTE</span>}
+              {statusAtual === "pago" && <span>PAGO</span>}
+              {statusAtual === "vencido" && <span>VENCIDO</span>}
+            </button>
+          </div>
+        </div>
+
         <div className="input-busca margin-busca">
           <input
             type="text"

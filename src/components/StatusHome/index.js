@@ -95,11 +95,13 @@ export function StatusCharges({ nome, img }) {
   }
   async function handleStatusPago() {
     await getChargeStatus("pago");
-    return history.push(`/reports/charges/pago`);
+    const statusAtual = "pago";
+    return history.push(`/reports/charges/pago`, statusAtual);
   }
   async function handleStatusVencido() {
     await getChargeStatus("vencido");
-    return history.push(`/reports/charges/vencido`);
+    const statusAtual = "vencido";
+    return history.push(`/reports/charges/vencido`, statusAtual);
   }
   return (
     <div className="container-status">
