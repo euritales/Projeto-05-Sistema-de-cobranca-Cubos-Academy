@@ -99,8 +99,23 @@ function ReportsClients() {
                 type="text"
                 id="busca"
                 onChange={(e) =>
-                  setBusca(e.target.value.replace(/[^0-9]/g, "").toLowerCase())
+                  setBusca(
+                    e.target.value
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace(".", "")
+                      .replace("-", "")
+                      .toLowerCase()
+                  )
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    return handleChange(busca);
+                  }
+                  if (e.keyCode === 27) {
+                    return handleChange("");
+                  }
+                }}
                 placeholder="Procurar por Nome, E-mail ou CPF"
               />
               <button onClick={() => handleChange(busca)}>
