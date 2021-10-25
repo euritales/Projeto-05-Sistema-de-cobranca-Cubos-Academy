@@ -22,7 +22,6 @@ function RegisterClients() {
   const [statusButton, setStatusButton] = useState("btn btn-opaque");
 
   async function onSubmit(data) {
-    console.log(data);
     return createClient({ data, token });
   }
 

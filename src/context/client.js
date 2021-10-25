@@ -107,7 +107,6 @@ export const ClientContextProvider = ({ children }) => {
   }
 
   async function getClient({ token, id }) {
-    console.log(id);
     try {
       const response = await fetch(
         `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
@@ -121,7 +120,6 @@ export const ClientContextProvider = ({ children }) => {
       );
 
       const dados = await response.json();
-      console.log(dados);
       if (response.ok) {
         return setClient(dados);
       }
@@ -144,7 +142,6 @@ export const ClientContextProvider = ({ children }) => {
       // estado: data.estado,
       referencia: data.ponto_referencia,
     };
-    console.log(body);
     const response = await fetch(
       `https://cubosacademy-projeto-5.herokuapp.com/clients/${id}`,
       {

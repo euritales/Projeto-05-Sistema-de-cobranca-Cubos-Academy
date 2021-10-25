@@ -26,7 +26,6 @@ function ReportsClients() {
 
   useEffect(() => {
     async function callGetClient() {
-      console.log(statusAtual);
       return getClientStatus(token, statusAtual);
     }
     callGetClient();
@@ -46,7 +45,6 @@ function ReportsClients() {
     setDetailsClient(true);
   }
   function handleChange(value) {
-    console.log(value);
     if (value === "") {
       setListagem(statusClient);
       return;

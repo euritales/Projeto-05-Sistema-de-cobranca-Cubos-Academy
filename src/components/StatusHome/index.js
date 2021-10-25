@@ -91,7 +91,6 @@ export function StatusCharges({ nome, img }) {
   async function handleStatusPendente() {
     await getChargeStatus("pendente");
     const statusAtual = "pendente";
-    console.log(statusAtual);
     return history.push(`/reports/charges/pendente`, statusAtual);
   }
   async function handleStatusPago() {
@@ -102,7 +101,6 @@ export function StatusCharges({ nome, img }) {
     await getChargeStatus("vencido");
     return history.push(`/reports/charges/vencido`);
   }
-  //"Insira um status válido ('pago', 'pendente' ou 'vencido')"
   return (
     <div className="container-status">
       <div className="head-status">

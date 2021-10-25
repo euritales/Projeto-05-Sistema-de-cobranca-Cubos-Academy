@@ -2,7 +2,7 @@ import "./styles.css";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { ClientContext } from "../../context/client";
-import { NavLink, useLocation, useHistory } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import EmailIcon from "../../assets/email-icon.svg";
 import PhoneIcon from "../../assets/phone-icon.svg";
@@ -11,13 +11,11 @@ import CloseIcon from "../../assets/close-icon.svg";
 import { formatToBRL, formatToDate } from "brazilian-values";
 
 function DetailsCustomers({ setDetailsClient, clientId }) {
-  // const history = useHistory();
   const { token } = useContext(AuthContext);
   const { getClient, client } = useContext(ClientContext);
   const location = useLocation();
 
   useEffect(() => {
-    console.log(clientId);
     return getClient({ token, id: clientId });
   }, []);
 
